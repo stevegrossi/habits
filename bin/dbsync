@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Back up the Heroku Postgres database
+heroku pg:backups capture -r heroku
+
+# Create tmp directory
+mkdir tmp
+
+# Download the database backup locally
+curl -o tmp/db.dump $(heroku pg:backups public-url -r heroku)
+
+# Overwrite the development database with the Heroku backup
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -d habits_dev tmp/db.dump
