@@ -17,6 +17,7 @@ defmodule Habits.ModelCase do
   using do
     quote do
       alias Habits.Repo
+      alias Habits.Factory
 
       import Ecto
       import Ecto.Changeset
@@ -34,6 +35,11 @@ defmodule Habits.ModelCase do
 
     :ok
   end
+
+  @doc """
+  An empty function for grouping related tests
+  """
+  def tests(_description, block), do: block
 
   @doc """
   Helper for returning list of errors in a struct when given certain data.

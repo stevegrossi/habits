@@ -13,14 +13,18 @@ defmodule Habits.Mixfile do
      deps: deps]
   end
 
-  # Configuration for the OTP application.
+  # Configuration for the OTP application
   #
-  # Type `mix help compile.app` for more information.
+  # Type `mix help compile.app` for more information
   def application do
     [mod: {Habits, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+     applications: app_list(Mix.env)]
   end
+
+  defp app_list(:test), do: [:ex_machina | app_list]
+  defp app_list(_),  do: app_list
+  defp app_list,  do: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy,
+                       :logger, :gettext, :phoenix_ecto, :postgrex, :tzdata]
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
@@ -39,7 +43,12 @@ defmodule Habits.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:comeonin, "~> 2.0"}
+      {:comeonin, "~> 2.0"},
+      {:timex, "~> 2.0"},
+      {:timex_ecto, "~> 1.0"},
+      {:mix_test_watch, "~> 0.2", only: :dev},
+      {:ex_machina, "~> 0.6", only: :test},
+      {:credo, "~> 0.1.9", only: :dev}
     ]
   end
 

@@ -475,12 +475,11 @@ label {
 }
 
 a {
-  &:link {
-    color: $green;
-  }
-
+  &:link,
+  &:hover,
+  &:focus,
   &:visited {
-    color: mix(#000, $green, 10%);
+    color: $text-color;
   }
 }
 

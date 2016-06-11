@@ -5,6 +5,7 @@ defmodule Habits.Account do
     field :email, :string
     field :encrypted_password, :string
     field :password, :string, virtual: true
+    has_many :habits, Habits.Habit
 
     timestamps
   end

@@ -21,6 +21,8 @@ defmodule Habits.ConnCase do
       use Phoenix.ConnTest
 
       alias Habits.Repo
+      alias Habits.Factory
+
       import Ecto
       import Ecto.Changeset
       import Ecto.Query

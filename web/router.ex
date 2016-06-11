@@ -26,6 +26,12 @@ defmodule Habits.Router do
     delete "/logout", SessionController, :delete
 
     get "/me", AccountController, :show
+
+    resources "/habits", HabitController do
+      resources "/check_ins", CheckInController
+    end
+
+    get "/:year/:month/:day", HabitController, :index
   end
 
   # Other scopes may use custom stacks.

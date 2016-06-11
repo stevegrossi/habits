@@ -1,0 +1,17 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if f.errors != [] do %>
+    <div class="Alert Alert--danger">
+      <p>Oops, something went wrong! Please check the errors below:</p>
+      <ul>
+        <%= for {attr, message} <- f.errors do %>
+          <li><%= humanize(attr) %> <%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= label f, :name, "Name" %>
+    <%= text_input f, :name, class: "TextInput" %>
+
+    <%= submit "Submit", class: "Button" %>
+<% end %>
