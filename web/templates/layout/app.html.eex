@@ -21,7 +21,12 @@
       </h1>
       <nav class="AppHeader-nav">
         <ul>
-
+          <%= if logged_in?(@conn) do %>
+            <li><%= link "Me", to: account_path(@conn, :show) %></li>
+            <li><%= link "Log Out", to: "/logout", method: :delete %></li>
+          <% else %>
+            <li><%= link "Log In", to: "/login" %></li>
+          <% end %>
         </ul>
       </nav>
     </header>
