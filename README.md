@@ -4,21 +4,23 @@
 
 An Elixir/Phoenix application for tracking daily habits.
 
-To start your Phoenix app:
+![in-app screenshot](https://raw.githubusercontent.com/stevegrossi/habits/master/screenshot.png)
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `npm install`
-  * Start Phoenix endpoint with `mix phoenix.server`
+## Development Setup
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+- Clone this repository with `git clone git@github.com:stevegrossi/habits.git`
+- Open that directory with `cd habits`
+- Install dependencies with `mix deps.get`
+- Create and migrate your database with `mix ecto.setup`
+- Install Node.js dependencies with `npm install`
+- Start Phoenix with `mix phoenix.server`
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+You should now see the app by visiting [`localhost:4000`](http://localhost:4000) from your browser.
 
-## Learn more
+## Deploy
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+Want your own copy of Habits on Heroku?
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/stevegrossi/habits)
+
+Once you deploy to Heroku, you’ll be redirected to the registration page to create your Habits account. Habits allows only one account, so once you sign up, no one else will be able to. This is intentional: Heroku’s free database plan is limited to 10,000 habits and check-ins, which you’ll probably want all to yourself.

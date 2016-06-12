@@ -1,0 +1,24 @@
+{
+  "name": "Habits",
+  "description": "An Elixir/Phoenix application for tracking daily habits.",
+  "repository": "https://github.com/stevegrossi/habits",
+  "logo": "https://raw.githubusercontent.com/stevegrossi/habits/master/logo.png",
+  "keywords": ["elixir", "phoenix", "habits"],
+  "addons": [
+    "heroku-postgresql:hobby-dev"
+  ],
+  "env": {
+    "MIX_ENV": "prod",
+    "SECRET_KEY_BASE": {
+      "generator": "secret"
+    }
+  },
+  "scripts": {
+    "postdeploy": "mix ecto.migrate"
+  },
+  "buildpacks": [
+    { "url": "https://github.com/HashNuke/heroku-buildpack-elixir.git" },
+    { "url": "https://github.com/gjaldon/heroku-buildpack-phoenix-static.git" }
+  ],
+  "success_url": "/register"
+}
