@@ -1,5 +1,9 @@
 # Habits
 
+[ ![Codeship Status for stevegrossi/habits](https://codeship.com/projects/4f089590-12d6-0134-4498-76fd620179ca/status?branch=master)](https://codeship.com/projects/157431)
+
+An Elixir/Phoenix application for tracking daily habits.
+
 To start your Phoenix app:
 
   * Install dependencies with `mix deps.get`
