@@ -42,7 +42,7 @@ defmodule Habits.Mixfile do
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.5"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:gettext, "~> 0.11"},
+      {:gettext, "~> 0.11.0"},
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 2.0"},
       {:timex, "~> 2.0"},
