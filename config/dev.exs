@@ -7,6 +7,7 @@ use Mix.Config
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
 config :habits, Habits.Endpoint,
+  secret_key_base: "0000000000000000000000000000000000000000000000000000000000000000",
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
