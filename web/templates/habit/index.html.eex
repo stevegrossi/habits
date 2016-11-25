@@ -10,6 +10,8 @@
   </span>
 </p>
 
+<div id="hello-world"></div>
+
 <ul class="HabitList">
   <%= for habit <- @habits do %>
     <li class="Habit">

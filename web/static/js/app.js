@@ -1,17 +1,15 @@
-let App = {
+import React from "react"
+import ReactDOM from "react-dom"
 
-  redirectToToday: function() {
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth() + 1;
-    let day = today.getDate();
-
-    if (window.location.pathname == '/habits') {
-      window.location = '/' + [year, month, day].join('/')
-    }
+class HelloWorld extends React.Component {
+  render() {
+    return (
+      <h2>Hello Worlds!</h2>
+    )
   }
 }
 
-App.redirectToToday();
-
-export default App
+ReactDOM.render(
+  <HelloWorld/>,
+  document.getElementById("hello-world")
+)
