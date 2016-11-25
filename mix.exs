@@ -49,7 +49,7 @@ defmodule Habits.Mixfile do
       {:timex_ecto, "~> 1.0"},
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:ex_machina, "~> 0.6", only: :test},
-      {:credo, "~> 0.1.9", only: :dev}
+      {:credo, "~> 0.5", only: :dev}
     ]
   end
 

@@ -9,10 +9,10 @@ defmodule Habits.Habit do
   end
 
   @doc """
-  Builds a changeset based on the `struct` and `params`.
+  Builds a changeset based on the `habit` struct and `params`.
   """
-  def changeset(struct, params \\ %{}) do
-    struct
+  def changeset(habit, params \\ %{}) do
+    habit
     |> cast(params, [:name, :account_id])
     |> validate_required([:name, :account_id])
   end

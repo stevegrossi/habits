@@ -11,10 +11,10 @@ defmodule Habits.Account do
   end
 
   @doc """
-  Builds a changeset based on the `struct` and `params`.
+  Builds a changeset based on the `account` struct and `params`.
   """
-  def changeset(struct, params \\ %{}) do
-    struct
+  def changeset(account, params \\ %{}) do
+    account
     |> cast(params, [:email, :encrypted_password])
     |> validate_required(:email)
     |> validate_format(:email, ~r/@/)

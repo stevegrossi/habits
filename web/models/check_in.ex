@@ -9,10 +9,10 @@ defmodule Habits.CheckIn do
   end
 
   @doc """
-  Builds a changeset based on the `struct` and `params`.
+  Builds a changeset based on the `check_in` struct and `params`.
   """
-  def changeset(struct, params \\ %{}) do
-    struct
+  def changeset(check_in, params \\ %{}) do
+    check_in
     |> cast(params, [:date, :habit_id])
     |> validate_required([:date, :habit_id])
     |> unique_constraint(:habit_id_date)
