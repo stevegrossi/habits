@@ -34,6 +34,7 @@ defmodule Habits.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_habits_key",
+    max_age: 60 * 60 * 24 * 30,
     signing_salt: "ejQglpzc",
     encryption_salt: System.get_env("SECRET_KEY_BASE")
 
