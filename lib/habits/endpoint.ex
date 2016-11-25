@@ -34,7 +34,8 @@ defmodule Habits.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_habits_key",
-    signing_salt: "ejQglpzc"
+    signing_salt: "ejQglpzc",
+    encryption_salt: System.get_env("SECRET_KEY_BASE")
 
   plug Habits.Router
 end
