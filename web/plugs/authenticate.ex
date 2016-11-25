@@ -7,9 +7,13 @@ defmodule Habits.Plugs.Authenticate do
 
   def init(opts), do: opts
 
+  def call(%Plug.Conn{assigns: %{current_account: %Account{}}} = conn, _opts) do
+    conn
+  end
   def call(conn, _opts) do
-    if account = get_account(conn) do
-      conn |> assign(:current_account, account)
+    if account = find_account_from_session(conn) do
+      conn
+      |> assign(:current_account, account)
     else
       conn
       |> put_flash(:info, "Please log in first.")
@@ -18,15 +22,10 @@ defmodule Habits.Plugs.Authenticate do
     end
   end
 
-  defp get_account(conn) do
-    case conn.assigns[:current_account] do
-      nil  -> fetch_account(conn)
-      account -> account
-    end
-  end
-
-  defp fetch_account(conn) do
-    find_account(get_session(conn, :current_account))
+  defp find_account_from_session(conn) do
+    conn
+    |> get_session(:current_account)
+    |> find_account()
   end
 
   defp find_account(nil), do: nil
