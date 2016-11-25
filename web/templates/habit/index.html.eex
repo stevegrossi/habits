@@ -10,34 +10,6 @@
   </span>
 </p>
 
-<div id="hello-world"></div>
-
-<ul class="HabitList">
-  <%= for habit <- @habits do %>
-    <li class="Habit">
-      <% check_in_id = check_in_id_for_habit(habit.id, @date) %>
-      <%= if check_in_id do %>
-        <%= form_for @conn, habit_check_in_path(@conn, :delete, habit.id, check_in_id), [class: "CheckInForm", as: :check_in], fn _f -> %>
-          <input name="_method" type="hidden" value="delete" />
-          <input name="date" type="hidden" value="<%= date_string(@date) %>" />
-          <%= submit "Remove Check-In", class: "CheckInForm-button CheckInForm-button--checkedIn" %>
-        <% end %>
-      <% else %>
-        <%= form_for @conn, habit_check_in_path(@conn, :create, habit.id), [class: "CheckInForm", as: :check_in], fn _f -> %>
-          <input name="date" type="hidden" value="<%= date_string(@date) %>" />
-          <%= submit "Check In", class: "CheckInForm-button" %>
-        <% end %>
-      <% end %>
-
-      <%= link habit.name, to: habit_path(@conn, :show, habit), class: "Habit-name" %>
-
-      <span class="Habit-streak">
-        <%= if (curren_streak = Habits.Habit.get_current_streak(habit)) > 0 do %>
-          ➚ <%= curren_streak %>
-        <% end %>
-      </span>
-    </li>
-  <% end %>
-</ul>
+<div id="container"></div>
 
 <%= link "New Habit", to: habit_path(@conn, :new), class: "Button" %>

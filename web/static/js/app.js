@@ -1,8 +1,8 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import HelloWorld from "./components/HelloWorld"
+import HabitList from "./components/HabitList"
 
 ReactDOM.render(
-  <HelloWorld/>,
-  document.getElementById("hello-world")
+  <HabitList/>,
+  document.getElementById("container")
 )
