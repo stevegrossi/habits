@@ -1,13 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
-
-class HelloWorld extends React.Component {
-  render() {
-    return (
-      <h2>Hello Worlds!</h2>
-    )
-  }
-}
+import HelloWorld from "./components/HelloWorld"
 
 ReactDOM.render(
   <HelloWorld/>,
