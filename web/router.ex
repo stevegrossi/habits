@@ -9,6 +9,10 @@ defmodule Habits.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :authenticated do
+    plug Habits.Plugs.Authenticate
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -23,8 +27,12 @@ defmodule Habits.Router do
 
     get    "/login",  SessionController, :new
     post   "/login",  SessionController, :create
-    get    "/logout", SessionController, :delete
+  end
 
+  scope "/", Habits do
+    pipe_through [:browser, :authenticated]
+
+    get "/logout", SessionController, :delete
     get "/me", AccountController, :show
 
     resources "/habits", HabitController do
@@ -33,9 +41,4 @@ defmodule Habits.Router do
 
     get "/:year/:month/:day", HabitController, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", Habits do
-  #   pipe_through :api
-  # end
 end

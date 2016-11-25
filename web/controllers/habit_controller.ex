@@ -4,7 +4,6 @@ defmodule Habits.HabitController do
   alias Habits.Habit
   alias Habits.Session
 
-  plug Habits.Plugs.Authenticate
   plug :scrub_params, "habit" when action in [:create, :update]
 
   def index(conn, %{"year" => year, "month" => month, "day" => day}) do

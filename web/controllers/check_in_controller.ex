@@ -4,8 +4,6 @@ defmodule Habits.CheckInController do
   alias Habits.Session
   alias Habits.CheckIn
 
-  plug Habits.Plugs.Authenticate
-
   def create(conn, %{"habit_id" => habit_id, "date" => date_string}) do
     date = date_string_to_timex(date_string)
 
