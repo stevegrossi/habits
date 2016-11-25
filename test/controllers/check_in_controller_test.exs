@@ -4,8 +4,8 @@ defmodule Habits.CheckInControllerTest do
   alias Habits.CheckIn
 
   test "creates a check-in", %{conn: conn} do
-    account = Factory.create(:account)
-    habit = Factory.create(:habit, account: account)
+    account = Factory.insert(:account)
+    habit = Factory.insert(:habit, account: account)
 
     conn = build_conn()
       |> assign(:current_account, account)
@@ -17,9 +17,9 @@ defmodule Habits.CheckInControllerTest do
   end
 
   test "does not create a check-in when one exists", %{conn: conn} do
-    account = Factory.create(:account)
-    habit = Factory.create(:habit, account: account)
-    Factory.create(:check_in, habit: habit, date: Timex.DateTime.local)
+    account = Factory.insert(:account)
+    habit = Factory.insert(:habit, account: account)
+    Factory.insert(:check_in, habit: habit, date: Timex.DateTime.local)
 
     conn = build_conn()
       |> assign(:current_account, account)
@@ -31,9 +31,9 @@ defmodule Habits.CheckInControllerTest do
   end
 
   test "does not check in to another account's habit", %{conn: conn} do
-    account = Factory.create(:account)
-    other_account = Factory.create(:account)
-    other_accounts_habit = Factory.create(:habit, account: other_account)
+    account = Factory.insert(:account)
+    other_account = Factory.insert(:account)
+    other_accounts_habit = Factory.insert(:habit, account: other_account)
 
     # I should do better than `nil.id`, but for now...
     assert_raise UndefinedFunctionError, fn ->
@@ -46,9 +46,9 @@ defmodule Habits.CheckInControllerTest do
   end
 
   test "deletes a check-in", %{conn: conn} do
-    account = Factory.create(:account)
-    habit = Factory.create(:habit, account: account)
-    check_in = Factory.create(:check_in, habit: habit, date: Timex.DateTime.local)
+    account = Factory.insert(:account)
+    habit = Factory.insert(:habit, account: account)
+    check_in = Factory.insert(:check_in, habit: habit, date: Timex.DateTime.local)
 
     conn = build_conn()
       |> assign(:current_account, account)
@@ -60,10 +60,10 @@ defmodule Habits.CheckInControllerTest do
   end
 
   test "does not delete another account's check-in", %{conn: conn} do
-    account = Factory.create(:account)
-    other_account = Factory.create(:account)
-    other_accounts_habit = Factory.create(:habit, account: other_account)
-    other_accounts_check_in = Factory.create(:check_in, habit: other_accounts_habit, date: Timex.DateTime.local)
+    account = Factory.insert(:account)
+    other_account = Factory.insert(:account)
+    other_accounts_habit = Factory.insert(:habit, account: other_account)
+    other_accounts_check_in = Factory.insert(:check_in, habit: other_accounts_habit, date: Timex.DateTime.local)
 
       # I should do better than `nil.id`, but for now...
     assert_raise UndefinedFunctionError, fn ->

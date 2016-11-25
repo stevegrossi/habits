@@ -19,33 +19,33 @@ defmodule Habits.HabitTest do
   tests ".get_current_streak" do
 
     test "gets the current_streak before checking in today" do
-      habit = Factory.create(:habit)
-      Factory.create(:check_in, habit: habit, date: days_ago_tuple(2))
-      Factory.create(:check_in, habit: habit, date: days_ago_tuple(1))
+      habit = Factory.insert(:habit)
+      Factory.insert(:check_in, habit: habit, date: days_ago_tuple(2))
+      Factory.insert(:check_in, habit: habit, date: days_ago_tuple(1))
 
       assert Habit.get_current_streak(habit) == 2
     end
 
     test "gets the current_streak after checking in today" do
-      habit = Factory.create(:habit)
-      Factory.create(:check_in, habit: habit, date: days_ago_tuple(2))
-      Factory.create(:check_in, habit: habit, date: days_ago_tuple(1))
-      Factory.create(:check_in, habit: habit, date: days_ago_tuple(0))
+      habit = Factory.insert(:habit)
+      Factory.insert(:check_in, habit: habit, date: days_ago_tuple(2))
+      Factory.insert(:check_in, habit: habit, date: days_ago_tuple(1))
+      Factory.insert(:check_in, habit: habit, date: days_ago_tuple(0))
 
       assert Habit.get_current_streak(habit) == 3
     end
 
     test "breaks the current_streak when your previous check-in was 2 days ago" do
-      habit = Factory.create(:habit)
-      Factory.create(:check_in, habit: habit, date: days_ago_tuple(2))
-      Factory.create(:check_in, habit: habit, date: days_ago_tuple(0))
+      habit = Factory.insert(:habit)
+      Factory.insert(:check_in, habit: habit, date: days_ago_tuple(2))
+      Factory.insert(:check_in, habit: habit, date: days_ago_tuple(0))
 
       assert Habit.get_current_streak(habit) == 1
     end
 
     test "zeroes out the current_streak when you haven't checked in in 2 days" do
-      habit = Factory.create(:habit)
-      Factory.create(:check_in, habit: habit, date: days_ago_tuple(2))
+      habit = Factory.insert(:habit)
+      Factory.insert(:check_in, habit: habit, date: days_ago_tuple(2))
 
       assert Habit.get_current_streak(habit) == 0
     end

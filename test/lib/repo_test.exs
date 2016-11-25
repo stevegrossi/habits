@@ -9,13 +9,13 @@ defmodule Habits.RepoTest do
   end
 
   test "exists? returns true with a matching record in the DB" do
-    Factory.create(:habit)
+    Factory.insert(:habit)
 
     assert Repo.exists?(Habit) == true
   end
 
   test "count returns the number of results" do
-    Factory.create_list(2, :habit)
+    Factory.insert_list(2, :habit)
 
     assert Repo.count(Habit) == 2
   end

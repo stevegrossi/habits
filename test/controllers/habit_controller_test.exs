@@ -7,8 +7,8 @@ defmodule Habits.HabitControllerTest do
   @invalid_attrs %{name: ""}
 
   test "lists all entries on index", %{conn: conn} do
-    account = Factory.create(:account)
-    habit = Factory.create(:habit, account: account)
+    account = Factory.insert(:account)
+    habit = Factory.insert(:habit, account: account)
 
     conn = build_conn()
       |> assign(:current_account, account)
@@ -18,7 +18,7 @@ defmodule Habits.HabitControllerTest do
   end
 
   test "renders form for new resources", %{conn: conn} do
-    account = Factory.create(:account)
+    account = Factory.insert(:account)
 
     conn = build_conn()
       |> assign(:current_account, account)
@@ -28,7 +28,7 @@ defmodule Habits.HabitControllerTest do
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
-    account = Factory.create(:account)
+    account = Factory.insert(:account)
 
     conn = build_conn()
       |> assign(:current_account, account)
@@ -39,7 +39,7 @@ defmodule Habits.HabitControllerTest do
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
-    account = Factory.create(:account)
+    account = Factory.insert(:account)
 
     conn = build_conn()
       |> assign(:current_account, account)
@@ -49,8 +49,8 @@ defmodule Habits.HabitControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    account = Factory.create(:account)
-    habit = Factory.create(:habit, account: account)
+    account = Factory.insert(:account)
+    habit = Factory.insert(:habit, account: account)
 
     conn = build_conn()
       |> assign(:current_account, account)
@@ -60,7 +60,7 @@ defmodule Habits.HabitControllerTest do
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
-    account = Factory.create(:account)
+    account = Factory.insert(:account)
 
     assert_raise Ecto.NoResultsError, fn ->
       build_conn()
@@ -70,8 +70,8 @@ defmodule Habits.HabitControllerTest do
   end
 
   test "renders form for editing chosen resource", %{conn: conn} do
-    account = Factory.create(:account)
-    habit = Factory.create(:habit, account: account)
+    account = Factory.insert(:account)
+    habit = Factory.insert(:habit, account: account)
 
     conn = build_conn()
       |> assign(:current_account, account)
@@ -81,8 +81,8 @@ defmodule Habits.HabitControllerTest do
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
-    account = Factory.create(:account)
-    habit = Factory.create(:habit, account: account)
+    account = Factory.insert(:account)
+    habit = Factory.insert(:habit, account: account)
 
     conn = build_conn()
       |> assign(:current_account, account)
@@ -93,8 +93,8 @@ defmodule Habits.HabitControllerTest do
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    account = Factory.create(:account)
-    habit = Factory.create(:habit, account: account)
+    account = Factory.insert(:account)
+    habit = Factory.insert(:habit, account: account)
 
     conn = build_conn()
       |> assign(:current_account, account)
@@ -104,8 +104,8 @@ defmodule Habits.HabitControllerTest do
   end
 
   test "deletes chosen resource", %{conn: conn} do
-    account = Factory.create(:account)
-    habit = Factory.create(:habit, account: account)
+    account = Factory.insert(:account)
+    habit = Factory.insert(:habit, account: account)
 
     conn = build_conn()
       |> assign(:current_account, account)
