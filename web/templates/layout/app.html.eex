@@ -23,9 +23,9 @@
         <ul>
           <%= if logged_in?(@conn) do %>
             <li><%= link "Me", to: account_path(@conn, :show) %></li>
-            <li><%= link "Log Out", to: "/logout", method: :delete %></li>
+            <li><%= link "Log Out", to: session_path(@conn, :delete) %></li>
           <% else %>
-            <li><%= link "Log In", to: "/login" %></li>
+            <li><%= link "Log In", to: session_path(@conn, :new) %></li>
           <% end %>
         </ul>
       </nav>

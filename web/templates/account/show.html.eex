@@ -1,3 +1,3 @@
 <h1>Me</h1>
 <p>Logged in as <%= current_account(@conn).email %></p>
-<%= link "Log Out", to: session_path(@conn, :delete), method: :delete, class: "Button" %>
+<%= link "Log Out", to: session_path(@conn, :delete), class: "Button" %>
