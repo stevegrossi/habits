@@ -45,8 +45,8 @@ defmodule Habits.Mixfile do
       {:gettext, "~> 0.11.0"},
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 2.0"},
-      {:timex, "~> 2.0"},
-      {:timex_ecto, "~> 1.0"},
+      {:timex, "~> 3.0"},
+      {:timex_ecto, "~> 3.0"},
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:ex_machina, "~> 1.0", only: :test},
       {:credo, "~> 0.5", only: :dev}

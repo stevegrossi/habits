@@ -19,7 +19,7 @@ defmodule Habits.CheckInControllerTest do
   test "does not create a check-in when one exists", %{conn: conn} do
     account = Factory.insert(:account)
     habit = Factory.insert(:habit, account: account)
-    Factory.insert(:check_in, habit: habit, date: Timex.DateTime.local)
+    Factory.insert(:check_in, habit: habit, date: Timex.local)
 
     conn = build_conn()
       |> assign(:current_account, account)
@@ -48,7 +48,7 @@ defmodule Habits.CheckInControllerTest do
   test "deletes a check-in", %{conn: conn} do
     account = Factory.insert(:account)
     habit = Factory.insert(:habit, account: account)
-    check_in = Factory.insert(:check_in, habit: habit, date: Timex.DateTime.local)
+    check_in = Factory.insert(:check_in, habit: habit, date: Timex.local)
 
     conn = build_conn()
       |> assign(:current_account, account)
@@ -63,7 +63,7 @@ defmodule Habits.CheckInControllerTest do
     account = Factory.insert(:account)
     other_account = Factory.insert(:account)
     other_accounts_habit = Factory.insert(:habit, account: other_account)
-    other_accounts_check_in = Factory.insert(:check_in, habit: other_accounts_habit, date: Timex.DateTime.local)
+    other_accounts_check_in = Factory.insert(:check_in, habit: other_accounts_habit, date: Timex.local)
 
       # I should do better than `nil.id`, but for now...
     assert_raise UndefinedFunctionError, fn ->
@@ -76,12 +76,12 @@ defmodule Habits.CheckInControllerTest do
   end
 
   defp today_tuple do
-    date = Timex.DateTime.local
+    date = Timex.local
     {date.year, date.month, date.day}
   end
 
   defp today_string do
-    Timex.DateTime.local |> Timex.format!("%F", :strftime)
+    Timex.local |> Timex.format!("%F", :strftime)
   end
 
   defp today_path do

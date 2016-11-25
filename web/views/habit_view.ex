@@ -7,7 +7,7 @@ defmodule Habits.HabitView do
     Habits.Repo.one(
       from c in Habits.CheckIn,
       where: c.habit_id == ^habit_id,
-      where: c.date == ^Timex.DateTime.local,
+      where: c.date == ^Timex.local,
       select: c.id
     )
   end
@@ -23,14 +23,14 @@ defmodule Habits.HabitView do
 
   def current_date(date) do
     {:ok, string} = date
-    |> Timex.date
+    |> Timex.to_date
     |> Timex.format("%b %-d", :strftime)
     string
   end
 
   def date_string(date) do
     {:ok, string} = date
-    |> Timex.date
+    |> Timex.to_date
     |> Timex.format("%F", :strftime)
     string
   end
@@ -38,7 +38,7 @@ defmodule Habits.HabitView do
   def previous_date_path(date) do
     %{year: year, month: month, day: day} =
       date
-      |> Timex.date
+      |> Timex.to_date
       |> Timex.shift(days: -1)
 
     "/#{year}/#{month}/#{day}"
@@ -47,7 +47,7 @@ defmodule Habits.HabitView do
   def next_date_path(date) do
     %{year: year, month: month, day: day} =
       date
-      |> Timex.date
+      |> Timex.to_date
       |> Timex.shift(days: 1)
 
     "/#{year}/#{month}/#{day}"
@@ -55,13 +55,13 @@ defmodule Habits.HabitView do
 
   def show_next_page?(date) do
     date
-    |> Timex.date
-    |> Timex.compare(Timex.date(today_tuple))
+    |> Timex.to_date
+    |> Timex.compare(Timex.to_date(today_tuple))
     |> negative?
   end
 
   defp today_tuple do
-    date = Timex.DateTime.local
+    date = Timex.local
     {date.year, date.month, date.day}
   end
 

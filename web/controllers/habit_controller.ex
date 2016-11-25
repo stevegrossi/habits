@@ -23,7 +23,7 @@ defmodule Habits.HabitController do
   end
 
   def index(conn, _params) do
-    %{year: year, month: month, day: day} = Timex.DateTime.local
+    %{year: year, month: month, day: day} = Timex.local
     habits = Repo.all(assoc(Session.current_account(conn), :habits))
 
     render conn, "index.html",

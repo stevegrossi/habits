@@ -52,7 +52,7 @@ defmodule Habits.HabitTest do
   end
 
   defp days_ago_tuple(days) do
-    Timex.DateTime.local
+    Timex.local
     |> Timex.shift(days: -days)
   end
 end

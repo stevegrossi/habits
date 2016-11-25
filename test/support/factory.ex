@@ -23,7 +23,7 @@ defmodule Habits.Factory do
   end
 
   defp today_tuple do
-    date = Timex.DateTime.local
+    date = Timex.local
     {date.year, date.month, date.day}
   end
 end
