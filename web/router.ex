@@ -42,7 +42,7 @@ defmodule Habits.Router do
     get "/logout", SessionController, :delete
     get "/me", AccountController, :show
 
-    resources "/habits", HabitController do
+    resources "/habits", HabitController, except: [:index] do
       resources "/check_ins", CheckInController
     end
 
