@@ -4,15 +4,58 @@ import Habit from "./Habit"
 
 class HabitList extends React.Component {
 
+  constructor(args) {
+    super(args)
+    this.state = { data: [] }
+  }
+
+  componentWillMount() {
+    const endpoint = this.dateToEndpoint(this.props.date)
+    this.fetchData(endpoint)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const endpoint = this.dateToEndpoint(nextProps.date)
+    this.fetchData(endpoint)
+  }
+
+  fetchData(endpoint) {
+    const self = this;
+    const data = fetch(endpoint, {
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(function(response) {
+      return response.json()
+    }).then(function(json) {
+      self.setState({ data: JSON.parse(json) })
+    }).catch(function(error) {
+      console.error('Error fetching JSON:', error)
+    })
+  }
+
+  dateToEndpoint(date) {
+    const dateString = [
+      date.getFullYear(),
+      date.getMonth() + 1,
+      date.getDate()
+    ].join("-")
+    return "/api/v1/habits?date=" + dateString
+  }
+
   render() {
     return (
       <ol className="HabitList">
-        {this.props.data.map((habit) =>
+        {this.state.data.map((habit) =>
           <Habit name={habit.name}
                  checkInId={habit.checkInId}
                  streak={habit.streak}
                  id={habit.id}
-                 key={habit.id} />
+                 key={habit.id}
+                 date={this.props.date} />
         )}
       </ol>
     )

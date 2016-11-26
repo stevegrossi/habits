@@ -16,7 +16,12 @@ class Habit extends React.Component {
   }
 
   dateString() {
-    return "2016-11-26"
+    const date = this.props.date;
+    return [
+      date.getFullYear(),
+      date.getMonth() + 1,
+      date.getDate()
+    ].join("-")
   }
 
   render() {

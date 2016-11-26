@@ -21,27 +21,6 @@ class DateNav extends React.Component {
     return dateParts.join(" ")
   }
 
-  previousDayURL() {
-    const date = new Date(this.props.date)
-    const previousDay = new Date(date.setDate(date.getDate() - 1));
-    return this.dateToAbsolutePath(previousDay)
-  }
-
-  nextDayURL() {
-    const date = new Date(this.props.date)
-    const nextDay = new Date(date.setDate(date.getDate() + 1));
-    return this.dateToAbsolutePath(nextDay)
-  }
-
-  dateToAbsolutePath(date) {
-    const path = [
-      date.getFullYear(),
-      date.getMonth() + 1,
-      date.getDate()
-    ].join("/")
-    return "/" + path
-  }
-
   showNextDate() {
     const today = (new Date()).setHours(0, 0, 0, 0)
     return this.props.date < today
@@ -51,12 +30,12 @@ class DateNav extends React.Component {
     return (
       <p className="DateNav">
         <span className="DateNav-arrow">
-          <a href={this.previousDayURL()}>«</a>
+          <a onClick={this.props.goToPrev}>«</a>
         </span>
         {this.currentDateString()}
         <span className="DateNav-arrow">
           {this.showNextDate() &&
-            <a href={this.nextDayURL()}>»</a>
+            <a onClick={this.props.goToNext}>»</a>
           }
         </span>
       </p>

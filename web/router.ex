@@ -15,6 +15,13 @@ defmodule Habits.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
+  end
+
+  scope "/api/v1", Habits do
+    pipe_through [:api, :authenticated]
+
+    get "/habits", API.V1.HabitController, :index
   end
 
   scope "/", Habits do
