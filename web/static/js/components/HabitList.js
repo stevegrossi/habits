@@ -9,7 +9,7 @@ class HabitList extends React.Component {
       <ol className="HabitList">
         {this.props.data.map((habit) =>
           <Habit name={habit.name}
-                 checkedIn={habit.checkedIn}
+                 checkInId={habit.checkInId}
                  streak={habit.streak}
                  id={habit.id}
                  key={habit.id} />

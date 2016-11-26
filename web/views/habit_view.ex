@@ -7,21 +7,21 @@ defmodule Habits.HabitView do
     Poison.encode!([
       %{
         id: 1,
-        checkedIn: true,
+        checkInId: 1,
         name: "Do a thing",
         streak: 12
       },
       %{
         id: 2,
-        checkedIn: false,
+        checkInId: nil,
         name: "Do another thing",
         streak: 0
       },
       %{
         id: 3,
-        checkedIn: false,
+        checkInId: nil,
         name: "Do more things",
-        streak: 145
+        streak: 0
       }
     ])
   end
