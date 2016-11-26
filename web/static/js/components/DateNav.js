@@ -12,7 +12,7 @@ class DateNav extends React.Component {
   }
 
   currentDateString() {
-    const date = new Date()
+    const date = new Date(this.props.date)
     const dateParts = [
       date.getDate(),
       this.monthName(date.getMonth()),
@@ -22,13 +22,13 @@ class DateNav extends React.Component {
   }
 
   previousDayURL() {
-    const date = new Date()
+    const date = new Date(this.props.date)
     const previousDay = new Date(date.setDate(date.getDate() - 1));
     return this.dateToAbsolutePath(previousDay)
   }
 
   nextDayURL() {
-    const date = new Date()
+    const date = new Date(this.props.date)
     const nextDay = new Date(date.setDate(date.getDate() + 1));
     return this.dateToAbsolutePath(nextDay)
   }
@@ -43,7 +43,8 @@ class DateNav extends React.Component {
   }
 
   showNextDate() {
-    return true
+    const today = (new Date()).setHours(0, 0, 0, 0)
+    return this.props.date < today
   }
 
   render() {
