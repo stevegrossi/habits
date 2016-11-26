@@ -12,7 +12,11 @@ class Habit extends React.Component {
   }
 
   isCheckedInToday() {
-    !!this.props.checkInId
+    return !!this.props.checkInId
+  }
+
+  dateString() {
+    return "2016-11-26"
   }
 
   render() {
@@ -20,14 +24,16 @@ class Habit extends React.Component {
       <li className="Habit">
         {this.isCheckedInToday() &&
           <form className="CheckInForm" action={this.deleteCheckInAction()} method="post">
+            <input name="_csrf_token" type="hidden" value={window.CSRFtoken} />
             <input name="_method" type="hidden" value="delete" />
-            <input name="date" type="hidden" value="THE_DATE" />
+            <input name="date" type="hidden" value={this.dateString()} />
             <input type="submit" value="Remove Check-In" className="CheckInForm-button CheckInForm-button--checkedIn" />
           </form>
         }
         {!this.isCheckedInToday() &&
           <form className="CheckInForm" action={this.checkInAction()} method="post">
-            <input name="date" type="hidden" value="THE_DATE" />
+            <input name="_csrf_token" type="hidden" value={window.CSRFtoken} />
+            <input name="date" type="hidden" value={this.dateString()} />
             <input type="submit" value="Check In" className="CheckInForm-button" />
           </form>
         }

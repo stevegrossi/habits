@@ -10,6 +10,6 @@
   </span>
 </p>
 
-<div id="habit-container" data-habits="<%= all_habits_json %>"></div>
+<div id="habit-container" data-habits="<%= all_habits_json(@conn) %>"></div>
 
 <%= link "New Habit", to: habit_path(@conn, :new), class: "Button" %>

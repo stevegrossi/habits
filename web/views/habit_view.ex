@@ -1,29 +1,27 @@
 defmodule Habits.HabitView do
   use Habits.Web, :view
 
+  alias Habits.Habit
+  alias Habits.Session
+  alias Habits.Repo
+
   import Ecto.Query, only: [from: 2]
 
-  def all_habits_json do
-    Poison.encode!([
-      %{
-        id: 1,
-        checkInId: 1,
-        name: "Do a thing",
-        streak: 12
-      },
-      %{
-        id: 2,
-        checkInId: nil,
-        name: "Do another thing",
-        streak: 0
-      },
-      %{
-        id: 3,
-        checkInId: nil,
-        name: "Do more things",
-        streak: 0
-      }
-    ])
+  def all_habits_json(conn) do
+    habits = Repo.all from h in Habit,
+      where: h.account_id == ^Session.current_account(conn).id,
+      order_by: [asc: h.name]
+
+    habits
+    |> Enum.map(fn(habit) ->
+         %{
+           id: habit.id,
+           name: habit.name,
+           checkInId: check_in_id_for_habit(habit.id, today_tuple),
+           streak: 0
+         }
+       end)
+    |> Poison.encode!
   end
 
   def check_in_id_for_habit(habit_id, nil) do
@@ -34,7 +32,6 @@ defmodule Habits.HabitView do
       select: c.id
     )
   end
-
   def check_in_id_for_habit(habit_id, date) do
     Habits.Repo.one(
       from c in Habits.CheckIn,
