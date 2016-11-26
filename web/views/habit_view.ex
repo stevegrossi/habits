@@ -3,6 +3,29 @@ defmodule Habits.HabitView do
 
   import Ecto.Query, only: [from: 2]
 
+  def all_habits_json do
+    Poison.encode!([
+      %{
+        id: 1,
+        checkedIn: true,
+        name: "Do a thing",
+        streak: 12
+      },
+      %{
+        id: 2,
+        checkedIn: false,
+        name: "Do another thing",
+        streak: 0
+      },
+      %{
+        id: 3,
+        checkedIn: false,
+        name: "Do more things",
+        streak: 145
+      }
+    ])
+  end
+
   def check_in_id_for_habit(habit_id, nil) do
     Habits.Repo.one(
       from c in Habits.CheckIn,

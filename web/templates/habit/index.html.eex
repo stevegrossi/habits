@@ -10,6 +10,6 @@
   </span>
 </p>
 
-<div id="habit-container" data-habits='[{"id": 1,"checkedIn": true,"name": "Do a thing","streak": 12},{"id": 2,"checkedIn": false,"name": "Do another thing","streak": 0},{"id": 3,"checkedIn": false,"name": "Do more things","streak": 145}]'></div>
+<div id="habit-container" data-habits="<%= all_habits_json %>"></div>
 
 <%= link "New Habit", to: habit_path(@conn, :new), class: "Button" %>
