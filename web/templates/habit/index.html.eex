@@ -1,15 +1,3 @@
-<p class="DateNav">
-  <span class="DateNav-arrow">
-    <%= link "«", to: previous_date_path(@date) %>
-  </span>
-  <%= current_date(@date) %>
-  <span class="DateNav-arrow">
-    <%= if show_next_page?(@date) do %>
-      <%= link "»", to: next_date_path(@date) %>
-    <% end %>
-  </span>
-</p>
-
 <div id="habit-container" data-habits="<%= all_habits_json(@conn) %>"></div>
 
 <%= link "New Habit", to: habit_path(@conn, :new), class: "Button" %>
