@@ -1,7 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import DateNav from "./components/DateNav"
-import HabitList from "./components/HabitList"
+import App from "./components/App"
 
 const habitContainer = document.getElementById("habit-container")
 if (habitContainer) {
@@ -14,10 +13,7 @@ if (habitContainer) {
   )
 
   ReactDOM.render(
-    <div>
-      <DateNav date={date} />
-      <HabitList data={habits} />
-    </div>,
+    <App date={date} data={habits} />,
     habitContainer
   )
 }
