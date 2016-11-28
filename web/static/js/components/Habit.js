@@ -2,17 +2,11 @@ import React from "react"
 import ReactDOM from "react-dom"
 
 class Habit extends React.Component {
-
-  checkInAction() {
-    return `/habits/${this.props.id}/check_ins`
-  }
-
-  deleteCheckInAction() {
-    return `${this.checkInAction()}/${this.props.checkInId}`
-  }
-
-  isCheckedInToday() {
-    return !!this.props.checkInId
+  constructor(args) {
+    super(args)
+    this.state = {
+      isCheckedIn: !!this.props.checkInId
+    }
   }
 
   dateString() {
@@ -24,27 +18,65 @@ class Habit extends React.Component {
     ].join("-")
   }
 
+  toggleCheckIn() {
+    if (this.state.isCheckedIn) {
+      this.checkOut()
+    } else {
+      this.checkIn()
+    }
+  }
+
+  checkIn() {
+    const self = this;
+    const data = fetch(`/api/v1/habits/${this.props.id}/check_in?date=${this.dateString()}`, {
+      method: 'post',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(function(response) {
+      return response.json()
+    }).then(function(json) {
+      self.setState({ isCheckedIn: true })
+    }).catch(function(error) {
+      console.error('Error fetching JSON:', error)
+    })
+  }
+
+  checkOut() {
+    const self = this;
+    const data = fetch(`/api/v1/habits/${this.props.id}/check_out?date=${this.dateString()}`, {
+      method: 'post',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(function(response) {
+      return response.json()
+    }).then(function(json) {
+      self.setState({ isCheckedIn: false })
+    }).catch(function(error) {
+      console.error('Error fetching JSON:', error)
+    })
+  }
+
+  checkInButtonClassName() {
+    let classNames = ["CheckInButton"]
+    if (this.state.isCheckedIn) {
+      classNames.push("CheckInButton--checkedIn")
+    }
+    return classNames.join(" ")
+  }
+
   render() {
     return (
       <li className="Habit">
-        {this.isCheckedInToday() &&
-          <form className="CheckInForm" action={this.deleteCheckInAction()} method="post">
-            <input name="_csrf_token" type="hidden" value={window.CSRFtoken} />
-            <input name="_method" type="hidden" value="delete" />
-            <input name="date" type="hidden" value={this.dateString()} />
-            <input type="submit" value="Remove Check-In" className="CheckInForm-button CheckInForm-button--checkedIn" />
-          </form>
-        }
-        {!this.isCheckedInToday() &&
-          <form className="CheckInForm" action={this.checkInAction()} method="post">
-            <input name="_csrf_token" type="hidden" value={window.CSRFtoken} />
-            <input name="date" type="hidden" value={this.dateString()} />
-            <input type="submit" value="Check In" className="CheckInForm-button" />
-          </form>
-        }
-
+        <button className={this.checkInButtonClassName()} onClick={this.toggleCheckIn.bind(this)}>Check In</button>
         <span className="Habit-name">{this.props.name}</span>
-
         {this.props.streak > 0 &&
           <span className="Habit-streak">
             ➚ {this.props.streak}
