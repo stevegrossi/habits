@@ -2,11 +2,16 @@ import React from "react"
 import ReactDOM from "react-dom"
 
 class Habit extends React.Component {
-  constructor(args) {
-    super(args)
+  constructor(props) {
+    super(props)
     this.state = {
-      isCheckedIn: !!this.props.checkInId
+      isCheckedIn: !!this.props.checkInId,
+      streak: this.props.streak
     }
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.setState({ isCheckedIn: !!newProps.checkInId })
   }
 
   dateString() {
@@ -39,7 +44,11 @@ class Habit extends React.Component {
     .then(function(response) {
       return response.json()
     }).then(function(json) {
-      self.setState({ isCheckedIn: true })
+      const streak = JSON.parse(json).streak
+      self.setState({
+        isCheckedIn: true,
+        streak: streak
+      })
     }).catch(function(error) {
       console.error('Error fetching JSON:', error)
     })
@@ -58,7 +67,10 @@ class Habit extends React.Component {
     .then(function(response) {
       return response.json()
     }).then(function(json) {
-      self.setState({ isCheckedIn: false })
+      self.setState({
+        isCheckedIn: false,
+        streak: 0
+      })
     }).catch(function(error) {
       console.error('Error fetching JSON:', error)
     })
@@ -77,9 +89,9 @@ class Habit extends React.Component {
       <li className="Habit">
         <button className={this.checkInButtonClassName()} onClick={this.toggleCheckIn.bind(this)}>Check In</button>
         <span className="Habit-name">{this.props.name}</span>
-        {this.props.streak > 0 &&
+        {this.state.streak > 0 &&
           <span className="Habit-streak">
-            ➚ {this.props.streak}
+            ➚ {this.state.streak}
           </span>
         }
       </li>

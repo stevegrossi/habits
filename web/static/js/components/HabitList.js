@@ -4,8 +4,8 @@ import Habit from "./Habit"
 
 class HabitList extends React.Component {
 
-  constructor(args) {
-    super(args)
+  constructor(props) {
+    super(props)
     this.state = { data: [] }
   }
 

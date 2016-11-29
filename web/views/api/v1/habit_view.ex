@@ -8,14 +8,7 @@ defmodule Habits.API.V1.HabitView do
 
   def render("index.json", %{habits: habits, date: date}) do
     habits
-    |> Enum.map(fn(habit) ->
-         %{
-           id: habit.id,
-           name: habit.name,
-           checkInId: check_in_id_for_habit(habit.id, date),
-           streak: Habit.get_current_streak(habit)
-         }
-       end)
+    |> Enum.map(&habit_data_for_date(&1, date))
     |> Poison.encode!
   end
 
