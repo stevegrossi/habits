@@ -28,7 +28,7 @@ class DateNav extends React.Component {
 
   render() {
     return (
-      <p className="DateNav">
+      <div className="DateNav">
         <span className="DateNav-arrow">
           <a onClick={this.props.goToPrev}>«</a>
         </span>
@@ -38,7 +38,7 @@ class DateNav extends React.Component {
             <a onClick={this.props.goToNext}>»</a>
           }
         </span>
-      </p>
+      </div>
     )
   }
 }

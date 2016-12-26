@@ -67,9 +67,10 @@ class Habit extends React.Component {
     .then(function(response) {
       return response.json()
     }).then(function(json) {
+      const streak = JSON.parse(json).streak
       self.setState({
         isCheckedIn: false,
-        streak: 0
+        streak: streak
       })
     }).catch(function(error) {
       console.error('Error fetching JSON:', error)
