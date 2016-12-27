@@ -6,29 +6,8 @@ defmodule Habits.HabitController do
 
   plug :scrub_params, "habit" when action in [:create, :update]
 
-  def index(conn, %{"year" => year, "month" => month, "day" => day}) do
-    date = {
-      String.to_integer(year),
-      String.to_integer(month),
-      String.to_integer(day)
-    }
-
-    habits = Repo.all from g in Habit,
-      where: g.account_id == ^Session.current_account(conn).id,
-      order_by: [asc: g.name]
-
-    render conn, "index.html",
-      habits: habits,
-      date: date
-  end
-
   def index(conn, _params) do
-    %{year: year, month: month, day: day} = Timex.local
-    habits = Repo.all(assoc(Session.current_account(conn), :habits))
-
-    render conn, "index.html",
-      habits: habits,
-      date: {year, month, day}
+    render conn, "index.html"
   end
 
   def new(conn, _params) do

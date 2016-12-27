@@ -1,17 +1,8 @@
-let App = {
+import React from "react"
+import ReactDOM from "react-dom"
+import App from "./components/App"
 
-  redirectToToday: function() {
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth() + 1;
-    let day = today.getDate();
-
-    if (window.location.pathname == '/habits') {
-      window.location = '/' + [year, month, day].join('/')
-    }
-  }
+const habitContainer = document.getElementById("habit-container")
+if (habitContainer) {
+  ReactDOM.render(<App />, habitContainer)
 }
-
-App.redirectToToday();
-
-export default App

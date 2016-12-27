@@ -576,6 +576,7 @@ a {
   &-arrow {
     font-size: 2em;
     width: 1.5em;
+    cursor: pointer;
 
     a {
       display: inline-block;
@@ -614,22 +615,19 @@ a {
   }
 }
 
-.CheckInForm {
+.CheckInButton {
+  @include round(1.5em);
   display: inline-block;
+  background: none;
+  height: 1.5em;
+  width: 1.5em;
+  padding: 0;
+  margin-right: $base-padding;
+  text-indent: -999em;
+  border: 2px solid #fff;
 
-  &-button {
-    @include round(1.5em);
-    background: none;
-    height: 1.5em;
-    width: 1.5em;
-    padding: 0;
-    margin-right: $base-padding;
-    text-indent: -999em;
-    border: 2px solid #fff;
-
-    &--checkedIn {
-      background-color: #fff;
-    }
+  &--checkedIn {
+    background-color: #fff;
   }
 }
 

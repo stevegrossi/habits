@@ -60,6 +60,7 @@
       <p>Make it a great day.</p>
     </footer>
 
+    <script>window.CSRFtoken = "<%= get_csrf_token() %>";</script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
     <script>require("web/static/js/app")</script>
   </body>
