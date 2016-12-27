@@ -6,15 +6,15 @@ defmodule Habits.HabitControllerTest do
   @valid_attrs %{name: "Test Habit"}
   @invalid_attrs %{name: ""}
 
-  test "lists all entries on index", %{conn: conn} do
+  test "renders the react container", %{conn: conn} do
     account = Factory.insert(:account)
-    habit = Factory.insert(:habit, account: account)
 
-    conn = build_conn()
+    conn =
+      build_conn()
       |> assign(:current_account, account)
       |> get(habit_path(conn, :index))
 
-    assert html_response(conn, 200) =~ habit.name
+    assert html_response(conn, 200) =~ "Loading..."
   end
 
   test "renders form for new resources", %{conn: conn} do
