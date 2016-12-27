@@ -12,7 +12,7 @@ defmodule Habits.API.V1.HabitController do
   end
 
   def check_in(conn, %{"habit_id" => habit_id, "date" => date_string}) do
-    date = date_string_to_timex(date_string)
+    date = date_string_to_datetime(date_string)
 
     habit = Habits.Repo.one(
       from g in Habits.Habit,
@@ -33,13 +33,13 @@ defmodule Habits.API.V1.HabitController do
   end
 
   def check_out(conn, %{"habit_id" => habit_id, "date" => date_string}) do
-    date = date_string_to_timex(date_string)
+    date = date_string_to_datetime(date_string)
 
     habit = Habits.Repo.one(
-      from g in Habits.Habit,
-       where: g.account_id == ^Session.current_account(conn).id,
-       where: g.id == ^habit_id,
-      select: g
+      from h in Habits.Habit,
+       where: h.account_id == ^Session.current_account(conn).id,
+       where: h.id == ^habit_id,
+      select: h
     )
 
     check_in = Habits.Repo.one(
@@ -54,8 +54,8 @@ defmodule Habits.API.V1.HabitController do
     render conn, "show.json", habit: habit, date: date_string
   end
 
-  defp date_string_to_timex(date_string) do
-    {:ok, timex} = Timex.parse(date_string, "%F", :strftime)
-    timex
+  defp date_string_to_datetime(date_string) do
+    {:ok, datetime} = Timex.parse(date_string, "%F", :strftime)
+    datetime
   end
 end

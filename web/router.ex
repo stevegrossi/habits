@@ -23,8 +23,8 @@ defmodule Habits.Router do
 
     scope "/v1", V1, as: :v1 do
       resources "/habits", HabitController do
-        post "/check_in", HabitController, :check_in
-        post "/check_out", HabitController, :check_out
+        post "/check_in", HabitController, :check_in, as: :check_in
+        post "/check_out", HabitController, :check_out, as: :check_out
       end
     end
   end
