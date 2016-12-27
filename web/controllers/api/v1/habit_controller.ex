@@ -15,7 +15,7 @@ defmodule Habits.API.V1.HabitController do
   end
 
   def check_in(conn, %{"habit_id" => habit_id, "date" => date_string}) do
-    date = date_string_to_datetime(date_string)
+    date = date_string_to_date(date_string)
 
     habit =
       Session.current_account(conn)
@@ -35,7 +35,7 @@ defmodule Habits.API.V1.HabitController do
   end
 
   def check_out(conn, %{"habit_id" => habit_id, "date" => date_string}) do
-    date = date_string_to_datetime(date_string)
+    date = date_string_to_date(date_string)
 
     habit =
       Session.current_account(conn)
@@ -53,7 +53,7 @@ defmodule Habits.API.V1.HabitController do
     render conn, "show.json", habit: habit, date: date_string
   end
 
-  defp date_string_to_datetime(date_string) do
+  defp date_string_to_date(date_string) do
     date_string
     |> Timex.parse!("%F", :strftime)
     |> Timex.to_date
