@@ -4,6 +4,7 @@ defmodule Habits.Habit do
   schema "habits" do
     field :name, :string
     belongs_to :account, Habits.Account
+    has_many :check_ins, Habits.CheckIn
 
     timestamps
   end

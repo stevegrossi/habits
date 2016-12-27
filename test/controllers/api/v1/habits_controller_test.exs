@@ -68,8 +68,8 @@ defmodule Habits.API.V1.HabitControllerTest do
       other_account = Factory.insert(:account)
       other_accounts_habit = Factory.insert(:habit, account: other_account)
 
-      # I should do better than `nil.id`, but for now...
-      assert_raise UndefinedFunctionError, fn ->
+      # I should do better than an empty association error, but for now...
+      assert_raise ArgumentError, fn ->
         conn
           |> assign(:current_account, account)
           |> post(api_v1_habit_check_in_path(conn, :check_in, other_accounts_habit.id, date: today_string))
@@ -99,8 +99,8 @@ defmodule Habits.API.V1.HabitControllerTest do
       other_accounts_habit = Factory.insert(:habit, account: other_account)
       other_accounts_check_in = Factory.insert(:check_in, habit: other_accounts_habit, date: today_tuple)
 
-      # I should do better than `nil.id`, but for now...
-      assert_raise UndefinedFunctionError, fn ->
+      # I should do better than an empty association error, but for now...
+      assert_raise ArgumentError, fn ->
        conn
           |> assign(:current_account, account)
           |> post(api_v1_habit_check_out_path(conn, :check_out, other_accounts_habit.id, date: today_string))

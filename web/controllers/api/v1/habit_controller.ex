@@ -6,7 +6,10 @@ defmodule Habits.API.V1.HabitController do
 
   def index(conn, %{"date" => date_string}) do
     {:ok, date} = Timex.parse(date_string, "%F", :strftime)
-    habits = Repo.all(assoc(Session.current_account(conn), :habits))
+    habits =
+      Session.current_account(conn)
+      |> assoc(:habits)
+      |> Repo.all
 
     render conn, "index.json", habits: habits, date: date
   end
@@ -14,18 +17,17 @@ defmodule Habits.API.V1.HabitController do
   def check_in(conn, %{"habit_id" => habit_id, "date" => date_string}) do
     date = date_string_to_datetime(date_string)
 
-    habit = Habits.Repo.one(
-      from g in Habits.Habit,
-       where: g.account_id == ^Session.current_account(conn).id,
-       where: g.id == ^habit_id,
-      select: g
-    )
+    habit =
+      Session.current_account(conn)
+      |> assoc(:habits)
+      |> Habits.Repo.get(habit_id)
 
-    query = Ecto.Query.from c in Habits.CheckIn,
-      where: c.habit_id == ^habit.id,
-      where: c.date == ^date
+    check_ins =
+      habit
+      |> assoc(:check_ins)
+      |> where(date: ^date)
 
-    unless Habits.Repo.exists?(query) do
+    unless Habits.Repo.exists?(check_ins) do
       Habits.Repo.insert!(%CheckIn{habit_id: String.to_integer(habit_id), date: date})
     end
 
@@ -35,19 +37,16 @@ defmodule Habits.API.V1.HabitController do
   def check_out(conn, %{"habit_id" => habit_id, "date" => date_string}) do
     date = date_string_to_datetime(date_string)
 
-    habit = Habits.Repo.one(
-      from h in Habits.Habit,
-       where: h.account_id == ^Session.current_account(conn).id,
-       where: h.id == ^habit_id,
-      select: h
-    )
+    habit =
+      Session.current_account(conn)
+      |> assoc(:habits)
+      |> Habits.Repo.get(habit_id)
 
-    check_in = Habits.Repo.one(
-      from c in Habits.CheckIn,
-       where: c.habit_id == ^habit.id,
-       where: c.date == ^date,
-      select: c
-    )
+    check_in =
+      habit
+      |> assoc(:check_ins)
+      |> where(date: ^date)
+      |> Habits.Repo.one
 
     Habits.Repo.delete!(check_in)
 
@@ -55,7 +54,8 @@ defmodule Habits.API.V1.HabitController do
   end
 
   defp date_string_to_datetime(date_string) do
-    {:ok, datetime} = Timex.parse(date_string, "%F", :strftime)
-    datetime
+    date_string
+    |> Timex.parse!("%F", :strftime)
+    |> Timex.to_date
   end
 end
