@@ -1,6 +1,9 @@
 defmodule Habits.Habit do
   use Habits.Web, :model
 
+  alias Habits.Account
+  alias Habits.Repo
+
   schema "habits" do
     field :name, :string
     belongs_to :account, Habits.Account
@@ -43,8 +46,24 @@ defmodule Habits.Habit do
       );
     "
 
-    {:ok, query} = Ecto.Adapters.SQL.query(Habits.Repo, sql, [habit.id])
+    {:ok, query} = Ecto.Adapters.SQL.query(Repo, sql, [habit.id])
     [[rows]] = query.rows
     rows
+  end
+
+  @doc """
+  Gets a habit for a given account.
+  """
+  def get_by_account(%Account{} = account, habit_id) do
+    habit =
+      account
+      |> assoc(:habits)
+      |> Repo.get(habit_id)
+
+    if habit do
+      {:ok, habit}
+    else
+      {:error, "Habit not found"}
+    end
   end
 end

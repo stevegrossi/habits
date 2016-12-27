@@ -18,6 +18,11 @@ defmodule Habits.API.V1.HabitView do
     |> Poison.encode!
   end
 
+  def render("error.json", %{error: message}) do
+    %{error: message}
+    |> Poison.encode!
+  end
+
   defp habit_data_for_date(habit, date) do
     %{
       id: habit.id,
