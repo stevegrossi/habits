@@ -1,13 +1,19 @@
 defmodule Habits.Habit do
+  @moduledoc """
+  Data logic for the core Habit domain model, which belongs to an Account and
+  has many CheckIns on specific dates.
+  """
+
   use Habits.Web, :model
 
   alias Habits.Account
+  alias Habits.CheckIn
   alias Habits.Repo
 
   schema "habits" do
     field :name, :string
-    belongs_to :account, Habits.Account
-    has_many :check_ins, Habits.CheckIn
+    belongs_to :account, Account
+    has_many :check_ins, CheckIn
 
     timestamps
   end
@@ -22,10 +28,8 @@ defmodule Habits.Habit do
   end
 
   @doc """
-  Calculates a habit’s current streak and updates its record.
-
   The current streak is the number of consecutive daily check-ins
-  for a habit up until yesterday, or today if you've checked in today.
+  for a habit up until yesterday, or today if you’ve checked in today.
 
   Hat tip: stackoverflow.com/q/22142028/
   """

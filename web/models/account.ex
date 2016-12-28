@@ -1,4 +1,8 @@
 defmodule Habits.Account do
+  @moduledoc """
+  Data logic for the Account domain model, which represents a user of the app.
+  """
+
   use Habits.Web, :model
 
   schema "accounts" do

@@ -1,4 +1,9 @@
 defmodule Habits.CheckIn do
+  @moduledoc """
+  Data logic for the CheckIn domain model, which belongs to a Habit. Habits have
+  multiple CheckIns, but at most one per calendar date.
+  """
+
   use Habits.Web, :model
 
   alias Habits.Repo

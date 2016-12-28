@@ -1,6 +1,7 @@
 defmodule Habits.SessionController do
   use Habits.Web, :controller
 
+  alias Habits.Repo
   alias Habits.Session
 
   def new(conn, _params) do
@@ -8,7 +9,7 @@ defmodule Habits.SessionController do
   end
 
   def create(conn, %{"session" => session_params}) do
-    case Session.login(session_params, Habits.Repo) do
+    case Session.login(session_params, Repo) do
       {:ok, account} ->
         conn
         |> put_session(:current_account, account.id)

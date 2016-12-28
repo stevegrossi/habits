@@ -1,4 +1,8 @@
 defmodule Habits.Registration do
+  @moduledoc """
+  Changeset logic for creating an Account for the first time.
+  """
+
   import Ecto.Changeset, only: [put_change: 3]
 
   def create(changeset, repo) do

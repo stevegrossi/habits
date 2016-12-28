@@ -1,6 +1,7 @@
 defmodule Habits.API.V1.HabitController do
   use Habits.Web, :controller
 
+  alias Habits.Repo
   alias Habits.CheckIn
   alias Habits.Habit
 
@@ -52,7 +53,7 @@ defmodule Habits.API.V1.HabitController do
     with {:ok, habit} <- Habit.get_by_account(current_account, habit_id),
          {:ok, check_in} <- CheckIn.get_by_date(habit, date) do
 
-      Habits.Repo.delete!(check_in)
+      Repo.delete!(check_in)
       render conn, "show.json", habit: habit, date: date_string
     else
       {:error, message} ->

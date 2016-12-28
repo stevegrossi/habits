@@ -1,4 +1,9 @@
 defmodule Habits.Plugs.Authenticate do
+  @moduledoc """
+  Finds the current Account in the database if its ID is stored in the session,
+  otherwise redirects to the home page and requires the user to log in first.
+  """
+
   import Plug.Conn
   import Phoenix.Controller, only: [put_flash: 3, redirect: 2]
 
@@ -18,7 +23,7 @@ defmodule Habits.Plugs.Authenticate do
       conn
       |> put_flash(:info, "Please log in first.")
       |> redirect(to: "/")
-      |> halt
+      |> halt()
     end
   end
 

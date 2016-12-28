@@ -1,4 +1,8 @@
 defmodule Habits.Session do
+  @moduledoc """
+  Logic for authenticating a user.
+  """
+
   alias Habits.Account
   alias Habits.Repo
 
@@ -11,7 +15,7 @@ defmodule Habits.Session do
   end
 
   defp authenticate(nil, _password), do: false
-  defp authenticate(account, password) do
-    Comeonin.Bcrypt.checkpw(password, account.encrypted_password)
+  defp authenticate(account, given_password) do
+    Comeonin.Bcrypt.checkpw(given_password, account.encrypted_password)
   end
 end
