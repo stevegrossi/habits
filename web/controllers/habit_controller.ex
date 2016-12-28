@@ -2,7 +2,6 @@ defmodule Habits.HabitController do
   use Habits.Web, :controller
 
   alias Habits.Habit
-  alias Habits.Session
 
   plug :scrub_params, "habit" when action in [:create, :update]
 
@@ -17,7 +16,7 @@ defmodule Habits.HabitController do
 
   def create(conn, %{"habit" => habit_params}) do
     habit_attributes = Map.merge(habit_params, %{
-      "account_id" => Session.current_account(conn).id,
+      "account_id" => conn.assigns.current_account.id,
       "current_streak" => 0
     })
     changeset = Habit.changeset(%Habit{}, habit_attributes)

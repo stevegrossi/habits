@@ -52,8 +52,6 @@ defmodule Habits.Web do
       import Habits.Router.Helpers
       import Habits.ErrorHelpers
       import Habits.Gettext
-
-      import Habits.Session, only: [current_account: 1, logged_in?: 1]
     end
   end
 

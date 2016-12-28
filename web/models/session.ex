@@ -10,12 +10,6 @@ defmodule Habits.Session do
     end
   end
 
-  def current_account(conn) do
-    conn.assigns[:current_account]
-  end
-
-  def logged_in?(conn), do: !!current_account(conn)
-
   defp authenticate(nil, _password), do: false
   defp authenticate(account, password) do
     Comeonin.Bcrypt.checkpw(password, account.encrypted_password)
