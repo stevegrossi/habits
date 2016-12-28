@@ -11,6 +11,7 @@
     "phoenix_html": "file:deps/phoenix_html",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
+    "react-router": "^3.0.0",
     "whatwg-fetch": "^2.0.1"
   },
   "devDependencies": {
