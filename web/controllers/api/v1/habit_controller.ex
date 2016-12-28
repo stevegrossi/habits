@@ -32,7 +32,7 @@ defmodule Habits.API.V1.HabitController do
     date = date_string_to_date(date_string)
 
     with {:ok, habit} <- Habit.get_by_account(current_account, habit_id),
-         {:ok, check_in} <- CheckIn.create_for_date(habit, date) do
+         {:ok, _check_in} <- CheckIn.create_for_date(habit, date) do
 
       render conn, "show.json", habit: habit, date: date_string
     else

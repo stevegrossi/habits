@@ -10,11 +10,11 @@ defmodule Habits.API.V1.HabitControllerTest do
       habit = Factory.insert(:habit, account: account)
       today_check_in = Factory.insert(:check_in, habit: habit, date: today_date)
       Factory.insert(:check_in, habit: habit, date: yesterday_date)
+
       conn =
         conn
         |> assign(:current_account, account)
-
-      conn = get conn, api_v1_habit_path(conn, :index), date: Date.to_string(today_date)
+        |> get(api_v1_habit_path(conn, :index), date: Date.to_string(today_date))
 
       assert json_response(conn, 200) == Poison.encode!(
         [
@@ -56,7 +56,7 @@ defmodule Habits.API.V1.HabitControllerTest do
         habit = Factory.insert(:habit, account: account)
         Factory.insert(:check_in, habit: habit, date: today_tuple)
 
-        conn = conn
+        conn
           |> assign(:current_account, account)
           |> post(api_v1_habit_check_in_path(conn, :check_in, habit.id, date: today_string))
 
@@ -87,11 +87,21 @@ defmodule Habits.API.V1.HabitControllerTest do
       habit = Factory.insert(:habit, account: account)
       check_in = Factory.insert(:check_in, habit: habit, date: today_tuple)
 
-      conn = conn
+      conn =
+        conn
         |> assign(:current_account, account)
         |> post(api_v1_habit_check_out_path(conn, :check_out, habit.id, date: today_string))
 
       refute Repo.get(CheckIn, check_in.id)
+
+      assert json_response(conn, 200) == Poison.encode!(
+        %{
+          "id" => habit.id,
+          "name" => habit.name,
+          "checkInId" => nil,
+          "streak" => 0
+        }
+      )
     end
 
     test "does not delete another account's check-in", %{conn: conn} do
