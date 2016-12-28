@@ -48,27 +48,6 @@ defmodule Habits.HabitControllerTest do
     assert html_response(conn, 200) =~ "New habit"
   end
 
-  test "shows chosen resource", %{conn: conn} do
-    account = Factory.insert(:account)
-    habit = Factory.insert(:habit, account: account)
-
-    conn = build_conn()
-      |> assign(:current_account, account)
-      |> get(habit_path(conn, :show, habit))
-
-    assert html_response(conn, 200) =~ habit.name
-  end
-
-  test "renders page not found when id is nonexistent", %{conn: conn} do
-    account = Factory.insert(:account)
-
-    assert_raise Ecto.NoResultsError, fn ->
-      build_conn()
-        |> assign(:current_account, account)
-        |> get(habit_path(conn, :show, -1))
-    end
-  end
-
   test "renders form for editing chosen resource", %{conn: conn} do
     account = Factory.insert(:account)
     habit = Factory.insert(:habit, account: account)

@@ -33,11 +33,6 @@ defmodule Habits.HabitController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    habit = Repo.get!(Habit, id)
-    render(conn, "show.html", habit: habit)
-  end
-
   def edit(conn, %{"id" => id}) do
     habit = Repo.get!(Habit, id)
     changeset = Habit.changeset(habit)
