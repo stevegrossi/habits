@@ -598,6 +598,7 @@ a {
 .Habit {
   border-top: $light-border;
   &:first-child { border-top: 0; }
+  cursor: pointer;
   padding: $vertical-spacing 0;
   display: flex;
   align-items: center;

@@ -87,8 +87,8 @@ class Habit extends React.Component {
 
   render() {
     return (
-      <li className="Habit">
-        <button className={this.checkInButtonClassName()} onClick={this.toggleCheckIn.bind(this)}>Check In</button>
+      <li className="Habit" onClick={this.toggleCheckIn.bind(this)}>
+        <button className={this.checkInButtonClassName()}>Check In</button>
         <span className="Habit-name">{this.props.name}</span>
         {this.state.streak > 0 &&
           <span className="Habit-streak">
