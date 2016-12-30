@@ -21,6 +21,7 @@ defmodule Habits.API.V1.HabitController do
     habits =
       current_account
       |> assoc(:habits)
+      |> order_by(:name)
       |> Repo.all
 
     render conn, "index.json", habits: habits, date: date
