@@ -31,34 +31,7 @@
   </head>
 
   <body>
-    <header class="AppHeader">
-      <h1 class="AppHeader-logo">
-        <%= link "Habits", to: "/" %>
-      </h1>
-      <nav class="AppHeader-nav">
-        <ul>
-          <%= if logged_in?(@conn) do %>
-            <li><%= link "Me", to: account_path(@conn, :show) %></li>
-            <li><%= link "Log Out", to: session_path(@conn, :delete) %></li>
-          <% else %>
-            <li><%= link "Log In", to: session_path(@conn, :new) %></li>
-          <% end %>
-        </ul>
-      </nav>
-    </header>
-
-    <main class="AppMain">
-      <p class="SlideAlert SlideAlert--info" role="Alert"><%= get_flash(@conn, :info) %></p>
-      <p class="SlideAlert SlideAlert--danger" role="Alert"><%= get_flash(@conn, :error) %></p>
-
-      <div class="AppMain-content">
-        <%= render @view_module, @view_template, assigns %>
-      </div>
-    </main>
-
-    <footer class="AppFooter">
-      <p>Make it a great day.</p>
-    </footer>
+    <div id="main"></div>
 
     <script>window.CSRFtoken = "<%= get_csrf_token() %>";</script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>

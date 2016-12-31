@@ -1,35 +1,32 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import DateNav from "./DateNav"
-import HabitList from "./HabitList"
-import 'whatwg-fetch'
+import { Router, Route, IndexRoute, hashHistory } from 'react-router'
+import Layout from './Layout'
+import HomePage from './HomePage'
+import MyAccount from './MyAccount'
+import RegistrationForm from './RegistrationForm'
+import LoginForm from './LoginForm'
+import AllHabits from './AllHabits'
 
 class App extends React.Component {
-  constructor(args) {
-    super(args)
-    this.state = { date: new Date() }
-  }
 
-  goToPrev() {
-    const date = new Date(this.state.date)
-    const previousDay = new Date(date.setDate(date.getDate() - 1));
-    this.setState({ date: previousDay })
-  }
-
-  goToNext() {
-    const date = new Date(this.state.date)
-    const nextDay = new Date(date.setDate(date.getDate() + 1));
-    this.setState({ date: nextDay })
+  requireAuth(nextState, replace) {
+    if (true) {
+      replace({ pathname: '/login' })
+    }
   }
 
   render() {
     return (
-    <div>
-      <DateNav goToPrev={this.goToPrev.bind(this)}
-               goToNext={this.goToNext.bind(this)}
-               date={this.state.date} />
-      <HabitList date={this.state.date} />
-    </div>
+      <Router history={hashHistory}>
+        <Route path="/" component={Layout}>
+          <IndexRoute component={HomePage}/>
+          <Route path="/register" component={RegistrationForm} />
+          <Route path="/login" component={LoginForm} />
+          <Route path="/me" component={MyAccount} onEnter={this.requireAuth} />
+          <Route path="/habits" component={AllHabits} onEnter={this.requireAuth} />
+        </Route>
+      </Router>
     )
   }
 }

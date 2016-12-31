@@ -4,13 +4,8 @@ defmodule Habits.Router do
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
-    plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-  end
-
-  pipeline :authenticated do
-    plug Habits.Plugs.Authenticate
   end
 
   pipeline :api do
@@ -19,7 +14,7 @@ defmodule Habits.Router do
   end
 
   scope "/api", Habits.API, as: :api do
-    pipe_through [:api, :authenticated]
+    pipe_through :api
 
     scope "/v1", V1, as: :v1 do
       resources "/habits", HabitController do
@@ -34,21 +29,15 @@ defmodule Habits.Router do
 
     get "/", PageController, :index
 
-    get  "/register", RegistrationController, :new
-    post "/register", RegistrationController, :create
-
-    get    "/login",  SessionController, :new
-    post   "/login",  SessionController, :create
-  end
-
-  scope "/", Habits do
-    pipe_through [:browser, :authenticated]
-
     get "/logout", SessionController, :delete
     get "/me", AccountController, :show
 
     resources "/habits", HabitController
 
-    # get "/:year/:month/:day", HabitController, :index
+    get  "/register", RegistrationController, :new
+    post "/register", RegistrationController, :create
+
+    get    "/login",  SessionController, :new
+    post   "/login",  SessionController, :create
   end
 end
