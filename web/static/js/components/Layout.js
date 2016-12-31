@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Link } from 'react-router'
+import Auth from '../Auth'
 
 class Layout extends React.Component {
 
@@ -13,7 +14,12 @@ class Layout extends React.Component {
           </h1>
           <nav className='AppHeader-nav'>
             <ul>
-              <li><Link to="/login">Log In</Link></li>
+              {Auth.isLoggedIn() &&
+                <li><Link to="/logout">Log Out</Link></li>
+              }
+              {!Auth.isLoggedIn() &&
+                <li><Link to="/login">Log In</Link></li>
+              }
               <li><Link to="/me">Me</Link></li>
               <li><Link to="/habits">Habits</Link></li>
             </ul>
