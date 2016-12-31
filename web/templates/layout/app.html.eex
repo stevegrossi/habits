@@ -31,7 +31,7 @@
   </head>
 
   <body>
-    <div id="main"></div>
+    <div id="main">Loading...</div>
 
     <script>window.CSRFtoken = "<%= get_csrf_token() %>";</script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>

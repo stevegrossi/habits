@@ -16,6 +16,8 @@ defmodule Habits.Account do
 
   @doc """
   Builds a changeset based on the `account` struct and `params`.
+
+  TODO: I should not be `cast`-ing :encrypted_password
   """
   def changeset(account, params \\ %{}) do
     account
