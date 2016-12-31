@@ -1,3 +1,0 @@
-<div id="habit-container">Loading...</div>
-
-<%= link "New Habit", to: habit_path(@conn, :new), class: "Button" %>

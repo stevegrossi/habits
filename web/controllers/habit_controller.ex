@@ -26,7 +26,7 @@ defmodule Habits.HabitController do
 
       conn
       |> put_flash(:info, "Habit created successfully.")
-      |> redirect(to: habit_path(conn, :index))
+      |> redirect(to: "/habits")
     else
       render(conn, "new.html", changeset: changeset)
     end
@@ -47,7 +47,7 @@ defmodule Habits.HabitController do
 
       conn
       |> put_flash(:info, "Habit updated successfully.")
-      |> redirect(to: habit_path(conn, :index))
+      |> redirect(to: "/habits")
     else
       render(conn, "edit.html", habit: habit, changeset: changeset)
     end
@@ -59,6 +59,6 @@ defmodule Habits.HabitController do
 
     conn
     |> put_flash(:info, "Habit deleted successfully.")
-    |> redirect(to: habit_path(conn, :index))
+    |> redirect(to: "/habits")
   end
 end
