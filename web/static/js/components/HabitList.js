@@ -1,7 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import Habit from "./Habit"
-import Auth from "../Auth"
+import Request from "../Request"
 
 class HabitList extends React.Component {
 
@@ -22,20 +22,8 @@ class HabitList extends React.Component {
 
   fetchData(endpoint) {
     const self = this;
-    const data = fetch(endpoint, {
-      credentials: 'include',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Token token="${Auth.token()}"`
-      },
-    })
-    .then(function(response) {
-      return response.json()
-    }).then(function(json) {
+    Request.get(endpoint).then(function(json) {
       self.setState({ data: JSON.parse(json) })
-    }).catch(function(error) {
-      console.error('Error fetching JSON:', error)
     })
   }
 

@@ -1,38 +1,22 @@
+import Request from './Request'
+
 const Auth = {
 
-  login: function(email, password) {
-    return fetch('/api/v1/sessions', {
-      method: 'post',
-      credentials: 'include',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        account: {
-          email: email,
-          password: password
-        }
-      })
-    })
-    .then(function(response) {
-      return response.json()
-    }).then(function(json) {
-      const token = json.data.token
-      localStorage.setItem('token', token)
+  logIn: function(email, password) {
+    const data = {
+      account: {
+        email: email,
+        password: password
+      }
+    }
+    return Request.post('/api/v1/sessions', data, false).then(function(json) {
+      localStorage.setItem('token', json.data.token)
     })
   },
 
-  logout: function() {
-    return fetch(`/api/v1/sessions/${this.token()}`, {
-      method: 'delete',
-      credentials: 'include',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Token token="${Auth.token()}"`
-      }
-    }).then(function(response) {
+  logOut: function() {
+    const endpoint = `/api/v1/sessions/${this.token()}`
+    return Request.delete(endpoint).then(function() {
       localStorage.removeItem('token')
     })
   },

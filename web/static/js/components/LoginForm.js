@@ -13,7 +13,7 @@ class LoginForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
     const { email, password } = this.refs
-    Auth.login(email.value, password.value)
+    Auth.logIn(email.value, password.value)
       .then(function() {
         browserHistory.push('/habits')
       }).catch(function(error) {
