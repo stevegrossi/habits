@@ -18,7 +18,9 @@ class App extends React.Component {
   }
 
   logOut() {
-    Auth.logout() && browserHistory.push('/')
+    Auth.logout().then(function() {
+      browserHistory.push('/')
+    })
   }
 
   render() {

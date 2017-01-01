@@ -26,4 +26,23 @@ defmodule Habits.API.V1.SessionController do
         |> render("error.json", account_params)
     end
   end
+
+  def delete(conn, %{"token" => token}) do
+    current_account = conn.assigns.current_account
+    session =
+      current_account
+      |> assoc(:sessions)
+      |> Repo.get_by(token: token)
+
+    if is_nil(session) do
+      conn
+      |> send_resp(:not_found, "")
+      |> halt
+    else
+      {:ok, _} = Repo.delete(session)
+      conn
+      |> send_resp(:no_content, "")
+      |> halt
+    end
+  end
 end

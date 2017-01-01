@@ -10,6 +10,7 @@ defmodule Habits.Account do
     field :encrypted_password, :string
     field :password, :string, virtual: true
     has_many :habits, Habits.Habit
+    has_many :sessions, Habits.Session
 
     timestamps
   end

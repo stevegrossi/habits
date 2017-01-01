@@ -42,6 +42,8 @@ defmodule Habits.TokenAuthentication do
   end
 
   defp auth_error!(conn) do
-    conn |> put_status(:unauthorized) |> halt()
+    conn
+    |> send_resp(:unauthorized, "")
+    |> halt()
   end
 end

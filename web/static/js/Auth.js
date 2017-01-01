@@ -24,9 +24,17 @@ const Auth = {
   },
 
   logout: function() {
-    // destroy token on server
-    localStorage.removeItem('token')
-    return true
+    return fetch(`/api/v1/sessions/${this.token()}`, {
+      method: 'delete',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Token token="${Auth.token()}"`
+      }
+    }).then(function(response) {
+      localStorage.removeItem('token')
+    })
   },
 
   token: function() {
