@@ -3,8 +3,8 @@ defmodule Habits.SessionTest do
 
   alias Habits.Session
 
-  @valid_attrs %{account_id: "12345", token: "1234"}
-  @invalid_attrs %{token: "1234"}
+  @valid_attrs %{account_id: "12345"}
+  @invalid_attrs %{}
 
   test "changeset with valid attributes" do
     changeset = Session.changeset(%Session{}, @valid_attrs)
@@ -16,14 +16,8 @@ defmodule Habits.SessionTest do
     refute changeset.valid?
   end
 
-  test "create_changeset with valid attributes" do
-    changeset = Session.create_changeset(%Session{}, @valid_attrs)
+  test "generates a token" do
+    changeset = Session.changeset(%Session{}, @valid_attrs)
     assert changeset.changes.token
-    assert changeset.valid?
-  end
-
-  test "create_changeset with invalid attributes" do
-    changeset = Session.create_changeset(%Session{}, @invalid_attrs)
-    refute changeset.valid?
   end
 end

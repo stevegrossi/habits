@@ -17,6 +17,7 @@ defmodule Habits.Router do
     pipe_through :api
 
     scope "/v1", V1, as: :v1 do
+      resources "/sessions", SessionController, only: [:create]
       resources "/habits", HabitController do
         post "/check_in", HabitController, :check_in, as: :check_in
         post "/check_out", HabitController, :check_out, as: :check_out
