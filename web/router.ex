@@ -34,7 +34,7 @@ defmodule Habits.Router do
   end
 
   scope "/", Habits do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser
 
     get "/*path", PageController, :index
   end
