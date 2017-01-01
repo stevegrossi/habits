@@ -40,8 +40,8 @@ class HabitList extends React.Component {
   dateToEndpoint(date) {
     const dateString = [
       date.getFullYear(),
-      date.getMonth() + 1,
-      date.getDate()
+      ('0' + (date.getMonth() + 1)).slice(-2),
+      ('0' + (date.getDate())).slice(-2)
     ].join("-")
     return "/api/v1/habits?date=" + dateString
   }

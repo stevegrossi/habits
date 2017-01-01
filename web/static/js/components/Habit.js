@@ -18,8 +18,8 @@ class Habit extends React.Component {
     const date = this.props.date;
     return [
       date.getFullYear(),
-      date.getMonth() + 1,
-      date.getDate()
+      ('0' + (date.getMonth() + 1)).slice(-2),
+      ('0' + (date.getDate())).slice(-2)
     ].join("-")
   }
 
