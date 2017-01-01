@@ -16,15 +16,29 @@ defmodule Habits.Account do
 
   @doc """
   Builds a changeset based on the `account` struct and `params`.
-
-  TODO: I should not be `cast`-ing :encrypted_password
   """
   def changeset(account, params \\ %{}) do
     account
-    |> cast(params, [:email, :encrypted_password])
-    |> validate_required(:email)
+    |> cast(params, [:email, :password])
+    |> validate_required([:email, :password])
     |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 5)
+    |> encrypt_password_if_possible
+    |> validate_required(:encrypted_password)
     |> unique_constraint(:email)
+  end
+
+  defp encrypt_password_if_possible(
+    %Ecto.Changeset{changes: %{password: password}} = changeset) do
+
+    changeset
+    |> put_change(:encrypted_password, hashed_password(password))
+  end
+  defp encrypt_password_if_possible(%Ecto.Changeset{} = changeset) do
+    changeset
+  end
+
+  defp hashed_password(password) do
+    Comeonin.Bcrypt.hashpwsalt(password)
   end
 end
