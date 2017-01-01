@@ -5,6 +5,8 @@ defmodule Habits.API.V1.HabitController do
   alias Habits.CheckIn
   alias Habits.Habit
 
+  plug Habits.TokenAuthentication
+
   @doc """
   Override action/2 to provide current_account to actions
   """

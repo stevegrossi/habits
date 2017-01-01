@@ -8,6 +8,13 @@ defmodule Habits.Factory do
     }
   end
 
+  def session_factory do
+    %Habits.Session{
+      token: sequence(:name, &"token-#{&1}"),
+      account: build(:account)
+    }
+  end
+
   def habit_factory do
     %Habits.Habit{
       name: sequence(:name, &"Eat #{&1} Fish"),

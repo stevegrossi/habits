@@ -1,6 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import Habit from "./Habit"
+import Auth from "../Auth"
 
 class HabitList extends React.Component {
 
@@ -25,7 +26,8 @@ class HabitList extends React.Component {
       credentials: 'include',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Token token="${Auth.token()}"`
       },
     })
     .then(function(response) {

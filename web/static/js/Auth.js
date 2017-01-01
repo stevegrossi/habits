@@ -17,8 +17,12 @@ const Auth = {
     return true
   },
 
+  token: function() {
+    return localStorage.getItem('token')
+  },
+
   isLoggedIn: function() {
-    return !!localStorage.getItem('token')
+    return !!this.token()
   },
 
   requestLogin: function(email, password, callback) {
