@@ -1,21 +1,30 @@
 defmodule Habits.Session do
-  @moduledoc """
-  Logic for authenticating a user.
-  """
+  use Habits.Web, :model
 
-  alias Habits.Account
-  alias Habits.Repo
+  schema "sessions" do
+    field :token, :string
+    belongs_to :account, Habits.Account
 
-  def login(params, _repo) do
-    account = Repo.get_by(Account, email: String.downcase(params["email"]))
-    case authenticate(account, params["password"]) do
-      true -> {:ok, account}
-      _    -> :error
-    end
+    timestamps
   end
 
-  defp authenticate(nil, _password), do: false
-  defp authenticate(account, given_password) do
-    Comeonin.Bcrypt.checkpw(given_password, account.encrypted_password)
+  @required_fields ~w(account_id token)
+  @optional_fields ~w()
+
+  @doc """
+  Creates a changeset based on the `model` and `params`.
+
+  If no params are provided, an invalid changeset is returned
+  with no validation performed.
+  """
+  def changeset(model, params \\ :empty) do
+    model
+    |> cast(params, @required_fields, @optional_fields)
+  end
+
+  def create_changeset(model, params \\ :empty) do
+    model
+    |> changeset(params)
+    |> put_change(:token, SecureRandom.urlsafe_base64())
   end
 end
