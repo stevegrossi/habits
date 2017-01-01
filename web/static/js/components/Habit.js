@@ -1,5 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
+import Auth from "../Auth"
 
 class Habit extends React.Component {
   constructor(props) {
@@ -38,7 +39,8 @@ class Habit extends React.Component {
       credentials: 'include',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Token token="${Auth.token()}"`
       },
     })
     .then(function(response) {
@@ -61,7 +63,8 @@ class Habit extends React.Component {
       credentials: 'include',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Token token="${Auth.token()}"`
       },
     })
     .then(function(response) {

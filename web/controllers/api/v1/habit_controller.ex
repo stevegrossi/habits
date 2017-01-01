@@ -1,11 +1,7 @@
 defmodule Habits.API.V1.HabitController do
   use Habits.Web, :controller
 
-  # TODO: use the new alias Habits.{Repo, Account} syntax
-  alias Habits.Repo
-  alias Habits.Account
-  alias Habits.CheckIn
-  alias Habits.Habit
+  alias Habits.{Repo, Account, CheckIn, Habit}
 
   @doc """
   Override action/2 to provide current_account to actions
