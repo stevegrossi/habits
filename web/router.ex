@@ -10,7 +10,10 @@ defmodule Habits.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug :fetch_session
+  end
+
+  pipeline :authenticated do
+    plug Habits.TokenAuthentication
   end
 
   scope "/api", Habits.API, as: :api do
@@ -18,9 +21,14 @@ defmodule Habits.Router do
 
     scope "/v1", V1, as: :v1 do
       resources "/sessions", SessionController, only: [:create]
-      resources "/habits", HabitController do
-        post "/check_in", HabitController, :check_in, as: :check_in
-        post "/check_out", HabitController, :check_out, as: :check_out
+
+      scope "/" do
+        pipe_through :authenticated
+
+        resources "/habits", HabitController do
+          post "/check_in", HabitController, :check_in, as: :check_in
+          post "/check_out", HabitController, :check_out, as: :check_out
+        end
       end
     end
   end
