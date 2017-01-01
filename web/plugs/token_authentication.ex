@@ -5,6 +5,9 @@ defmodule Habits.TokenAuthentication do
 
   def init(options), do: options
 
+  def call(%Plug.Conn{assigns: %{current_account: %Account{}}} = conn, _opts) do
+    conn # Allow manually setting current_account in tests
+  end
   def call(conn, _opts) do
     case find_account(conn) do
       {:ok, account} -> assign(conn, :current_account, account)

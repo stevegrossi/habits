@@ -13,18 +13,19 @@ class LoginForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
     const { email, password } = this.refs
-    if (Auth.login(email.value, password.value)) {
-      browserHistory.push('/habits')
-    } else {
-      this.setState({ error: true })
-    }
+    Auth.login(email.value, password.value)
+      .then(function() {
+        browserHistory.push('/habits')
+      }).catch(function(error) {
+        this.setState({ error: true })
+      })
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
         {this.state.error &&
-          <p>There was a problem!</p>
+          <p>There was a problem.</p>
         }
         <label htmlFor="login-email">Email</label>
         <input ref="email" type="email" id="login-email" className="TextInput" />

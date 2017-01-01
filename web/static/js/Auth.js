@@ -1,32 +1,7 @@
 const Auth = {
 
   login: function(email, password) {
-    this.requestLogin(email, password, (token) => {
-      if (token) {
-        localStorage.setItem('token', token)
-        return true
-      } else {
-        return false
-      }
-    })
-  },
-
-  logout: function() {
-    // destroy token on server
-    localStorage.removeItem('token')
-    return true
-  },
-
-  token: function() {
-    return localStorage.getItem('token')
-  },
-
-  isLoggedIn: function() {
-    return !!this.token()
-  },
-
-  requestLogin: function(email, password, callback) {
-    fetch('/api/v1/sessions', {
+    return fetch('/api/v1/sessions', {
       method: 'post',
       credentials: 'include',
       headers: {
@@ -43,10 +18,23 @@ const Auth = {
     .then(function(response) {
       return response.json()
     }).then(function(json) {
-      callback(json.data.token)
-    }).catch(function(error) {
-      console.error('Error fetching JSON:', error)
+      const token = json.data.token
+      localStorage.setItem('token', token)
     })
+  },
+
+  logout: function() {
+    // destroy token on server
+    localStorage.removeItem('token')
+    return true
+  },
+
+  token: function() {
+    return localStorage.getItem('token')
+  },
+
+  isLoggedIn: function() {
+    return !!this.token()
   }
 }
 
