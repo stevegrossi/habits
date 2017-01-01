@@ -17,12 +17,25 @@ defmodule Habits.API.V1.HabitView do
     |> habit_data_for_date(date)
     |> Poison.encode!
   end
+  def render("show.json", %{habit: habit}) do
+    habit
+    |> habit_data_for_date(nil)
+    |> Poison.encode!
+  end
 
   def render("error.json", %{error: message}) do
     %{error: message}
     |> Poison.encode!
   end
 
+  defp habit_data_for_date(habit, nil) do
+    %{
+      id: habit.id,
+      name: habit.name,
+      checkInId: nil,
+      streak: 0
+    }
+  end
   defp habit_data_for_date(habit, date) do
     %{
       id: habit.id,

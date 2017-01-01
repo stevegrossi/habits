@@ -26,6 +26,19 @@ defmodule Habits.API.V1.HabitController do
   end
 
   @doc """
+  Create a new habit in the account, given a name
+  """
+  def create(conn, %{"habit" => habit_params}, current_account) do
+    habit =
+      Habit.changeset(%Habit{account_id: current_account.id}, habit_params)
+      |> Repo.insert!
+
+    conn
+    |> put_status(:created)
+    |> render("show.json", habit: habit)
+  end
+
+  @doc """
   Create a CheckIn for the given date and habit, unless one exists.
   """
   def check_in(conn, %{"habit_id" => habit_id, "date" => date_string}, current_account) do

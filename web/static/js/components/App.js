@@ -8,6 +8,7 @@ import MyAccount from './MyAccount'
 import RegistrationForm from './RegistrationForm'
 import LoginForm from './LoginForm'
 import AllHabits from './AllHabits'
+import NewHabitForm from './NewHabitForm'
 
 class App extends React.Component {
 
@@ -33,6 +34,7 @@ class App extends React.Component {
           <Route path="/logout" onEnter={this.logOut} />
           <Route path="/me" component={MyAccount} onEnter={this.requireAuth} />
           <Route path="/habits" component={AllHabits} onEnter={this.requireAuth} />
+          <Route path="/habits/new" component={NewHabitForm} onEnter={this.requireAuth} />
         </Route>
       </Router>
     )

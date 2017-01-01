@@ -1,5 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
+import { Link } from "react-router"
 import DateNav from "./DateNav"
 import HabitList from "./HabitList"
 import 'whatwg-fetch'
@@ -29,6 +30,7 @@ class AllHabits extends React.Component {
                goToNext={this.goToNext.bind(this)}
                date={this.state.date} />
       <HabitList date={this.state.date} />
+      <Link to="/habits/new" className="Button">Add a Habit</Link>
     </div>
     )
   }

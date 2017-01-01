@@ -1,7 +1,7 @@
 defmodule Habits.API.V1.HabitControllerTest do
   use Habits.ConnCase
 
-  alias Habits.CheckIn
+  alias Habits.{CheckIn, Habit}
 
   describe ".index" do
 
@@ -26,6 +26,29 @@ defmodule Habits.API.V1.HabitControllerTest do
             "streak" => 2
           }
         ]
+      )
+    end
+  end
+
+  describe ".create" do
+
+    test "creates a habit in the current account", %{conn: conn} do
+      account = Factory.insert(:account)
+      new_habit_params = %{"habit" => %{"name" => "Make a friend"}}
+
+      conn =
+        conn
+        |> assign(:current_account, account)
+        |> post(api_v1_habit_path(conn, :create), new_habit_params)
+
+      assert habit = Repo.get_by(Habit, name: "Make a friend")
+      assert json_response(conn, :created) == Poison.encode!(
+        %{
+          "id" => habit.id,
+          "name" => habit.name,
+          "checkInId" => nil,
+          "streak" => 0
+        }
       )
     end
   end
