@@ -20,12 +20,12 @@ defmodule Habits.API.V1.SessionControllerTest do
 
     test "does not create session and renders errors when password is invalid", %{conn: conn} do
       conn = post conn, api_v1_session_path(conn, :create), account: Map.put(@valid_attrs, :password, "notright")
-      assert json_response(conn, 401)["errors"] != %{}
+      assert json_response(conn, :unauthorized)["errors"] != %{}
     end
 
     test "does not create session and renders errors when email is invalid", %{conn: conn} do
       conn = post conn, api_v1_session_path(conn, :create), account: Map.put(@valid_attrs, :email, "not@found.com")
-      assert json_response(conn, 401)["errors"] != %{}
+      assert json_response(conn, :unauthorized)["errors"] != %{}
     end
   end
 
@@ -39,7 +39,7 @@ defmodule Habits.API.V1.SessionControllerTest do
         |> assign(:current_account, account)
         |> delete(api_v1_session_path(conn, :delete, session.token))
 
-      assert json_response(conn, 200) == %{
+      assert json_response(conn, :ok) == %{
         "success" => true
       }
       refute Repo.get(Session, session.id)

@@ -4,7 +4,6 @@ defmodule Habits.Account do
   """
 
   use Habits.Web, :model
-  alias Habits.Repo
 
   schema "accounts" do
     field :email, :string

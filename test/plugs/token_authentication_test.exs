@@ -1,7 +1,7 @@
 defmodule Habits.TokenAuthenticationTest do
   use Habits.ConnCase
 
-  alias Habits.{TokenAuthentication, Factory}
+  alias Habits.{TokenAuthentication}
 
   @opts TokenAuthentication.init([])
 

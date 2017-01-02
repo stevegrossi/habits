@@ -15,7 +15,7 @@ defmodule Habits.API.V1.AccountControllerTest do
         |> assign(:current_account, account)
         |> get(api_v1_account_path(conn, :show))
 
-      assert json_response(conn, 200) == %{
+      assert json_response(conn, :ok) == %{
         "email" => account.email,
         "totalCheckIns" => 1
       }

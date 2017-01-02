@@ -52,7 +52,7 @@ defmodule Habits.API.V1.HabitController do
     else
       {:error, message} ->
         conn
-        |> put_status(404)
+        |> put_status(:not_found)
         |> render("error.json", error: message)
     end
   end
@@ -71,7 +71,7 @@ defmodule Habits.API.V1.HabitController do
     else
       {:error, message} ->
         conn
-        |> put_status(404)
+        |> put_status(:not_found)
         |> render("error.json", error: message)
     end
   end

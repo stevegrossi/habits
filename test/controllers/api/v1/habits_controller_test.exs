@@ -16,7 +16,7 @@ defmodule Habits.API.V1.HabitControllerTest do
         |> assign(:current_account, account)
         |> get(api_v1_habit_path(conn, :index), date: Date.to_string(today_date))
 
-      assert json_response(conn, 200) == [
+      assert json_response(conn, :ok) == [
         %{
           "id" => habit.id,
           "name" => habit.name,
@@ -61,7 +61,7 @@ defmodule Habits.API.V1.HabitControllerTest do
 
       new_check_in = Repo.get_by(CheckIn, %{habit_id: habit.id, date: today_tuple})
 
-      assert json_response(conn, 200) == %{
+      assert json_response(conn, :ok) == %{
         "id" => habit.id,
         "name" => habit.name,
         "checkInId" => new_check_in.id,
@@ -91,7 +91,7 @@ defmodule Habits.API.V1.HabitControllerTest do
         |> assign(:current_account, account)
         |> post(api_v1_habit_check_in_path(conn, :check_in, other_accounts_habit.id, date: today_string))
 
-      assert json_response(conn, 404)["error"] == "Habit not found"
+      assert json_response(conn, :not_found)["error"] == "Habit not found"
       refute Repo.get_by(CheckIn, %{habit_id: other_accounts_habit.id, date: today_tuple})
     end
   end
@@ -110,7 +110,7 @@ defmodule Habits.API.V1.HabitControllerTest do
 
       refute Repo.get(CheckIn, check_in.id)
 
-      assert json_response(conn, 200) == %{
+      assert json_response(conn, :ok) == %{
         "id" => habit.id,
         "name" => habit.name,
         "checkInId" => nil,
@@ -129,7 +129,7 @@ defmodule Habits.API.V1.HabitControllerTest do
         |> assign(:current_account, account)
         |> post(api_v1_habit_check_out_path(conn, :check_out, other_accounts_habit.id, date: today_string))
 
-      assert json_response(conn, 404)["error"] == "Habit not found"
+      assert json_response(conn, :not_found)["error"] == "Habit not found"
       assert Repo.get(CheckIn, other_accounts_check_in.id)
     end
   end

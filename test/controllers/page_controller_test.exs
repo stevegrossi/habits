@@ -1,7 +1,7 @@
 defmodule Habits.PageControllerTest do
   use Habits.ConnCase
 
-  test "GET / shows loading message", %{conn: conn} do
+  test "shows loading message", %{conn: conn} do
     conn = get conn, "/"
     assert html_response(conn, 200) =~ "Loading..."
   end
