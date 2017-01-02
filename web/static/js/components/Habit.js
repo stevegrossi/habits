@@ -37,8 +37,7 @@ class Habit extends React.Component {
     const self = this
     const endpoint = `/api/v1/habits/${this.props.id}/check_in?date=${this.dateString()}`
     Request.post(endpoint).then(function(json) {
-      const { streak } = JSON.parse(json)
-      self.setState({ isCheckedIn: true, streak: streak })
+      self.setState({ isCheckedIn: true, streak: json.streak })
     })
   }
 
@@ -46,8 +45,7 @@ class Habit extends React.Component {
     const self = this
     const endpoint = `/api/v1/habits/${this.props.id}/check_out?date=${this.dateString()}`
     Request.post(endpoint).then(function(json) {
-      const { streak } = JSON.parse(json)
-      self.setState({ isCheckedIn: false, streak: streak })
+      self.setState({ isCheckedIn: false, streak: json.streak })
     })
   }
 

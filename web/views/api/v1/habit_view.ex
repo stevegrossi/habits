@@ -8,23 +8,19 @@ defmodule Habits.API.V1.HabitView do
   def render("index.json", %{habits: habits, date: date}) do
     habits
     |> Enum.map(&habit_data_for_date(&1, date))
-    |> Poison.encode!
   end
 
   def render("show.json", %{habit: habit, date: date}) do
     habit
     |> habit_data_for_date(date)
-    |> Poison.encode!
   end
   def render("show.json", %{habit: habit}) do
     habit
     |> habit_data_for_date(nil)
-    |> Poison.encode!
   end
 
   def render("error.json", %{error: message}) do
     %{error: message}
-    |> Poison.encode!
   end
 
   defp habit_data_for_date(habit, nil) do

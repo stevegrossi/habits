@@ -15,11 +15,10 @@ class MyAccount extends React.Component {
 
   componentWillMount() {
     const self = this
-    Request.get('/api/v1/account').then(function(response) {
-      const { email, totalCheckIns } = JSON.parse(response)
+    Request.get('/api/v1/account').then(function(json) {
       self.setState({
-        email: email,
-        totalCheckIns: totalCheckIns
+        email: json.email,
+        totalCheckIns: json.totalCheckIns
       })
     })
   }

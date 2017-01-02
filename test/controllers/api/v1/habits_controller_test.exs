@@ -17,16 +17,14 @@ defmodule Habits.API.V1.HabitControllerTest do
         |> assign(:current_account, account)
         |> get(api_v1_habit_path(conn, :index), date: Date.to_string(today_date))
 
-      assert json_response(conn, 200) == Poison.encode!(
-        [
-          %{
-            "id" => habit.id,
-            "name" => habit.name,
-            "checkInId" => today_check_in.id,
-            "streak" => 2
-          }
-        ]
-      )
+      assert json_response(conn, 200) == [
+        %{
+          "id" => habit.id,
+          "name" => habit.name,
+          "checkInId" => today_check_in.id,
+          "streak" => 2
+        }
+      ]
     end
   end
 
@@ -43,14 +41,12 @@ defmodule Habits.API.V1.HabitControllerTest do
 
       habit = Repo.get_by(Habit, name: "Make a friend")
       assert habit
-      assert json_response(conn, :created) == Poison.encode!(
-        %{
-          "id" => habit.id,
-          "name" => habit.name,
-          "checkInId" => nil,
-          "streak" => 0
-        }
-      )
+      assert json_response(conn, :created) == %{
+        "id" => habit.id,
+        "name" => habit.name,
+        "checkInId" => nil,
+        "streak" => 0
+      }
     end
   end
 
@@ -66,14 +62,12 @@ defmodule Habits.API.V1.HabitControllerTest do
 
       new_check_in = Repo.get_by(CheckIn, %{habit_id: habit.id, date: today_tuple})
 
-      assert json_response(conn, 200) == Poison.encode!(
-        %{
-          "id" => habit.id,
-          "name" => habit.name,
-          "checkInId" => new_check_in.id,
-          "streak" => 1
-        }
-      )
+      assert json_response(conn, 200) == %{
+        "id" => habit.id,
+        "name" => habit.name,
+        "checkInId" => new_check_in.id,
+        "streak" => 1
+      }
     end
 
     test "does not create a check-in when one exists", %{conn: conn} do
@@ -98,9 +92,7 @@ defmodule Habits.API.V1.HabitControllerTest do
         |> assign(:current_account, account)
         |> post(api_v1_habit_check_in_path(conn, :check_in, other_accounts_habit.id, date: today_string))
 
-      assert json_response(conn, 404) == Poison.encode!(
-        %{error: "Habit not found"}
-      )
+      assert json_response(conn, 404)["error"] == "Habit not found"
       refute Repo.get_by(CheckIn, %{habit_id: other_accounts_habit.id, date: today_tuple})
     end
   end
@@ -119,14 +111,12 @@ defmodule Habits.API.V1.HabitControllerTest do
 
       refute Repo.get(CheckIn, check_in.id)
 
-      assert json_response(conn, 200) == Poison.encode!(
-        %{
-          "id" => habit.id,
-          "name" => habit.name,
-          "checkInId" => nil,
-          "streak" => 0
-        }
-      )
+      assert json_response(conn, 200) == %{
+        "id" => habit.id,
+        "name" => habit.name,
+        "checkInId" => nil,
+        "streak" => 0
+      }
     end
 
     test "does not delete another account's check-in", %{conn: conn} do
@@ -140,9 +130,7 @@ defmodule Habits.API.V1.HabitControllerTest do
         |> assign(:current_account, account)
         |> post(api_v1_habit_check_out_path(conn, :check_out, other_accounts_habit.id, date: today_string))
 
-      assert json_response(conn, 404) == Poison.encode!(
-        %{error: "Habit not found"}
-      )
+      assert json_response(conn, 404)["error"] == "Habit not found"
       assert Repo.get(CheckIn, other_accounts_check_in.id)
     end
   end

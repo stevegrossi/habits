@@ -23,7 +23,7 @@ class HabitList extends React.Component {
   fetchData(endpoint) {
     const self = this;
     Request.get(endpoint).then(function(json) {
-      self.setState({ data: JSON.parse(json) })
+      self.setState({ data: json })
     })
   }
 

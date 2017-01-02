@@ -1,23 +1,17 @@
 defmodule Habits.API.V1.AccountView do
   use Habits.Web, :view
 
-  alias Habits.{Repo, Account}
+  alias Habits.{Repo}
 
   def render("show.json", %{account: account}) do
-    account
-    |> account_data
-    |> Poison.encode!
-  end
-
-  def render("error.json", %{message: message}) do
-    %{error: message}
-  end
-
-  defp account_data(account) do
     %{
       email: account.email,
       totalCheckIns: total_check_ins(account)
     }
+  end
+
+  def render("error.json", %{message: message}) do
+    %{error: message}
   end
 
   defp total_check_ins(account) do

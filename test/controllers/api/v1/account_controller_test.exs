@@ -15,10 +15,10 @@ defmodule Habits.API.V1.AccountControllerTest do
         |> assign(:current_account, account)
         |> get(api_v1_account_path(conn, :show))
 
-      assert json_response(conn, 200) == Poison.encode!(
+      assert json_response(conn, 200) == (
         %{
-          email: account.email,
-          totalCheckIns: 1
+          "email" => account.email,
+          "totalCheckIns" => 1
         }
       )
     end
@@ -29,8 +29,8 @@ defmodule Habits.API.V1.AccountControllerTest do
     test "creates a new account and signs in", %{conn: conn} do
       data = %{
         "account" => %{
-          email: "new@habits.ai",
-          password: "p4ssw0rd"
+          "email" => "new@habits.ai",
+          "password" => "p4ssw0rd"
         }
       }
       conn = post(conn, api_v1_account_path(conn, :create), data)
@@ -47,8 +47,8 @@ defmodule Habits.API.V1.AccountControllerTest do
       Factory.insert(:account)
       data = %{
         "account" => %{
-          email: "new@habits.ai",
-          password: "p4ssw0rd"
+          "email" => "new@habits.ai",
+          "password" => "p4ssw0rd"
         }
       }
       conn = post(conn, api_v1_account_path(conn, :create), data)
