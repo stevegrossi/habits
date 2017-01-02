@@ -7,7 +7,10 @@ class HabitList extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = { data: [] }
+    this.state = {
+      loading: true,
+      data: []
+    }
   }
 
   componentWillMount() {
@@ -23,7 +26,10 @@ class HabitList extends React.Component {
   fetchData(endpoint) {
     const self = this;
     Request.get(endpoint).then(function(json) {
-      self.setState({ data: json })
+      self.setState({
+        data: json,
+        loading: false
+      })
     })
   }
 
@@ -39,7 +45,10 @@ class HabitList extends React.Component {
   render() {
     return (
       <ol className="HabitList">
-        {this.state.data.map((habit) =>
+        {this.state.loading &&
+          <li>Loading...</li>
+        }
+        {!this.state.loading && this.state.data.map((habit) =>
           <Habit name={habit.name}
                  checkInId={habit.checkInId}
                  streak={habit.streak}
