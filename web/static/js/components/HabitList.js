@@ -1,7 +1,7 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import Habit from "./Habit"
-import Request from "../Request"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Habit from './Habit'
+import Request from '../Request'
 
 class HabitList extends React.Component {
 
@@ -32,8 +32,8 @@ class HabitList extends React.Component {
       date.getFullYear(),
       ('0' + (date.getMonth() + 1)).slice(-2),
       ('0' + (date.getDate())).slice(-2)
-    ].join("-")
-    return "/api/v1/habits?date=" + dateString
+    ].join('-')
+    return `/api/v1/habits?date=${dateString}`
   }
 
   render() {

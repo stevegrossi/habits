@@ -8,11 +8,11 @@ class Layout extends React.Component {
   render() {
     return (
       <div>
-        <header className='AppHeader'>
-          <h1 className='AppHeader-logo'>
-            <Link to='/'>Habits</Link>
+        <header className="AppHeader">
+          <h1 className="AppHeader-logo">
+            <Link to="/">Habits</Link>
           </h1>
-          <nav className='AppHeader-nav'>
+          <nav className="AppHeader-nav">
             {Auth.isLoggedIn() &&
               <ul>
                 <li><Link to="/habits">Habits</Link></li>
@@ -28,13 +28,13 @@ class Layout extends React.Component {
           </nav>
         </header>
 
-        <main className='AppMain'>
-          <div className='AppMain-content'>
+        <main className="AppMain">
+          <div className="AppMain-content">
             {this.props.children}
           </div>
         </main>
 
-        <footer className='AppFooter'>
+        <footer className="AppFooter">
           <p>Make it a great day.</p>
         </footer>
       </div>

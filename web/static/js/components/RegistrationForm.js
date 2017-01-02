@@ -1,8 +1,8 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import { browserHistory } from "react-router"
-import Request from "../Request"
-import Auth from "../Auth"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { browserHistory } from 'react-router'
+import Request from '../Request'
+import Auth from '../Auth'
 
 class RegistrationForm extends React.Component {
 

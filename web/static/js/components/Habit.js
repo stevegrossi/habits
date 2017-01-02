@@ -1,7 +1,7 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import Auth from "../Auth"
-import Request from "../Request"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Auth from '../Auth'
+import Request from '../Request'
 
 class Habit extends React.Component {
   constructor(props) {
@@ -50,11 +50,11 @@ class Habit extends React.Component {
   }
 
   checkInButtonClassName() {
-    let classNames = ["CheckInButton"]
+    let classNames = ['CheckInButton']
     if (this.state.isCheckedIn) {
-      classNames.push("CheckInButton--checkedIn")
+      classNames.push('CheckInButton--checkedIn')
     }
-    return classNames.join(" ")
+    return classNames.join(' ')
   }
 
   render() {

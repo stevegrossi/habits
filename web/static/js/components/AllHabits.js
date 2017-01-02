@@ -1,8 +1,8 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import { Link } from "react-router"
-import DateNav from "./DateNav"
-import HabitList from "./HabitList"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Link } from 'react-router'
+import DateNav from './DateNav'
+import HabitList from './HabitList'
 import 'whatwg-fetch'
 
 class AllHabits extends React.Component {

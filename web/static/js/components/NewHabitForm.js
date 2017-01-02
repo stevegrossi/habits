@@ -1,5 +1,5 @@
-import React from "react"
-import ReactDOM from "react-dom"
+import React from 'react'
+import ReactDOM from 'react-dom'
 import { browserHistory } from 'react-router'
 import Request from '../Request'
 
@@ -18,7 +18,7 @@ class NewHabitForm extends React.Component {
         name: habitName.value
       }
     }
-    Request.post(`/api/v1/habits`, data).then(function() {
+    Request.post('/api/v1/habits', data).then(function() {
       browserHistory.push('/habits')
     })
   }

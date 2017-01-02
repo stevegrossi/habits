@@ -1,7 +1,7 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import Gravatar from "./Gravatar"
-import Request from "../Request"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Gravatar from './Gravatar'
+import Request from '../Request'
 
 class MyAccount extends React.Component {
 
