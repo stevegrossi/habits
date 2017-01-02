@@ -5,6 +5,11 @@ import Request from '../Request'
 
 class NewHabitForm extends React.Component {
 
+  handleCancel(event) {
+    event.preventDefault()
+    browserHistory.goBack()
+  }
+
   handleSubmit(event) {
     event.preventDefault()
     const { habitName } = this.refs
@@ -24,6 +29,9 @@ class NewHabitForm extends React.Component {
       <label htmlFor="habit_name">Name</label>
       <input id="habit_name" name="habit[name]" ref="habitName" className="TextInput" autoFocus required />
       <input type="submit" value="Add Habit" className="Button" />
+      <p className="center">
+        or <a href="#" onClick={this.handleCancel}>Cancel</a>
+      </p>
     </form>
     )
   }
