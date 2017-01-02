@@ -1,4 +1,9 @@
 defmodule Habits.Session do
+  @moduledoc """
+  Data logic for the user’s various sessions
+  (e.g. desktop, mobile) when using the app.
+  """
+
   use Habits.Web, :model
 
   schema "sessions" do

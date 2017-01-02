@@ -1,4 +1,10 @@
 defmodule Habits.TokenAuthentication do
+  @moduledoc """
+  Authenticates an Account based on a token in the request header.
+
+  Spec: https://tools.ietf.org/html/draft-hammer-http-token-auth-01
+  """
+
   import Plug.Conn
   alias Habits.{Repo, Account, Session}
   import Ecto.Query, only: [from: 2]

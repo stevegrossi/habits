@@ -30,7 +30,8 @@ defmodule Habits.API.V1.HabitController do
   """
   def create(conn, %{"habit" => habit_params}, current_account) do
     habit =
-      Habit.changeset(%Habit{account_id: current_account.id}, habit_params)
+      %Habit{account_id: current_account.id}
+      |> Habit.changeset(habit_params)
       |> Repo.insert!
 
     conn

@@ -11,7 +11,6 @@ defmodule Habits.API.V1.HabitControllerTest do
       today_check_in = Factory.insert(:check_in, habit: habit, date: today_date)
       Factory.insert(:check_in, habit: habit, date: yesterday_date)
 
-      # Should we actually use the TokenAuthentication plug here?
       conn =
         conn
         |> assign(:current_account, account)
