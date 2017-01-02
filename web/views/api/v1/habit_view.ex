@@ -1,8 +1,7 @@
 defmodule Habits.API.V1.HabitView do
   use Habits.Web, :view
 
-  alias Habits.Habit
-  alias Habits.Repo
+  alias Habits.{Repo, Habit}
 
   import Ecto.Query, only: [from: 2]
 

@@ -25,6 +25,7 @@ defmodule Habits.Router do
       scope "/" do
         pipe_through :authenticated
 
+        get "/account", AccountController, :show, as: :account
         delete "/sessions/:token", SessionController, :delete, as: :session
         resources "/habits", HabitController do
           post "/check_in", HabitController, :check_in, as: :check_in

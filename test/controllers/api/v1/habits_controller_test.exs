@@ -41,7 +41,8 @@ defmodule Habits.API.V1.HabitControllerTest do
         |> assign(:current_account, account)
         |> post(api_v1_habit_path(conn, :create), new_habit_params)
 
-      assert habit = Repo.get_by(Habit, name: "Make a friend")
+      habit = Repo.get_by(Habit, name: "Make a friend")
+      assert habit
       assert json_response(conn, :created) == Poison.encode!(
         %{
           "id" => habit.id,
