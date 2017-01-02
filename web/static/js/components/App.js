@@ -1,35 +1,42 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import DateNav from "./DateNav"
-import HabitList from "./HabitList"
-import 'whatwg-fetch'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import Auth from '../Auth'
+import Layout from './Layout'
+import HomePage from './HomePage'
+import MyAccount from './MyAccount'
+import RegistrationForm from './RegistrationForm'
+import LoginForm from './LoginForm'
+import AllHabits from './AllHabits'
+import NewHabitForm from './NewHabitForm'
 
 class App extends React.Component {
-  constructor(args) {
-    super(args)
-    this.state = { date: new Date() }
+
+  requireAuth(nextState, replace) {
+    if (!Auth.isLoggedIn()) {
+      replace({ pathname: '/login' })
+    }
   }
 
-  goToPrev() {
-    const date = new Date(this.state.date)
-    const previousDay = new Date(date.setDate(date.getDate() - 1));
-    this.setState({ date: previousDay })
-  }
-
-  goToNext() {
-    const date = new Date(this.state.date)
-    const nextDay = new Date(date.setDate(date.getDate() + 1));
-    this.setState({ date: nextDay })
+  logOut() {
+    Auth.logOut().then(function() {
+      browserHistory.push('/')
+    })
   }
 
   render() {
     return (
-    <div>
-      <DateNav goToPrev={this.goToPrev.bind(this)}
-               goToNext={this.goToNext.bind(this)}
-               date={this.state.date} />
-      <HabitList date={this.state.date} />
-    </div>
+      <Router history={browserHistory}>
+        <Route path="/" component={Layout}>
+          <IndexRoute component={HomePage}/>
+          <Route path="/register" component={RegistrationForm} />
+          <Route path="/login" component={LoginForm} />
+          <Route path="/logout" onEnter={this.logOut} />
+          <Route path="/me" component={MyAccount} onEnter={this.requireAuth} />
+          <Route path="/habits" component={AllHabits} onEnter={this.requireAuth} />
+          <Route path="/habits/new" component={NewHabitForm} onEnter={this.requireAuth} />
+        </Route>
+      </Router>
     )
   }
 }

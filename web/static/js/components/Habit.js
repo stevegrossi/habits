@@ -1,5 +1,7 @@
-import React from "react"
-import ReactDOM from "react-dom"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Auth from '../Auth'
+import Request from '../Request'
 
 class Habit extends React.Component {
   constructor(props) {
@@ -32,57 +34,27 @@ class Habit extends React.Component {
   }
 
   checkIn() {
-    const self = this;
-    const data = fetch(`/api/v1/habits/${this.props.id}/check_in?date=${this.dateString()}`, {
-      method: 'post',
-      credentials: 'include',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-    })
-    .then(function(response) {
-      return response.json()
-    }).then(function(json) {
-      const streak = JSON.parse(json).streak
-      self.setState({
-        isCheckedIn: true,
-        streak: streak
-      })
-    }).catch(function(error) {
-      console.error('Error fetching JSON:', error)
+    const self = this
+    const endpoint = `/api/v1/habits/${this.props.id}/check_in?date=${this.dateString()}`
+    Request.post(endpoint).then(function(json) {
+      self.setState({ isCheckedIn: true, streak: json.streak })
     })
   }
 
   checkOut() {
-    const self = this;
-    const data = fetch(`/api/v1/habits/${this.props.id}/check_out?date=${this.dateString()}`, {
-      method: 'post',
-      credentials: 'include',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-    })
-    .then(function(response) {
-      return response.json()
-    }).then(function(json) {
-      const streak = JSON.parse(json).streak
-      self.setState({
-        isCheckedIn: false,
-        streak: streak
-      })
-    }).catch(function(error) {
-      console.error('Error fetching JSON:', error)
+    const self = this
+    const endpoint = `/api/v1/habits/${this.props.id}/check_out?date=${this.dateString()}`
+    Request.post(endpoint).then(function(json) {
+      self.setState({ isCheckedIn: false, streak: json.streak })
     })
   }
 
   checkInButtonClassName() {
-    let classNames = ["CheckInButton"]
+    let classNames = ['CheckInButton']
     if (this.state.isCheckedIn) {
-      classNames.push("CheckInButton--checkedIn")
+      classNames.push('CheckInButton--checkedIn')
     }
-    return classNames.join(" ")
+    return classNames.join(' ')
   }
 
   render() {

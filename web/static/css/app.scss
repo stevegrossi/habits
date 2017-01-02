@@ -654,3 +654,27 @@ a {
     display: none;
   }
 }
+
+.center {
+  text-align: center;
+}
+
+.Avatar {
+  width: 200px;
+  border-radius: 50%;
+}
+
+.Metric {
+
+  &-title {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    font-weight: bold;
+  }
+
+  &-number {
+    display: block;
+    font-size: 4em
+  }
+}

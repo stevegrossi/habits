@@ -1,9 +1,7 @@
 defmodule Habits.API.V1.HabitController do
   use Habits.Web, :controller
 
-  alias Habits.Repo
-  alias Habits.CheckIn
-  alias Habits.Habit
+  alias Habits.{Repo, CheckIn, Habit}
 
   @doc """
   Override action/2 to provide current_account to actions
@@ -28,6 +26,20 @@ defmodule Habits.API.V1.HabitController do
   end
 
   @doc """
+  Create a new habit in the account, given a name
+  """
+  def create(conn, %{"habit" => habit_params}, current_account) do
+    habit =
+      %Habit{account_id: current_account.id}
+      |> Habit.changeset(habit_params)
+      |> Repo.insert!
+
+    conn
+    |> put_status(:created)
+    |> render("show.json", habit: habit)
+  end
+
+  @doc """
   Create a CheckIn for the given date and habit, unless one exists.
   """
   def check_in(conn, %{"habit_id" => habit_id, "date" => date_string}, current_account) do
@@ -40,7 +52,7 @@ defmodule Habits.API.V1.HabitController do
     else
       {:error, message} ->
         conn
-        |> put_status(404)
+        |> put_status(:not_found)
         |> render("error.json", error: message)
     end
   end
@@ -59,7 +71,7 @@ defmodule Habits.API.V1.HabitController do
     else
       {:error, message} ->
         conn
-        |> put_status(404)
+        |> put_status(:not_found)
         |> render("error.json", error: message)
     end
   end

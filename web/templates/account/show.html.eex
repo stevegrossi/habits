@@ -1,3 +1,0 @@
-<h1>Me</h1>
-<p>Logged in as <%= @conn.assigns.current_account.email %></p>
-<%= link "Log Out", to: session_path(@conn, :delete), class: "Button" %>

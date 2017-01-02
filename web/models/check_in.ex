@@ -6,9 +6,7 @@ defmodule Habits.CheckIn do
 
   use Habits.Web, :model
 
-  alias Habits.Repo
-  alias Habits.Habit
-  alias Habits.CheckIn
+  alias Habits.{Repo, Habit, CheckIn}
 
   schema "check_ins" do
     field :date, Timex.Ecto.Date

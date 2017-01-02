@@ -1,12 +1,16 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import Habit from "./Habit"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Habit from './Habit'
+import Request from '../Request'
 
 class HabitList extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = { data: [] }
+    this.state = {
+      loading: true,
+      data: []
+    }
   }
 
   componentWillMount() {
@@ -21,19 +25,11 @@ class HabitList extends React.Component {
 
   fetchData(endpoint) {
     const self = this;
-    const data = fetch(endpoint, {
-      credentials: 'include',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-    })
-    .then(function(response) {
-      return response.json()
-    }).then(function(json) {
-      self.setState({ data: JSON.parse(json) })
-    }).catch(function(error) {
-      console.error('Error fetching JSON:', error)
+    Request.get(endpoint).then(function(json) {
+      self.setState({
+        data: json,
+        loading: false
+      })
     })
   }
 
@@ -42,14 +38,17 @@ class HabitList extends React.Component {
       date.getFullYear(),
       ('0' + (date.getMonth() + 1)).slice(-2),
       ('0' + (date.getDate())).slice(-2)
-    ].join("-")
-    return "/api/v1/habits?date=" + dateString
+    ].join('-')
+    return `/api/v1/habits?date=${dateString}`
   }
 
   render() {
     return (
       <ol className="HabitList">
-        {this.state.data.map((habit) =>
+        {this.state.loading &&
+          <li>Loading...</li>
+        }
+        {!this.state.loading && this.state.data.map((habit) =>
           <Habit name={habit.name}
                  checkInId={habit.checkInId}
                  streak={habit.streak}

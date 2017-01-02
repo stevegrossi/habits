@@ -5,9 +5,9 @@ defmodule Habits.AccountTest do
 
   @valid_attrs %{
     email: "foo@bar.baz",
-    encrypted_password: "P4SSW0RD"
+    password: "p4ssw0rd"
   }
-  @invalid_attrs %{}
+  @invalid_attrs %{email: "foo"}
 
   test "changeset with valid attributes" do
     changeset = Account.changeset(%Account{}, @valid_attrs)
@@ -23,5 +23,11 @@ defmodule Habits.AccountTest do
     attrs = %{@valid_attrs | email: "nope"}
     changeset = Account.changeset(%Account{}, attrs)
     refute changeset.valid?
+  end
+
+  test "encrypts the password when changing it" do
+    changeset = Account.changeset(%Account{}, @valid_attrs)
+    assert changeset.valid?
+    assert changeset.changes.encrypted_password
   end
 end

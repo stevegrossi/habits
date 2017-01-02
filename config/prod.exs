@@ -13,7 +13,8 @@ use Mix.Config
 # which you typically run after static files are built.
 config :habits, Habits.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [scheme: "http", host: {:system, "HOSTNAME"}, port: 80],
+  url: [scheme: "https", host: {:system, "HOSTNAME"}, port: 443],
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/manifest.json"
 
 # Do not print debug messages in production

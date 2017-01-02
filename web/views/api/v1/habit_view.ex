@@ -1,28 +1,36 @@
 defmodule Habits.API.V1.HabitView do
   use Habits.Web, :view
 
-  alias Habits.Habit
-  alias Habits.Repo
+  alias Habits.{Repo, Habit}
 
   import Ecto.Query, only: [from: 2]
 
   def render("index.json", %{habits: habits, date: date}) do
     habits
     |> Enum.map(&habit_data_for_date(&1, date))
-    |> Poison.encode!
   end
 
   def render("show.json", %{habit: habit, date: date}) do
     habit
     |> habit_data_for_date(date)
-    |> Poison.encode!
+  end
+  def render("show.json", %{habit: habit}) do
+    habit
+    |> habit_data_for_date(nil)
   end
 
   def render("error.json", %{error: message}) do
     %{error: message}
-    |> Poison.encode!
   end
 
+  defp habit_data_for_date(habit, nil) do
+    %{
+      id: habit.id,
+      name: habit.name,
+      checkInId: nil,
+      streak: 0
+    }
+  end
   defp habit_data_for_date(habit, date) do
     %{
       id: habit.id,

@@ -1,6 +1,0 @@
-<h2>Edit habit</h2>
-
-<%= render "form.html", changeset: @changeset,
-                        action: habit_path(@conn, :update, @habit) %>
-
-<%= link "« Back", to: habit_path(@conn, :index) %>
