@@ -16,9 +16,7 @@ defmodule Habits.API.V1.AccountView do
 
   defp total_check_ins(account) do
     account
-    |> Ecto.assoc(:habits)
-    |> Repo.all
-    |> Ecto.assoc(:check_ins)
+    |> Ecto.assoc([:habits, :check_ins])
     |> Repo.count
   end
 end
