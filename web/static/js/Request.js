@@ -48,7 +48,11 @@ const Request = {
         'Authorization': `Token token="${Auth.token()}"`
       },
     }).then(function(response) {
-      return response.json()
+      if (response.bodyUsed) {
+        return response.json()
+      } else {
+        return response
+      }
     }).catch(function(error) {
       console.error('Request error:', error)
     })

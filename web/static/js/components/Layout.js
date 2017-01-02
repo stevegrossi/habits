@@ -13,16 +13,18 @@ class Layout extends React.Component {
             <Link to='/'>Habits</Link>
           </h1>
           <nav className='AppHeader-nav'>
-            <ul>
-              {Auth.isLoggedIn() &&
+            {Auth.isLoggedIn() &&
+              <ul>
+                <li><Link to="/habits">Habits</Link></li>
+                <li><Link to="/me">Me</Link></li>
                 <li><Link to="/logout">Log Out</Link></li>
-              }
-              {!Auth.isLoggedIn() &&
+              </ul>
+            }
+            {!Auth.isLoggedIn() &&
+              <ul>
                 <li><Link to="/login">Log In</Link></li>
-              }
-              <li><Link to="/me">Me</Link></li>
-              <li><Link to="/habits">Habits</Link></li>
-            </ul>
+              </ul>
+            }
           </nav>
         </header>
 
