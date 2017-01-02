@@ -27,6 +27,26 @@ defmodule Habits.API.V1.HabitControllerTest do
     end
   end
 
+  describe ".show" do
+
+    test "renders a single habit", %{conn: conn} do
+      account = Factory.insert(:account)
+      habit = Factory.insert(:habit, account: account)
+      Factory.insert(:check_in, habit: habit, date: today_date)
+
+      conn =
+        conn
+        |> assign(:current_account, account)
+        |> get(api_v1_habit_path(conn, :show, habit.id))
+
+      assert json_response(conn, :ok) == %{
+        "id" => habit.id,
+        "name" => habit.name,
+        "totalCheckIns" => 1
+      }
+    end
+  end
+
   describe ".create" do
 
     test "creates a habit in the current account", %{conn: conn} do

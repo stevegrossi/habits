@@ -10,13 +10,19 @@ defmodule Habits.API.V1.HabitView do
     |> Enum.map(&habit_data_for_date(&1, date))
   end
 
-  def render("show.json", %{habit: habit, date: date}) do
-    habit
-    |> habit_data_for_date(date)
-  end
   def render("show.json", %{habit: habit}) do
-    habit
-    |> habit_data_for_date(nil)
+    %{
+      id: habit.id,
+      name: habit.name,
+      totalCheckIns: Habit.check_in_count(habit)
+    }
+  end
+
+  def render("habit.json", %{habit: habit, date: date}) do
+    habit_data_for_date(habit, date)
+  end
+  def render("habit.json", %{habit: habit}) do
+    habit_data_for_date(habit, nil)
   end
 
   def render("error.json", %{error: message}) do

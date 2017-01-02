@@ -26,6 +26,18 @@ defmodule Habits.API.V1.HabitController do
   end
 
   @doc """
+  Return detailed information about a single habit.
+  """
+  def show(conn, %{"id" => habit_id}, current_account) do
+    habit =
+      current_account
+      |> assoc(:habits)
+      |> Repo.get(habit_id)
+
+    render conn, "show.json", habit: habit
+  end
+
+  @doc """
   Create a new habit in the account, given a name
   """
   def create(conn, %{"habit" => habit_params}, current_account) do
@@ -36,7 +48,7 @@ defmodule Habits.API.V1.HabitController do
 
     conn
     |> put_status(:created)
-    |> render("show.json", habit: habit)
+    |> render("habit.json", habit: habit)
   end
 
   @doc """
@@ -48,7 +60,7 @@ defmodule Habits.API.V1.HabitController do
     with {:ok, habit} <- Habit.get_by_account(current_account, habit_id),
          {:ok, _check_in} <- CheckIn.create_for_date(habit, date) do
 
-      render conn, "show.json", habit: habit, date: date_string
+      render conn, "habit.json", habit: habit, date: date_string
     else
       {:error, message} ->
         conn
@@ -67,7 +79,7 @@ defmodule Habits.API.V1.HabitController do
          {:ok, check_in} <- CheckIn.get_by_date(habit, date) do
 
       Repo.delete!(check_in)
-      render conn, "show.json", habit: habit, date: date_string
+      render conn, "habit.json", habit: habit, date: date_string
     else
       {:error, message} ->
         conn

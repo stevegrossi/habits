@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Link } from 'react-router'
 import Auth from '../Auth'
 import Request from '../Request'
 
@@ -59,9 +60,9 @@ class Habit extends React.Component {
 
   render() {
     return (
-      <li className="Habit" onClick={this.toggleCheckIn.bind(this)}>
-        <button className={this.checkInButtonClassName()}>Check In</button>
-        <span className="Habit-name">{this.props.name}</span>
+      <li className="Habit">
+        <button className={this.checkInButtonClassName()} onClick={this.toggleCheckIn.bind(this)}>Check In</button>
+        <Link to={`/habits/${this.props.id}`} className="Habit-name">{this.props.name}</Link>
         {this.state.streak > 0 &&
           <span className="Habit-streak">
             ➚ {this.state.streak}

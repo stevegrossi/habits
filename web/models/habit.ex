@@ -70,4 +70,13 @@ defmodule Habits.Habit do
       {:error, "Habit not found"}
     end
   end
+
+  @doc """
+  Return the total number of CheckIns for a given habit
+  """
+  def check_in_count(habit) do
+    habit
+    |> assoc(:check_ins)
+    |> Repo.count
+  end
 end
