@@ -15,7 +15,7 @@ const Request = {
   post: function(endpoint, data = {}, authenticated = true) {
     return fetch(endpoint, {
       method: 'post',
-      headers: this.headers(),
+      headers: this.headers(authenticated),
       body: JSON.stringify(data)
     }).then(function(response) {
       return response.json()
@@ -29,11 +29,7 @@ const Request = {
       method: 'delete',
       headers: this.headers()
     }).then(function(response) {
-      if (response.bodyUsed) {
-        return response.json()
-      } else {
-        return response
-      }
+      return response.json()
     }).catch(function(error) {
       console.error('Request error:', error)
     })

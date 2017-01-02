@@ -12,4 +12,8 @@ defmodule Habits.API.V1.SessionView do
   def render("error.json", _anything) do
     %{errors: "failed to authenticate"}
   end
+
+  def render("success.json", %{}) do
+    %{success: true}
+  end
 end

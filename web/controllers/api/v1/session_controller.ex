@@ -41,8 +41,7 @@ defmodule Habits.API.V1.SessionController do
     else
       {:ok, _} = Repo.delete(session)
       conn
-      |> send_resp(:no_content, "")
-      |> halt
+      |> render("success.json")
     end
   end
 end
