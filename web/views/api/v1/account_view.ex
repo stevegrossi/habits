@@ -9,6 +9,10 @@ defmodule Habits.API.V1.AccountView do
     |> Poison.encode!
   end
 
+  def render("error.json", %{message: message}) do
+    %{error: message}
+  end
+
   defp account_data(account) do
     %{
       email: account.email,

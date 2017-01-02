@@ -28,10 +28,10 @@ class LoginForm extends React.Component {
           <p>There was a problem.</p>
         }
         <label htmlFor="login-email">Email</label>
-        <input ref="email" type="email" id="login-email" className="TextInput" />
+        <input ref="email" type="email" id="login-email" className="TextInput" required autoFocus />
 
         <label htmlFor="login-password">Password</label>
-        <input ref="password" type="password" id="login-password" className="TextInput" />
+        <input ref="password" type="password" id="login-password" className="TextInput" required />
 
         <input type="submit" value="Log In" className="Button" />
       </form>

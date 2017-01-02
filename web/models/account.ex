@@ -26,7 +26,6 @@ defmodule Habits.Account do
     |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 5)
     |> encrypt_password_if_possible
-    |> validate_required(:encrypted_password)
     |> unique_constraint(:email)
   end
 

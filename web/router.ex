@@ -21,6 +21,7 @@ defmodule Habits.Router do
 
     scope "/v1", V1, as: :v1 do
       resources "/sessions", SessionController, only: [:create]
+      resources "/accounts", AccountController, only: [:create]
 
       scope "/" do
         pipe_through :authenticated

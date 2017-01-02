@@ -3,6 +3,7 @@ import Request from './Request'
 const Auth = {
 
   logIn: function(email, password) {
+    const self = this
     const data = {
       account: {
         email: email,
@@ -10,7 +11,7 @@ const Auth = {
       }
     }
     return Request.post('/api/v1/sessions', data, false).then(function(json) {
-      localStorage.setItem('token', json.data.token)
+      self.saveToken(json.data.token)
     })
   },
 
@@ -19,6 +20,10 @@ const Auth = {
     return Request.delete(endpoint).then(function() {
       localStorage.removeItem('token')
     })
+  },
+
+  saveToken: function(token) {
+    localStorage.setItem('token', token)
   },
 
   token: function() {
