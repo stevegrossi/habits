@@ -2,7 +2,6 @@ defmodule Habits.API.V1.HabitView do
   use Habits.Web, :view
 
   alias Habits.{Repo, Habit}
-
   import Ecto.Query, only: [from: 2]
 
   def render("index.json", %{habits: habits, date: date}) do
@@ -27,6 +26,10 @@ defmodule Habits.API.V1.HabitView do
 
   def render("error.json", %{error: message}) do
     %{error: message}
+  end
+
+  def render("success.json", %{}) do
+    %{success: true}
   end
 
   defp habit_data_for_date(habit, nil) do

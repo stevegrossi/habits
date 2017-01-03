@@ -475,12 +475,7 @@ label {
 }
 
 a {
-  &:link,
-  &:hover,
-  &:focus,
-  &:visited {
-    color: $text-color;
-  }
+  color: $text-color;
 }
 
 .TextInput {
@@ -677,4 +672,9 @@ a {
     display: block;
     font-size: 4em
   }
+}
+
+.FooterNav {
+  display: flex;
+  justify-content: space-between;
 }

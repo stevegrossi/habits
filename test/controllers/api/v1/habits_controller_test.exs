@@ -32,7 +32,7 @@ defmodule Habits.API.V1.HabitControllerTest do
     test "renders a single habit", %{conn: conn} do
       account = Factory.insert(:account)
       habit = Factory.insert(:habit, account: account)
-      Factory.insert(:check_in, habit: habit, date: today_date)
+      Factory.insert(:check_in, habit: habit)
 
       conn =
         conn
@@ -44,6 +44,27 @@ defmodule Habits.API.V1.HabitControllerTest do
         "name" => habit.name,
         "totalCheckIns" => 1
       }
+    end
+  end
+
+  describe ".delete" do
+
+    test "deletes a habit from the current account", %{conn: conn} do
+      account = Factory.insert(:account)
+      habit = Factory.insert(:habit, account: account)
+      check_in = Factory.insert(:check_in, habit: habit)
+
+      conn =
+        conn
+        |> assign(:current_account, account)
+        |> delete(api_v1_habit_path(conn, :delete, habit.id))
+
+      assert json_response(conn, :ok) == %{
+        "success" => true
+      }
+
+      refute Repo.get(Habit, habit.id)
+      refute Repo.get(CheckIn, check_in.id)
     end
   end
 

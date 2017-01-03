@@ -52,6 +52,18 @@ defmodule Habits.API.V1.HabitController do
   end
 
   @doc """
+  Deletes a habit from the current account.
+  """
+  def delete(conn, %{"id" => habit_id}, current_account) do
+    current_account
+    |> assoc(:habits)
+    |> Repo.get(habit_id)
+    |> Repo.delete
+
+    render conn, "success.json"
+  end
+
+  @doc """
   Create a CheckIn for the given date and habit, unless one exists.
   """
   def check_in(conn, %{"habit_id" => habit_id, "date" => date_string}, current_account) do
