@@ -16,7 +16,7 @@ class Layout extends React.Component {
             {Auth.isLoggedIn() &&
               <ul>
                 <li><Link to="/habits">Habits</Link></li>
-                <li><Link to="/me">Me</Link></li>
+                <li><Link to="/account">Me</Link></li>
                 <li><Link to="/logout">Log Out</Link></li>
               </ul>
             }

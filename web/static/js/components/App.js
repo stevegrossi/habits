@@ -39,7 +39,7 @@ class App extends React.Component {
           <Route path="/register" component={RegistrationForm} />
           <Route path="/login" component={LoginForm} onEnter={this.redirectIfLoggedIn} />
           <Route path="/logout" onEnter={this.logOut} />
-          <Route path="/me" component={MyAccount} onEnter={this.requireAuth} />
+          <Route path="/account" component={MyAccount} onEnter={this.requireAuth} />
           <Route path="/habits" component={AllHabits} onEnter={this.requireAuth} />
           <Route path="/habits/new" component={NewHabitForm} onEnter={this.requireAuth} />
           <Route path="/habits/:id" component={HabitPage} onEnter={this.requireAuth} />
