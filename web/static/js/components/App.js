@@ -25,13 +25,19 @@ class App extends React.Component {
     })
   }
 
+  redirectIfLoggedIn() {
+    if (Auth.isLoggedIn()) {
+      browserHistory.replace('/habits')
+    }
+  }
+
   render() {
     return (
       <Router history={browserHistory}>
         <Route path="/" component={Layout}>
           <IndexRoute component={HomePage}/>
           <Route path="/register" component={RegistrationForm} />
-          <Route path="/login" component={LoginForm} />
+          <Route path="/login" component={LoginForm} onEnter={this.redirectIfLoggedIn} />
           <Route path="/logout" onEnter={this.logOut} />
           <Route path="/me" component={MyAccount} onEnter={this.requireAuth} />
           <Route path="/habits" component={AllHabits} onEnter={this.requireAuth} />

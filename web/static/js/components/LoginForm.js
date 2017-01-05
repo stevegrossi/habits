@@ -12,12 +12,13 @@ class LoginForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
+    const self = this
     const { email, password } = this.refs
     Auth.logIn(email.value, password.value)
       .then(function() {
         browserHistory.push('/habits')
       }).catch(function(error) {
-        this.setState({ error: true })
+        self.setState({ error: true })
       })
   }
 
