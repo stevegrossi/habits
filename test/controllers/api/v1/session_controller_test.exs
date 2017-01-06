@@ -4,6 +4,30 @@ defmodule Habits.API.V1.SessionControllerTest do
   alias Habits.{Session, Account}
   @valid_attrs %{email: "foo@bar.com", password: "p4ssw0rd"}
 
+  describe ".index" do
+
+    test "lists all sessions for the current account", %{conn: conn} do
+      account = Factory.insert(:account)
+      session_1 = Factory.insert(:session, account: account)
+      session_2 = Factory.insert(:session, account: account)
+      conn =
+        conn
+        |> assign(:current_account, account)
+        |> get(api_v1_session_path(conn, :index))
+
+      assert json_response(conn, 200) == [
+        %{
+          "token" => session_2.token,
+          "createdAt" => NaiveDateTime.to_iso8601(session_2.inserted_at) <> "Z"
+        },
+        %{
+          "token" => session_1.token,
+          "createdAt" => NaiveDateTime.to_iso8601(session_1.inserted_at) <> "Z"
+        }
+      ]
+    end
+  end
+
   describe ".create" do
 
     setup %{conn: conn} do

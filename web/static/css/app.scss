@@ -678,3 +678,35 @@ a {
   display: flex;
   justify-content: space-between;
 }
+
+.ActionList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-shadow: none;
+
+  &-item {
+    @include round;
+    background: #fff;
+    color: rgba(0,0,0,.666);
+    padding: .5em 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .5em;
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+  }
+
+  &-itemMeta {
+    font-size: .875em;
+    color: rgba(0,0,0,.333);
+  }
+
+  &-action {
+    color: rgba(0,0,0,.2);
+    text-decoration: none;
+    font-size: 1.5em;
+    line-height: .666666667em;
+    font-weight: bold;
+  }
+}

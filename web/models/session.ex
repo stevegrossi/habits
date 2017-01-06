@@ -5,6 +5,7 @@ defmodule Habits.Session do
   """
 
   use Habits.Web, :model
+  use Timex.Ecto.Timestamps
 
   schema "sessions" do
     field :token, :string

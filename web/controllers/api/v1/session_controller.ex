@@ -6,6 +6,17 @@ defmodule Habits.API.V1.SessionController do
   alias Habits.Account
   alias Habits.Session
 
+  def index(conn, %{}) do
+    current_account = conn.assigns.current_account
+    sessions =
+      current_account
+      |> assoc(:sessions)
+      |> order_by(desc: :id)
+      |> Repo.all
+
+    render(conn, "index.json", sessions: sessions)
+  end
+
   def create(conn, %{"account" => account_params}) do
     account = Repo.get_by(Account, email: account_params["email"])
     cond do
