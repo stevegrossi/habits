@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Habit from './Habit'
+import Progress from './Progress'
 import Request from '../Request'
 
 class HabitList extends React.Component {
@@ -9,7 +10,7 @@ class HabitList extends React.Component {
     super(props)
     this.state = {
       loading: true,
-      data: []
+      habits: []
     }
   }
 
@@ -27,7 +28,7 @@ class HabitList extends React.Component {
     const self = this;
     Request.get(endpoint).then(function(json) {
       self.setState({
-        data: json,
+        habits: json,
         loading: false
       })
     })
@@ -42,21 +43,34 @@ class HabitList extends React.Component {
     return `/api/v1/habits?date=${dateString}`
   }
 
+  checkedInHabitsCount() {
+    return this.state.habits.filter(function(habit) {
+      return !!habit.checkInId
+    }).length
+  }
+
+  totalHabitsCount() {
+    return this.state.habits.length
+  }
+
   render() {
     return (
-      <ol className="HabitList">
-        {this.state.loading &&
-          <li>Loading...</li>
-        }
-        {!this.state.loading && this.state.data.map((habit) =>
-          <Habit name={habit.name}
-                 checkInId={habit.checkInId}
-                 streak={habit.streak}
-                 id={habit.id}
-                 key={habit.id}
-                 date={this.props.date} />
-        )}
-      </ol>
+      <div>
+        <Progress value={this.checkedInHabitsCount()} max={this.totalHabitsCount()}></Progress>
+        <ol className="HabitList">
+          {this.state.loading &&
+            <li>Loading...</li>
+          }
+          {!this.state.loading && this.state.habits.map((habit) =>
+            <Habit name={habit.name}
+                   checkInId={habit.checkInId}
+                   streak={habit.streak}
+                   id={habit.id}
+                   key={habit.id}
+                   date={this.props.date} />
+          )}
+        </ol>
+      </div>
     )
   }
 }
