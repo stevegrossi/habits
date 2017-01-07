@@ -12,7 +12,7 @@ defmodule Habits.CheckIn do
     field :date, Timex.Ecto.Date
     belongs_to :habit, Habits.Habit
 
-    timestamps
+    timestamps()
   end
 
   @doc """

@@ -12,7 +12,7 @@ defmodule Habits.Account do
     has_many :habits, Habits.Habit
     has_many :sessions, Habits.Session
 
-    timestamps
+    timestamps()
   end
 
   @doc """

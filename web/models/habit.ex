@@ -15,7 +15,7 @@ defmodule Habits.Habit do
     belongs_to :account, Account
     has_many :check_ins, CheckIn
 
-    timestamps
+    timestamps()
   end
 
   @doc """

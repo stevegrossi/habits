@@ -8,13 +8,13 @@ defmodule Habits.API.V1.HabitControllerTest do
     test "renders a list of habits", %{conn: conn} do
       account = Factory.insert(:account)
       habit = Factory.insert(:habit, account: account)
-      today_check_in = Factory.insert(:check_in, habit: habit, date: today_date)
-      Factory.insert(:check_in, habit: habit, date: yesterday_date)
+      today_check_in = Factory.insert(:check_in, habit: habit, date: today_date())
+      Factory.insert(:check_in, habit: habit, date: yesterday_date())
 
       conn =
         conn
         |> assign(:current_account, account)
-        |> get(api_v1_habit_path(conn, :index), date: Date.to_string(today_date))
+        |> get(api_v1_habit_path(conn, :index), date: Date.to_string(today_date()))
 
       assert json_response(conn, :ok) == [
         %{
@@ -98,9 +98,9 @@ defmodule Habits.API.V1.HabitControllerTest do
 
       conn = conn
         |> assign(:current_account, account)
-        |> post(api_v1_habit_check_in_path(conn, :check_in, habit.id, date: today_string))
+        |> post(api_v1_habit_check_in_path(conn, :check_in, habit.id, date: today_string()))
 
-      new_check_in = Repo.get_by(CheckIn, %{habit_id: habit.id, date: today_tuple})
+      new_check_in = Repo.get_by(CheckIn, %{habit_id: habit.id, date: today_tuple()})
 
       assert json_response(conn, :ok) == %{
         "id" => habit.id,
@@ -113,11 +113,11 @@ defmodule Habits.API.V1.HabitControllerTest do
     test "does not create a check-in when one exists", %{conn: conn} do
         account = Factory.insert(:account)
         habit = Factory.insert(:habit, account: account)
-        Factory.insert(:check_in, habit: habit, date: today_tuple)
+        Factory.insert(:check_in, habit: habit, date: today_tuple())
 
         conn
           |> assign(:current_account, account)
-          |> post(api_v1_habit_check_in_path(conn, :check_in, habit.id, date: today_string))
+          |> post(api_v1_habit_check_in_path(conn, :check_in, habit.id, date: today_string()))
 
         assert Repo.count(CheckIn) == 1
     end
@@ -130,10 +130,10 @@ defmodule Habits.API.V1.HabitControllerTest do
       conn =
         conn
         |> assign(:current_account, account)
-        |> post(api_v1_habit_check_in_path(conn, :check_in, other_accounts_habit.id, date: today_string))
+        |> post(api_v1_habit_check_in_path(conn, :check_in, other_accounts_habit.id, date: today_string()))
 
       assert json_response(conn, :not_found)["error"] == "Habit not found"
-      refute Repo.get_by(CheckIn, %{habit_id: other_accounts_habit.id, date: today_tuple})
+      refute Repo.get_by(CheckIn, %{habit_id: other_accounts_habit.id, date: today_tuple()})
     end
   end
 
@@ -142,12 +142,12 @@ defmodule Habits.API.V1.HabitControllerTest do
     test "deletes a check-in", %{conn: conn} do
       account = Factory.insert(:account)
       habit = Factory.insert(:habit, account: account)
-      check_in = Factory.insert(:check_in, habit: habit, date: today_tuple)
+      check_in = Factory.insert(:check_in, habit: habit, date: today_tuple())
 
       conn =
         conn
         |> assign(:current_account, account)
-        |> post(api_v1_habit_check_out_path(conn, :check_out, habit.id, date: today_string))
+        |> post(api_v1_habit_check_out_path(conn, :check_out, habit.id, date: today_string()))
 
       refute Repo.get(CheckIn, check_in.id)
 
@@ -163,12 +163,12 @@ defmodule Habits.API.V1.HabitControllerTest do
       account = Factory.insert(:account)
       other_account = Factory.insert(:account)
       other_accounts_habit = Factory.insert(:habit, account: other_account)
-      other_accounts_check_in = Factory.insert(:check_in, habit: other_accounts_habit, date: today_tuple)
+      other_accounts_check_in = Factory.insert(:check_in, habit: other_accounts_habit, date: today_tuple())
 
       conn =
         conn
         |> assign(:current_account, account)
-        |> post(api_v1_habit_check_out_path(conn, :check_out, other_accounts_habit.id, date: today_string))
+        |> post(api_v1_habit_check_out_path(conn, :check_out, other_accounts_habit.id, date: today_string()))
 
       assert json_response(conn, :not_found)["error"] == "Habit not found"
       assert Repo.get(CheckIn, other_accounts_check_in.id)

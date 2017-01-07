@@ -31,7 +31,7 @@ defmodule Habits.API.V1.SessionController do
         |> put_status(:unauthorized)
         |> render("error.json", account_params)
       true ->
-        dummy_checkpw
+        dummy_checkpw()
         conn
         |> put_status(:unauthorized)
         |> render("error.json", account_params)

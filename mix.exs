@@ -4,13 +4,13 @@ defmodule Habits.Mixfile do
   def project do
     [app: :habits,
      version: "0.0.1",
-     elixir: "~> 1.3.0",
+     elixir: "~> 1.3",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     aliases: aliases,
-     deps: deps]
+     aliases: aliases(),
+     deps: deps()]
   end
 
   # Configuration for the OTP application
@@ -21,8 +21,8 @@ defmodule Habits.Mixfile do
      applications: app_list(Mix.env)]
   end
 
-  defp app_list(:test), do: [:ex_machina | app_list]
-  defp app_list(_),  do: app_list
+  defp app_list(:test), do: [:ex_machina | app_list()]
+  defp app_list(_),  do: app_list()
   defp app_list,  do: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy,
                        :logger, :gettext, :phoenix_ecto, :postgrex, :tzdata,
                       :comeonin]
@@ -48,6 +48,7 @@ defmodule Habits.Mixfile do
       {:secure_random, "~> 0.5"},
       {:timex, "~> 3.0"},
       {:timex_ecto, "~> 3.0"},
+      {:geoip, "~> 0.1"},
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:ex_machina, "~> 1.0", only: :test},
       {:credo, "~> 0.5", only: :dev}

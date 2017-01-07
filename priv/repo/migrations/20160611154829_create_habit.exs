@@ -6,7 +6,7 @@ defmodule Habits.Repo.Migrations.CreateHabit do
       add :name, :string, null: false
       add :account_id, references(:accounts), null: false
 
-      timestamps
+      timestamps()
     end
 
     create index(:habits, [:account_id])

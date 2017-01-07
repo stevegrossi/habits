@@ -6,7 +6,7 @@ defmodule Habits.Repo.Migrations.CreateAccount do
       add :email, :string, null: false
       add :encrypted_password, :string, null: false
 
-      timestamps
+      timestamps()
     end
 
     create index(:accounts, [:email], unique: true)

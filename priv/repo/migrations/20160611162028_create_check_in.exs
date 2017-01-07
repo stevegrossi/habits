@@ -6,7 +6,7 @@ defmodule Habits.Repo.Migrations.CreateCheckIn do
       add :habit_id, references(:habits, on_delete: :delete_all), null: false
       add :date, :date, null: false
 
-      timestamps
+      timestamps()
     end
     create index(:check_ins, [:date])
     create index(:check_ins, [:habit_id, :date], unique: true)

@@ -15,7 +15,7 @@ defmodule Habits.API.V1.AccountController do
   Register a new account unless one exists.
   """
   def create(conn, %{"account" => account_params}) do
-    with :ok <- can_create_account?,
+    with :ok <- can_create_account?(),
       {:ok, account} <- create_account(account_params),
       {:ok, session} <- create_session(account)
     do

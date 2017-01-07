@@ -11,7 +11,7 @@ defmodule Habits.Session do
     field :token, :string
     belongs_to :account, Habits.Account
 
-    timestamps
+    timestamps()
   end
 
   @doc """
