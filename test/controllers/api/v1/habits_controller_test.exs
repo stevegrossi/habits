@@ -147,7 +147,7 @@ defmodule Habits.API.V1.HabitControllerTest do
       conn =
         conn
         |> assign(:current_account, account)
-        |> post(api_v1_habit_check_out_path(conn, :check_out, habit.id, date: today_string()))
+        |> delete(api_v1_habit_check_out_path(conn, :check_out, habit.id, date: today_string()))
 
       refute Repo.get(CheckIn, check_in.id)
 
@@ -168,7 +168,7 @@ defmodule Habits.API.V1.HabitControllerTest do
       conn =
         conn
         |> assign(:current_account, account)
-        |> post(api_v1_habit_check_out_path(conn, :check_out, other_accounts_habit.id, date: today_string()))
+        |> delete(api_v1_habit_check_out_path(conn, :check_out, other_accounts_habit.id, date: today_string()))
 
       assert json_response(conn, :not_found)["error"] == "Habit not found"
       assert Repo.get(CheckIn, other_accounts_check_in.id)

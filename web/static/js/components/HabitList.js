@@ -73,7 +73,7 @@ class HabitList extends React.Component {
   checkOut(habitId) {
     const self = this
     const endpoint = `/api/v1/habits/${habitId}/check_out?date=${this.dateString()}`
-    Request.post(endpoint).then(function(updatedHabit) {
+    Request.delete(endpoint).then(function(updatedHabit) {
       self.updateHabits(updatedHabit)
     })
   }
