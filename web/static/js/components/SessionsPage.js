@@ -34,6 +34,7 @@ class SessionsPage extends React.Component {
         {this.state.data && this.state.data.map((session) =>
           <Session token={session.token}
                    createdAt={session.createdAt}
+                   location={session.location}
                    renderParent={this.fetchData.bind(this)}
                    key={session.token} />
         )}

@@ -3,7 +3,7 @@ defmodule Habits.SessionTest do
 
   alias Habits.Session
 
-  @valid_attrs %{account_id: "12345"}
+  @valid_attrs %{account_id: "12345", location: "Earth"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

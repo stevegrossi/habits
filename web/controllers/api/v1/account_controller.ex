@@ -46,7 +46,7 @@ defmodule Habits.API.V1.AccountController do
 
   defp create_session(%Account{id: account_id}) do
     %Session{}
-    |> Session.changeset(%{account_id: account_id})
+    |> Session.changeset(%{account_id: account_id, location: "Initial registration"})
     |> Repo.insert
   end
 end

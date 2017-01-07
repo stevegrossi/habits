@@ -12,7 +12,8 @@ defmodule Habits.API.V1.SessionView do
   def render("session.json", %{session: session}) do
     %{
       token: session.token,
-      createdAt: session.inserted_at
+      createdAt: session.inserted_at,
+      location: session.location
     }
   end
 

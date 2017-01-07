@@ -21,7 +21,10 @@ defmodule Habits.API.V1.SessionController do
     account = Repo.get_by(Account, email: account_params["email"])
     cond do
       account && checkpw(account_params["password"], account.encrypted_password) ->
-        session_changeset = Session.changeset(%Session{}, %{account_id: account.id})
+        session_changeset = Session.changeset(%Session{}, %{
+          account_id: account.id,
+          location: get_location(conn)
+        })
         {:ok, session} = Repo.insert(session_changeset)
         conn
         |> put_status(:created)
@@ -53,6 +56,19 @@ defmodule Habits.API.V1.SessionController do
       {:ok, _} = Repo.delete(session)
       conn
       |> render("success.json")
+    end
+  end
+
+  defp get_location(conn) do
+    case GeoIP.lookup(conn) do
+      {:ok, %GeoIP.Location{city: city, region_name: region, country_name: country}}
+        when not is_nil(city) or not is_nil(region) or not is_nil(country) ->
+
+        [city, region, country]
+        |> Enum.reject(&is_nil(&1))
+        |> Enum.join(", ")
+      _ ->
+        Session.default_location
     end
   end
 end

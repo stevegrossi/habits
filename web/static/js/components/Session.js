@@ -15,13 +15,16 @@ class Session extends React.Component {
 
   formatCreatedAt() {
     const date = new Date(this.props.createdAt)
-    return 'created ' + distanceInWordsToNow(date, { addSuffix: true })
+    return distanceInWordsToNow(date, { addSuffix: true })
   }
 
   render() {
     return (
       <li className="ActionList-item">
-        <div>{this.formatCreatedAt()}</div>
+        <div>
+          <div>{this.props.location}</div>
+          <div className="ActionList-itemMeta">{this.formatCreatedAt()}</div>
+        </div>
         <a className="ActionList-action" href="#" onClick={this.handleDelete.bind(this)}>×</a>
       </li>
     )

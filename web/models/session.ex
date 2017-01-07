@@ -5,14 +5,18 @@ defmodule Habits.Session do
   """
 
   use Habits.Web, :model
-  use Timex.Ecto.Timestamps
 
+  @timestamps_opts type: :utc_datetime, usec: false
   schema "sessions" do
     field :token, :string
+    field :location, :string
     belongs_to :account, Habits.Account
 
     timestamps()
   end
+
+  @default_location "Unknown"
+  def default_location, do: @default_location
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -22,7 +26,8 @@ defmodule Habits.Session do
   """
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, [:account_id])
+    |> cast(params, [:account_id, :location])
+    |> validate_required([:account_id, :location])
     |> put_change(:token, SecureRandom.urlsafe_base64())
     |> validate_required([:account_id, :token])
   end

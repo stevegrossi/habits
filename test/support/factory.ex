@@ -11,6 +11,7 @@ defmodule Habits.Factory do
   def session_factory do
     %Habits.Session{
       token: sequence(:name, &"token-#{&1}"),
+      location: "Earth",
       account: build(:account)
     }
   end
@@ -24,7 +25,7 @@ defmodule Habits.Factory do
 
   def check_in_factory do
     %Habits.CheckIn{
-      date: today_tuple,
+      date: today_tuple(),
       habit: build(:habit),
     }
   end

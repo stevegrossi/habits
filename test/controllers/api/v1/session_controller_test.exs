@@ -18,11 +18,13 @@ defmodule Habits.API.V1.SessionControllerTest do
       assert json_response(conn, 200) == [
         %{
           "token" => session_2.token,
-          "createdAt" => NaiveDateTime.to_iso8601(session_2.inserted_at) <> "Z"
+          "createdAt" => DateTime.to_iso8601(session_2.inserted_at),
+          "location" => session_2.location
         },
         %{
           "token" => session_1.token,
-          "createdAt" => NaiveDateTime.to_iso8601(session_1.inserted_at) <> "Z"
+          "createdAt" => DateTime.to_iso8601(session_1.inserted_at),
+          "location" => session_1.location
         }
       ]
     end
