@@ -3,7 +3,7 @@ import Request from './Request'
 const Auth = {
 
   logIn: function(email, password) {
-    const self = this
+    const saveToken = this.saveToken
     const data = {
       account: {
         email: email,
@@ -11,7 +11,7 @@ const Auth = {
       }
     }
     return Request.post('/api/v1/sessions', data, false).then(function(json) {
-      self.saveToken(json.data.token)
+      saveToken(json.data.token)
     })
   },
 
