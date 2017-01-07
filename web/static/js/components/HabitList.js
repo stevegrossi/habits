@@ -53,6 +53,46 @@ class HabitList extends React.Component {
     return this.state.habits.length
   }
 
+  dateString() {
+    const date = this.props.date
+    return [
+      date.getFullYear(),
+      ('0' + (date.getMonth() + 1)).slice(-2),
+      ('0' + (date.getDate())).slice(-2)
+    ].join("-")
+  }
+
+  checkIn(habitId) {
+    const self = this
+    const endpoint = `/api/v1/habits/${habitId}/check_in?date=${this.dateString()}`
+    Request.post(endpoint).then(function(updatedHabit) {
+      self.updateHabits(updatedHabit)
+    })
+  }
+
+  checkOut(habitId) {
+    const self = this
+    const endpoint = `/api/v1/habits/${habitId}/check_out?date=${this.dateString()}`
+    Request.post(endpoint).then(function(updatedHabit) {
+      self.updateHabits(updatedHabit)
+    })
+  }
+
+  updateHabits(updatedHabit) {
+    const { habits } = this.state
+    const habit = habits.find(function(habit) {
+      return habit.id == updatedHabit.id
+    })
+    const habitIndex = habits.indexOf(habit)
+    this.setState({
+      habits: [
+        ...habits.slice(0, habitIndex),
+        updatedHabit,
+        ...habits.slice(habitIndex + 1)
+      ]
+    })
+  }
+
   render() {
     return (
       <div>
@@ -62,12 +102,10 @@ class HabitList extends React.Component {
             <li>Loading...</li>
           }
           {!this.state.loading && this.state.habits.map((habit) =>
-            <Habit name={habit.name}
-                   checkInId={habit.checkInId}
-                   streak={habit.streak}
-                   id={habit.id}
+            <Habit {...habit}
                    key={habit.id}
-                   date={this.props.date} />
+                   checkIn={this.checkIn.bind(this)}
+                   checkOut={this.checkOut.bind(this)} />
           )}
         </ol>
       </div>

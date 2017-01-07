@@ -5,67 +5,37 @@ import Auth from '../Auth'
 import Request from '../Request'
 
 class Habit extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isCheckedIn: !!this.props.checkInId,
-      streak: this.props.streak
-    }
-  }
 
-  componentWillReceiveProps(newProps) {
-    this.setState({ isCheckedIn: !!newProps.checkInId })
-  }
-
-  dateString() {
-    const date = this.props.date;
-    return [
-      date.getFullYear(),
-      ('0' + (date.getMonth() + 1)).slice(-2),
-      ('0' + (date.getDate())).slice(-2)
-    ].join("-")
+  isCheckedIn() {
+    return !!this.props.checkInId
   }
 
   toggleCheckIn() {
-    if (this.state.isCheckedIn) {
-      this.checkOut()
+    const { id, checkInId } = this.props
+    if (this.isCheckedIn()) {
+      this.props.checkOut(id)
     } else {
-      this.checkIn()
+      this.props.checkIn(id)
     }
   }
 
-  checkIn() {
-    const self = this
-    const endpoint = `/api/v1/habits/${this.props.id}/check_in?date=${this.dateString()}`
-    Request.post(endpoint).then(function(json) {
-      self.setState({ isCheckedIn: true, streak: json.streak })
-    })
-  }
-
-  checkOut() {
-    const self = this
-    const endpoint = `/api/v1/habits/${this.props.id}/check_out?date=${this.dateString()}`
-    Request.post(endpoint).then(function(json) {
-      self.setState({ isCheckedIn: false, streak: json.streak })
-    })
-  }
-
-  checkInButtonClassName() {
+  buttonClassName() {
     let classNames = ['CheckInButton']
-    if (this.state.isCheckedIn) {
+    if (this.isCheckedIn()) {
       classNames.push('CheckInButton--checkedIn')
     }
     return classNames.join(' ')
   }
 
   render() {
+    const { id, name, streak } = this.props
     return (
       <li className="Habit">
-        <button className={this.checkInButtonClassName()} onClick={this.toggleCheckIn.bind(this)}>Check In</button>
-        <Link to={`/habits/${this.props.id}`} className="Habit-name">{this.props.name}</Link>
-        {this.state.streak > 0 &&
+        <button className={this.buttonClassName()} onClick={this.toggleCheckIn.bind(this)}>Check In</button>
+        <Link to={`/habits/${id}`} className="Habit-name">{name}</Link>
+        {streak > 0 &&
           <span className="Habit-streak">
-            ➚ {this.state.streak}
+            ➚ {streak}
           </span>
         }
       </li>
