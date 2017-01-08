@@ -16,7 +16,7 @@ defmodule Habits.HabitTest do
     refute changeset.valid?
   end
 
-  tests ".get_current_streak" do
+  describe ".get_current_streak" do
 
     test "gets the current_streak before checking in today" do
       habit = Factory.insert(:habit)

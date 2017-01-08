@@ -37,11 +37,6 @@ defmodule Habits.ModelCase do
   end
 
   @doc """
-  An empty function for grouping related tests
-  """
-  def tests(_description, block), do: block
-
-  @doc """
   Helper for returning list of errors in a struct when given certain data.
 
   ## Examples
