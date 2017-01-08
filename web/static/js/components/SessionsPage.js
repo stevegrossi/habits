@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { Link } from 'react-router'
 import Request from '../Request'
 import Session from './Session'
+import Loading from './Loading'
 
 class SessionsPage extends React.Component {
 
@@ -28,9 +29,7 @@ class SessionsPage extends React.Component {
     return (
       <div>
         <h2>Active Sessions</h2>
-        {!this.state.data &&
-          <span>Loading...</span>
-        }
+        {!this.state.data && <Loading /> }
         <ol className="ActionList">
         {this.state.data && this.state.data.map((session) =>
           <Session token={session.token}

@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Link } from 'react-router'
 import Gravatar from './Gravatar'
+import Loading from './Loading'
 import Request from '../Request'
 
 class MyAccount extends React.Component {
@@ -9,6 +10,7 @@ class MyAccount extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      loading: true,
       email: null,
       totalCheckIns: 0
     }
@@ -18,6 +20,7 @@ class MyAccount extends React.Component {
     const self = this
     Request.get('/api/v1/account').then(function(json) {
       self.setState({
+        loading: false,
         email: json.email,
         totalCheckIns: json.totalCheckIns
       })
@@ -27,7 +30,8 @@ class MyAccount extends React.Component {
   render() {
     return (
       <div className="center">
-        {this.state.email &&
+        {this.state.loading && <Loading />}
+        {!this.state.loading &&
           <div>
             <Gravatar email={this.state.email} size="400" />
             <h2>{this.state.email}</h2>

@@ -38,7 +38,7 @@ a {
 
 .Button {
   @include round;
-  color: #fff !important;
+  color: $text-color !important;
   background-color: $blue;
   border: 0;
   text-decoration: none;
@@ -50,7 +50,7 @@ a {
 }
 
 .AppHeader {
-  color: #fff;
+  color: $text-color;
   overflow: hidden;
   padding: $base-padding $base-padding * 2;
 
@@ -87,7 +87,7 @@ a {
 }
 
 .AppFooter {
-  color: #fff;
+  color: $text-color;
   padding: 0 $vertical-spacing / 2;
   margin: $base-padding * 2;
   text-align: center;
@@ -149,7 +149,7 @@ a {
   justify-content: space-between;
 
   &-name {
-    color: #fff !important;
+    color: $text-color !important;
     text-decoration: none;
     font-weight: bold;
     flex-grow: 1;
@@ -169,10 +169,10 @@ a {
   padding: 0;
   margin-right: $base-padding;
   text-indent: -999em;
-  border: 2px solid #fff;
+  border: 2px solid $text-color;
 
   &--checkedIn {
-    background-color: #fff;
+    background-color: $text-color;
   }
 }
 
@@ -285,4 +285,35 @@ a {
       height: 100%;
     }
   }
+}
+
+// Hat tip: http://tobiasahlin.com/spinkit/
+@-webkit-keyframes rotateplane {
+  0% { -webkit-transform: perspective(120px) }
+  50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+  100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
+}
+
+@keyframes rotateplane {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+  } 50% {
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+  } 100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}
+
+.LoadingIndicator {
+  width: 3em;
+  height: 3em;
+  background-color: $text-color;
+  opacity: .75;
+
+  margin: 5em auto;
+  -webkit-animation: rotateplane 1.2s infinite ease-in-out;
+  animation: rotateplane 1.2s infinite ease-in-out;
 }

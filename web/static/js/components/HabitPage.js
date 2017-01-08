@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { browserHistory, Link } from 'react-router'
 import Request from '../Request'
+import Loading from './Loading'
 
 class HabitPage extends React.Component {
 
@@ -36,7 +37,7 @@ class HabitPage extends React.Component {
   render() {
     return (
     <div>
-      {!this.state.data && 'Loading...'}
+      {!this.state.data && <Loading /> }
       {this.state.data &&
         <div className="center">
           <h2>{this.state.data.name}</h2>

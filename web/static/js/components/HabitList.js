@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Habit from './Habit'
 import Progress from './Progress'
+import Loading from './Loading'
 import Request from '../Request'
 
 class HabitList extends React.Component {
@@ -96,18 +97,20 @@ class HabitList extends React.Component {
   render() {
     return (
       <div>
-        <Progress value={this.checkedInHabitsCount()} max={this.totalHabitsCount()}></Progress>
-        <ol className="HabitList">
-          {this.state.loading &&
-            <li>Loading...</li>
-          }
-          {!this.state.loading && this.state.habits.map((habit) =>
-            <Habit {...habit}
-                   key={habit.id}
-                   checkIn={this.checkIn.bind(this)}
-                   checkOut={this.checkOut.bind(this)} />
-          )}
-        </ol>
+        {this.state.loading && <Loading /> }
+        {!this.state.loading &&
+          <div>
+            <Progress value={this.checkedInHabitsCount()} max={this.totalHabitsCount()}></Progress>
+            <ol className="HabitList">
+              {this.state.habits.map((habit) =>
+                <Habit {...habit}
+                       key={habit.id}
+                       checkIn={this.checkIn.bind(this)}
+                       checkOut={this.checkOut.bind(this)} />
+              )}
+            </ol>
+          </div>
+        }
       </div>
     )
   }
