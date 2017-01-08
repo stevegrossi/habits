@@ -47,6 +47,7 @@ defmodule Habits.Mixfile do
       {:comeonin, "~> 2.0"},
       {:secure_random, "~> 0.5"},
       {:geoip, "~> 0.1"},
+      {:plug_x_forwarded_for, "~> 0.1"},
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:ex_machina, "~> 1.0", only: :test},
       {:credo, "~> 0.5", only: :dev}

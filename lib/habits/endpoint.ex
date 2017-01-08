@@ -20,6 +20,8 @@ defmodule Habits.Endpoint do
   plug Plug.RequestId
   plug Plug.Logger
 
+  plug PlugXForwardedFor # github.com/stevegrossi/habits/issues/3
+
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
