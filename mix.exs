@@ -24,8 +24,7 @@ defmodule Habits.Mixfile do
   defp app_list(:test), do: [:ex_machina | app_list()]
   defp app_list(_),  do: app_list()
   defp app_list,  do: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy,
-                       :logger, :gettext, :phoenix_ecto, :postgrex, :tzdata,
-                      :comeonin]
+                       :logger, :gettext, :phoenix_ecto, :postgrex, :comeonin]
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
@@ -46,8 +45,6 @@ defmodule Habits.Mixfile do
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 2.0"},
       {:secure_random, "~> 0.5"},
-      {:timex, "~> 3.0"},
-      {:timex_ecto, "~> 3.0"},
       {:geoip, "~> 0.1"},
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:ex_machina, "~> 1.0", only: :test},

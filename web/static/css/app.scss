@@ -2,6 +2,10 @@
 @import "variables";
 @import "mixins";
 
+* {
+  box-sizing: border-box;
+}
+
 html {
   min-height: 100%;
   background-image: linear-gradient($blue, $blue-green, $sea-green, $green, $warm);

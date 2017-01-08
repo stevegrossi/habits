@@ -15,7 +15,7 @@ defmodule Habits.API.V1.HabitController do
   Return all of the current account’s habits for the given date as JSON
   """
   def index(conn, %{"date" => date_string}, current_account) do
-    date = date_string_to_date(date_string)
+    date = Date.from_iso8601!(date_string)
     habits =
       current_account
       |> assoc(:habits)
@@ -67,7 +67,7 @@ defmodule Habits.API.V1.HabitController do
   Create a CheckIn for the given date and habit, unless one exists.
   """
   def check_in(conn, %{"habit_id" => habit_id, "date" => date_string}, current_account) do
-    date = date_string_to_date(date_string)
+    date = Date.from_iso8601!(date_string)
 
     with {:ok, habit} <- Habit.get_by_account(current_account, habit_id),
          {:ok, _check_in} <- CheckIn.create_for_date(habit, date) do
@@ -85,7 +85,7 @@ defmodule Habits.API.V1.HabitController do
   Delete the CheckIn for the given date and habit.
   """
   def check_out(conn, %{"habit_id" => habit_id, "date" => date_string}, current_account) do
-    date = date_string_to_date(date_string)
+    date = Date.from_iso8601!(date_string)
 
     with {:ok, habit} <- Habit.get_by_account(current_account, habit_id),
          {:ok, check_in} <- CheckIn.get_by_date(habit, date) do
@@ -98,11 +98,5 @@ defmodule Habits.API.V1.HabitController do
         |> put_status(:not_found)
         |> render("error.json", error: message)
     end
-  end
-
-  defp date_string_to_date(date_string) do
-    date_string
-    |> Timex.parse!("%F", :strftime)
-    |> Timex.to_date
   end
 end

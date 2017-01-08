@@ -53,7 +53,7 @@ defmodule Habits.API.V1.HabitView do
     Repo.one(
       from c in Habits.CheckIn,
       where: c.habit_id == ^habit_id,
-      where: c.date == ^Timex.local,
+      where: c.date == ^Habits.Date.today,
       select: c.id
     )
   end

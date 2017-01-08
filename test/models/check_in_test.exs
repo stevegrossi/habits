@@ -3,7 +3,7 @@ defmodule Habits.CheckInTest do
 
   alias Habits.CheckIn
 
-  @valid_attrs %{date: Timex.local, habit_id: 1}
+  @valid_attrs %{date: Habits.Date.today, habit_id: 1}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

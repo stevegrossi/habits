@@ -10,8 +10,22 @@ defmodule Habits.Date do
   end
 
   def today do
-    Timex.to_date(Timex.local)
+    :calendar.local_time
+    |> extract_date_from_erl_datetime
+    |> Date.from_erl!
+  end
+
+  def yesterday do
+    today()
+    |> shift_days(-1)
+  end
+
+  def today_string do
+    today()
+    |> Date.to_iso8601
   end
 
   defp diff_date(date, diff), do: date + diff
+
+  defp extract_date_from_erl_datetime({date, _time}), do: date
 end

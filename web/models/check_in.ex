@@ -9,7 +9,7 @@ defmodule Habits.CheckIn do
   alias Habits.{Repo, Habit, CheckIn}
 
   schema "check_ins" do
-    field :date, Timex.Ecto.Date
+    field :date, :date
     belongs_to :habit, Habits.Habit
 
     timestamps()

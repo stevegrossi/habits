@@ -25,13 +25,8 @@ defmodule Habits.Factory do
 
   def check_in_factory do
     %Habits.CheckIn{
-      date: today_tuple(),
+      date: Habits.Date.today,
       habit: build(:habit),
     }
-  end
-
-  defp today_tuple do
-    date = Timex.local
-    {date.year, date.month, date.day}
   end
 end
