@@ -34,13 +34,18 @@ defmodule Habits.Habit do
   Hat tip: stackoverflow.com/q/22142028/
   """
   def get_current_streak(habit) do
+    yesterday_string =
+      Habits.Date.today
+      |> Habits.Date.shift_days(-1)
+      |> Date.to_iso8601
+
     sql = "
       SELECT COUNT(check_ins.date)
       FROM check_ins
       WHERE check_ins.habit_id = $1
       AND check_ins.date > (
         SELECT calendar.day
-        FROM generate_series('2010-01-01'::date, (CURRENT_DATE - INTERVAL '1 day'), '1 day') calendar(day)
+        FROM generate_series('2010-01-01'::date, '#{yesterday_string}'::date, '1 day') calendar(day)
         LEFT OUTER JOIN check_ins
           ON check_ins.date = calendar.day
           AND check_ins.habit_id = $1

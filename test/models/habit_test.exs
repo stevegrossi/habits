@@ -20,39 +20,39 @@ defmodule Habits.HabitTest do
 
     test "gets the current_streak before checking in today" do
       habit = Factory.insert(:habit)
-      Factory.insert(:check_in, habit: habit, date: days_ago_tuple(2))
-      Factory.insert(:check_in, habit: habit, date: days_ago_tuple(1))
+      Factory.insert(:check_in, habit: habit, date: days_ago(2))
+      Factory.insert(:check_in, habit: habit, date: days_ago(1))
 
       assert Habit.get_current_streak(habit) == 2
     end
 
     test "gets the current_streak after checking in today" do
       habit = Factory.insert(:habit)
-      Factory.insert(:check_in, habit: habit, date: days_ago_tuple(2))
-      Factory.insert(:check_in, habit: habit, date: days_ago_tuple(1))
-      Factory.insert(:check_in, habit: habit, date: days_ago_tuple(0))
+      Factory.insert(:check_in, habit: habit, date: days_ago(2))
+      Factory.insert(:check_in, habit: habit, date: days_ago(1))
+      Factory.insert(:check_in, habit: habit, date: days_ago(0))
 
       assert Habit.get_current_streak(habit) == 3
     end
 
     test "breaks the current_streak when your previous check-in was 2 days ago" do
       habit = Factory.insert(:habit)
-      Factory.insert(:check_in, habit: habit, date: days_ago_tuple(2))
-      Factory.insert(:check_in, habit: habit, date: days_ago_tuple(0))
+      Factory.insert(:check_in, habit: habit, date: days_ago(2))
+      Factory.insert(:check_in, habit: habit, date: days_ago(0))
 
       assert Habit.get_current_streak(habit) == 1
     end
 
     test "zeroes out the current_streak when you haven't checked in in 2 days" do
       habit = Factory.insert(:habit)
-      Factory.insert(:check_in, habit: habit, date: days_ago_tuple(2))
+      Factory.insert(:check_in, habit: habit, date: days_ago(2))
 
       assert Habit.get_current_streak(habit) == 0
     end
   end
 
-  defp days_ago_tuple(days) do
-    Timex.local
-    |> Timex.shift(days: -days)
+  defp days_ago(days) do
+    Habits.Date.today
+    |> Habits.Date.shift_days(-days)
   end
 end
