@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Link } from 'react-router'
 import Request from '../Request'
 import Session from './Session'
 
@@ -39,6 +40,9 @@ class SessionsPage extends React.Component {
                    key={session.token} />
         )}
         </ol>
+        <p className="FooterNav">
+          <Link to="/account">← Back</Link>
+        </p>
       </div>
     )
   }
