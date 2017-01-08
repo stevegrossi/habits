@@ -62,11 +62,12 @@ defmodule Habits.API.V1.SessionController do
   defp get_location(conn) do
     case GeoIP.lookup(conn) do
       {:ok, %GeoIP.Location{city: city, region_name: region, country_name: country}}
-        when not is_nil(city) or not is_nil(region) or not is_nil(country) ->
+        when not city in ["", nil]
+        and not region in ["", nil]
+        and not country in ["", nil] ->
 
-        [city, region, country]
-        |> Enum.reject(&is_nil(&1))
-        |> Enum.join(", ")
+        city <> ", " <> region <> ", " <> country
+
       _ ->
         Session.default_location
     end

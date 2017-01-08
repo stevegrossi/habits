@@ -15,7 +15,7 @@ defmodule Habits.Session do
     timestamps()
   end
 
-  @default_location "Unknown"
+  @default_location "Earth"
   def default_location, do: @default_location
 
   @doc """
