@@ -1,29 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { isToday, isYesterday, isThisWeek, isThisYear, format } from 'date-fns'
 
 class DateNav extends React.Component {
 
-  monthName(index) {
-    const monthNames = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-    ]
-    return monthNames[index]
-  }
-
   currentDateString() {
-    const date = new Date(this.props.date)
-    const dateParts = [
-      date.getDate(),
-      this.monthName(date.getMonth()),
-      date.getFullYear()
-    ]
-    return dateParts.join(" ")
+    const { date } = this.props
+    if (isToday(date)) {
+      return 'Today'
+    } else if (isYesterday(date)) {
+      return 'Yesterday'
+    } else if (isThisWeek(date)) {
+      return format(date, 'dddd')
+    } else if (isThisYear(date)) {
+      return format(date, 'MMMM D')
+    } else {
+      return format(date, 'MMMM D, YYYY')
+    }
   }
 
   showNextDate() {
-    const today = (new Date()).setHours(0, 0, 0, 0)
-    return this.props.date < today
+    return !isToday(this.props.date)
   }
 
   render() {
