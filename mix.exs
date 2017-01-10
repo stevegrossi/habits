@@ -4,7 +4,7 @@ defmodule Habits.Mixfile do
   def project do
     [app: :habits,
      version: "0.0.1",
-     elixir: "~> 1.3",
+     elixir: "~> 1.4",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -17,15 +17,11 @@ defmodule Habits.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [mod: {Habits, []},
-     applications: app_list(Mix.env)]
+    [
+      mod: {Habits, []},
+      extra_applications: [:logger]
+    ]
   end
-
-  defp app_list(:test), do: [:ex_machina | app_list()]
-  defp app_list(_),  do: app_list()
-  defp app_list,  do: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy,
-                       :logger, :gettext, :phoenix_ecto, :postgrex,
-                       :comeonin, :geoip]
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
