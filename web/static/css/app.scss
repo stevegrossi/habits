@@ -158,6 +158,13 @@ a {
   &-streak {
     margin-left: 1em
   }
+
+  &-streakIcon {
+    display: inline-block;
+    fill: #fff;
+    width: 1em;
+    height: 1em;
+  }
 }
 
 .CheckInButton {
