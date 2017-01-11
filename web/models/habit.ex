@@ -6,14 +6,13 @@ defmodule Habits.Habit do
 
   use Habits.Web, :model
 
-  alias Habits.Account
-  alias Habits.CheckIn
-  alias Habits.Repo
+  alias Habits.{Account, CheckIn, Repo, Streak}
 
   schema "habits" do
     field :name, :string
     belongs_to :account, Account
     has_many :check_ins, CheckIn
+    has_many :streaks, Streak
 
     timestamps()
   end
@@ -35,29 +34,23 @@ defmodule Habits.Habit do
   """
   def get_current_streak(habit) do
     yesterday_string =
-      Habits.Date.today
-      |> Habits.Date.shift_days(-1)
+      Habits.Date.yesterday
       |> Date.to_iso8601
 
-    sql = "
-      SELECT COUNT(check_ins.date)
-      FROM check_ins
-      WHERE check_ins.habit_id = $1
-      AND check_ins.date > (
-        SELECT calendar.day
-        FROM generate_series('2010-01-01'::date, '#{yesterday_string}'::date, '1 day') calendar(day)
-        LEFT OUTER JOIN check_ins
-          ON check_ins.date = calendar.day
-          AND check_ins.habit_id = $1
-        WHERE check_ins.date IS NULL
-        ORDER BY calendar.day DESC
-        LIMIT 1
-      );
-    "
+    sql = """
+    SELECT
+      COALESCE(streaks.length, 0)
+    FROM habits
+    LEFT JOIN streaks
+      ON habits.id = streaks.habit_id
+      AND streaks.end >= '#{yesterday_string}'::date
+    WHERE habits.id = #{habit.id}
+    LIMIT 1
+    ;
+    """
 
-    {:ok, query} = Ecto.Adapters.SQL.query(Repo, sql, [habit.id])
-    [[rows]] = query.rows
-    rows
+    {:ok, %{rows: [[streak]]}} = Ecto.Adapters.SQL.query(Repo, sql, [])
+    streak
   end
 
   @doc """
