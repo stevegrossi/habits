@@ -29,28 +29,13 @@ defmodule Habits.Habit do
   @doc """
   The current streak is the number of consecutive daily check-ins
   for a habit up until yesterday, or today if you’ve checked in today.
-
-  Hat tip: stackoverflow.com/q/22142028/
   """
   def get_current_streak(habit) do
-    yesterday_string =
-      Habits.Date.yesterday
-      |> Date.to_iso8601
-
-    sql = """
-    SELECT
-      COALESCE(streaks.length, 0)
-    FROM habits
-    LEFT JOIN streaks
-      ON habits.id = streaks.habit_id
-      AND streaks.end >= '#{yesterday_string}'::date
-    WHERE habits.id = #{habit.id}
-    LIMIT 1
-    ;
-    """
-
-    {:ok, %{rows: [[streak]]}} = Ecto.Adapters.SQL.query(Repo, sql, [])
-    streak
+    habit
+    |> assoc(:streaks)
+    |> where([s], s.end >= ^Habits.Date.yesterday)
+    |> select([s], s.length)
+    |> Repo.one || 0
   end
 
   @doc """
