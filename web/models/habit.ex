@@ -6,14 +6,13 @@ defmodule Habits.Habit do
 
   use Habits.Web, :model
 
-  alias Habits.Account
-  alias Habits.CheckIn
-  alias Habits.Repo
+  alias Habits.{Account, CheckIn, Repo, Streak}
 
   schema "habits" do
     field :name, :string
     belongs_to :account, Account
     has_many :check_ins, CheckIn
+    has_many :streaks, Streak
 
     timestamps()
   end
@@ -30,34 +29,23 @@ defmodule Habits.Habit do
   @doc """
   The current streak is the number of consecutive daily check-ins
   for a habit up until yesterday, or today if you’ve checked in today.
-
-  Hat tip: stackoverflow.com/q/22142028/
   """
   def get_current_streak(habit) do
-    yesterday_string =
-      Habits.Date.today
-      |> Habits.Date.shift_days(-1)
-      |> Date.to_iso8601
+    habit
+    |> assoc(:streaks)
+    |> where([s], s.end >= ^Habits.Date.yesterday)
+    |> select([s], s.length)
+    |> Repo.one || 0
+  end
 
-    sql = "
-      SELECT COUNT(check_ins.date)
-      FROM check_ins
-      WHERE check_ins.habit_id = $1
-      AND check_ins.date > (
-        SELECT calendar.day
-        FROM generate_series('2010-01-01'::date, '#{yesterday_string}'::date, '1 day') calendar(day)
-        LEFT OUTER JOIN check_ins
-          ON check_ins.date = calendar.day
-          AND check_ins.habit_id = $1
-        WHERE check_ins.date IS NULL
-        ORDER BY calendar.day DESC
-        LIMIT 1
-      );
-    "
-
-    {:ok, query} = Ecto.Adapters.SQL.query(Repo, sql, [habit.id])
-    [[rows]] = query.rows
-    rows
+  @doc """
+  Returns the longest streak of consecutive daily check-ins for a habit
+  """
+  def get_longest_streak(habit) do
+    habit
+    |> assoc(:streaks)
+    |> select([s], max(s.length))
+    |> Repo.one || 0
   end
 
   @doc """

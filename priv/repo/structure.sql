@@ -174,6 +174,33 @@ ALTER SEQUENCE sessions_id_seq OWNED BY sessions.id;
 
 
 --
+-- Name: streaks; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW streaks AS
+ WITH start_streak AS (
+         SELECT check_ins.date,
+            check_ins.habit_id,
+                CASE
+                    WHEN ((check_ins.date - lag(check_ins.date, 1) OVER (PARTITION BY check_ins.habit_id ORDER BY check_ins.date)) > 1) THEN 1
+                    ELSE 0
+                END AS streak_start
+           FROM check_ins
+        ), streak_groups AS (
+         SELECT start_streak.date,
+            start_streak.habit_id,
+            sum(start_streak.streak_start) OVER (PARTITION BY start_streak.habit_id ORDER BY start_streak.date) AS streak
+           FROM start_streak
+        )
+ SELECT streak_groups.habit_id,
+    min(streak_groups.date) AS start,
+    max(streak_groups.date) AS "end",
+    ((max(streak_groups.date) - min(streak_groups.date)) + 1) AS length
+   FROM streak_groups
+  GROUP BY streak_groups.habit_id, streak_groups.streak;
+
+
+--
 -- Name: accounts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -311,5 +338,5 @@ ALTER TABLE ONLY sessions
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO "schema_migrations" (version) VALUES (20160607225931), (20160611154829), (20160611162028), (20161231231911), (20170107011711);
+INSERT INTO "schema_migrations" (version) VALUES (20160607225931), (20160611154829), (20160611162028), (20161231231911), (20170107011711), (20170111012241);
 
