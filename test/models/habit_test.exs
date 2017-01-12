@@ -51,6 +51,19 @@ defmodule Habits.HabitTest do
     end
   end
 
+  describe ".get_longest_streak" do
+
+    test "returns the longest consecutive streak for a habit" do
+      habit = Factory.insert(:habit)
+      Factory.insert(:check_in, habit: habit, date: days_ago(7))
+      Factory.insert(:check_in, habit: habit, date: days_ago(6))
+      Factory.insert(:check_in, habit: habit, date: days_ago(5))
+      Factory.insert(:check_in, habit: habit, date: days_ago(3))
+
+      assert Habit.get_longest_streak(habit) == 3
+    end
+  end
+
   defp days_ago(days) do
     Habits.Date.today
     |> Habits.Date.shift_days(-days)

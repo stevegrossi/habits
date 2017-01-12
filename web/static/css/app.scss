@@ -14,7 +14,7 @@ html {
 body {
   font-family: "Lato", sans-serif;
   color: $text-color;
-  text-shadow: 0 1px 1px rgba(0,0,0,.1);
+  text-shadow: $body-text-shadow;
 }
 
 label {
@@ -157,13 +157,6 @@ a {
 
   &-streak {
     margin-left: 1em
-  }
-
-  &-streakIcon {
-    display: inline-block;
-    fill: #fff;
-    width: 1em;
-    height: 1em;
   }
 }
 
@@ -323,4 +316,12 @@ a {
   margin: 5em auto;
   -webkit-animation: rotateplane 1.2s infinite ease-in-out;
   animation: rotateplane 1.2s infinite ease-in-out;
+}
+
+.StreakIcon {
+  display: inline-block;
+  fill: #fff;
+  filter: drop-shadow($body-text-shadow);
+  height: .75em;
+  width: .75em;
 }

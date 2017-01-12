@@ -39,6 +39,16 @@ defmodule Habits.Habit do
   end
 
   @doc """
+  Returns the longest streak of consecutive daily check-ins for a habit
+  """
+  def get_longest_streak(habit) do
+    habit
+    |> assoc(:streaks)
+    |> select([s], max(s.length))
+    |> Repo.one || 0
+  end
+
+  @doc """
   Gets a habit for a given account.
   """
   def get_by_account(%Account{} = account, habit_id) do
