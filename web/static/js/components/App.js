@@ -36,7 +36,7 @@ class App extends React.Component {
     return (
       <Router history={browserHistory}>
         <Route path="/" component={Layout}>
-          <IndexRoute component={HomePage}/>
+          <IndexRoute component={HomePage} onEnter={this.redirectIfLoggedIn} />
           <Route path="/register" component={RegistrationForm} />
           <Route path="/login" component={LoginForm} onEnter={this.redirectIfLoggedIn} />
           <Route path="/logout" onEnter={this.logOut} />
