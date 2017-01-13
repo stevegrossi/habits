@@ -33,9 +33,7 @@ defmodule Habits.Habit do
   def get_current_streak(habit) do
     habit
     |> assoc(:streaks)
-    |> where([s], s.end >= ^Habits.Date.yesterday)
-    |> select([s], s.length)
-    |> Repo.one || 0
+    |> Streak.current
   end
 
   @doc """
@@ -44,8 +42,7 @@ defmodule Habits.Habit do
   def get_longest_streak(habit) do
     habit
     |> assoc(:streaks)
-    |> select([s], max(s.length))
-    |> Repo.one || 0
+    |> Streak.longest
   end
 
   @doc """
