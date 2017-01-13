@@ -46,7 +46,7 @@ class HabitList extends React.Component {
 
   checkedInHabitsCount() {
     return this.state.habits.filter(function(habit) {
-      return !!habit.checkInId
+      return habit.checkedIn
     }).length
   }
 

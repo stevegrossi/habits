@@ -8,7 +8,7 @@ defmodule Habits.API.V1.HabitControllerTest do
     test "renders a list of habits", %{conn: conn} do
       account = Factory.insert(:account)
       habit = Factory.insert(:habit, account: account)
-      today_check_in = Factory.insert(:check_in, habit: habit, date: Habits.Date.today)
+      Factory.insert(:check_in, habit: habit, date: Habits.Date.today)
       Factory.insert(:check_in, habit: habit, date: Habits.Date.yesterday)
 
       conn =
@@ -20,7 +20,7 @@ defmodule Habits.API.V1.HabitControllerTest do
         %{
           "id" => habit.id,
           "name" => habit.name,
-          "checkInId" => today_check_in.id,
+          "checkedIn" => true,
           "streak" => 2
         }
       ]
@@ -86,7 +86,7 @@ defmodule Habits.API.V1.HabitControllerTest do
       assert json_response(conn, :created) == %{
         "id" => habit.id,
         "name" => habit.name,
-        "checkInId" => nil,
+        "checkedIn" => false,
         "streak" => 0
       }
     end
@@ -102,12 +102,12 @@ defmodule Habits.API.V1.HabitControllerTest do
         |> assign(:current_account, account)
         |> post(api_v1_habit_check_in_path(conn, :check_in, habit.id, date: Habits.Date.today_string))
 
-      new_check_in = Repo.get_by(CheckIn, %{habit_id: habit.id, date: Habits.Date.today})
+      Repo.get_by(CheckIn, %{habit_id: habit.id, date: Habits.Date.today})
 
       assert json_response(conn, :ok) == %{
         "id" => habit.id,
         "name" => habit.name,
-        "checkInId" => new_check_in.id,
+        "checkedIn" => true,
         "streak" => 1
       }
     end
@@ -156,7 +156,7 @@ defmodule Habits.API.V1.HabitControllerTest do
       assert json_response(conn, :ok) == %{
         "id" => habit.id,
         "name" => habit.name,
-        "checkInId" => nil,
+        "checkedIn" => false,
         "streak" => 0
       }
     end

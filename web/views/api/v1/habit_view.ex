@@ -38,7 +38,7 @@ defmodule Habits.API.V1.HabitView do
     %{
       id: habit.id,
       name: habit.name,
-      checkInId: nil,
+      checkedIn: false,
       streak: 0
     }
   end
@@ -46,25 +46,23 @@ defmodule Habits.API.V1.HabitView do
     %{
       id: habit.id,
       name: habit.name,
-      checkInId: check_in_id_for_habit(habit.id, date),
+      checkedIn: checked_into_habit?(habit.id, date),
       streak: Habit.get_current_streak(habit)
     }
   end
 
-  def check_in_id_for_habit(habit_id, nil) do
-    Repo.one(
+  def checked_into_habit?(habit_id, nil) do
+    Repo.exists?(
       from c in Habits.CheckIn,
       where: c.habit_id == ^habit_id,
-      where: c.date == ^Habits.Date.today,
-      select: c.id
+      where: c.date == ^Habits.Date.today
     )
   end
-  def check_in_id_for_habit(habit_id, date) do
-    Repo.one(
+  def checked_into_habit?(habit_id, date) do
+    Repo.exists?(
       from c in Habits.CheckIn,
       where: c.habit_id == ^habit_id,
-      where: c.date == ^date,
-      select: c.id
+      where: c.date == ^date
     )
   end
 end

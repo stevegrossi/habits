@@ -6,22 +6,18 @@ import Request from '../Request'
 
 class Habit extends React.Component {
 
-  isCheckedIn() {
-    return !!this.props.checkInId
-  }
-
   toggleCheckIn() {
-    const { id, checkInId } = this.props
-    if (this.isCheckedIn()) {
-      this.props.checkOut(id)
+    const { id, checkedIn, checkOut, checkIn } = this.props
+    if (checkedIn) {
+      checkOut(id)
     } else {
-      this.props.checkIn(id)
+      checkIn(id)
     }
   }
 
   buttonClassName() {
     let classNames = ['CheckInButton']
-    if (this.isCheckedIn()) {
+    if (this.props.checkedIn) {
       classNames.push('CheckInButton--checkedIn')
     }
     return classNames.join(' ')
