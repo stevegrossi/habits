@@ -21,7 +21,7 @@ defmodule Habits.API.V1.HabitView do
     habit_data_for_date(habit, date)
   end
   def render("habit.json", %{habit: habit}) do
-    habit_data_for_date(habit, nil)
+    habit_data_for_new_habit(habit)
   end
 
   def render("error.json", %{error: message}) do
@@ -32,20 +32,20 @@ defmodule Habits.API.V1.HabitView do
     %{success: true}
   end
 
-  defp habit_data_for_date(habit, nil) do
-    %{
-      id: habit.id,
-      name: habit.name,
-      checkedIn: false,
-      streak: 0
-    }
-  end
   defp habit_data_for_date(habit, date) do
     %{
       id: habit.id,
       name: habit.name,
       checkedIn: Habit.checked_in?(habit, date),
       streak: Habit.get_current_streak(habit)
+    }
+  end
+  defp habit_data_for_new_habit(habit) do
+    %{
+      id: habit.id,
+      name: habit.name,
+      checkedIn: false,
+      streak: 0
     }
   end
 end
