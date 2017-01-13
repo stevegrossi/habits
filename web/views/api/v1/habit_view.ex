@@ -51,13 +51,6 @@ defmodule Habits.API.V1.HabitView do
     }
   end
 
-  def checked_into_habit?(habit_id, nil) do
-    Repo.exists?(
-      from c in Habits.CheckIn,
-      where: c.habit_id == ^habit_id,
-      where: c.date == ^Habits.Date.today
-    )
-  end
   def checked_into_habit?(habit_id, date) do
     Repo.exists?(
       from c in Habits.CheckIn,
