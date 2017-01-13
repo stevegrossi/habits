@@ -62,6 +62,16 @@ defmodule Habits.Habit do
   end
 
   @doc """
+  Return whether a CheckIn exists for the given habit and date
+  """
+  def checked_in?(%__MODULE__{} = habit, date) do
+    habit
+    |> assoc(:check_ins)
+    |> where(date: ^date)
+    |> Repo.exists?
+  end
+
+  @doc """
   Return the total number of CheckIns for a given habit
   """
   def check_in_count(habit) do

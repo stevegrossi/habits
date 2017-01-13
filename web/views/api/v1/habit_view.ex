@@ -1,8 +1,7 @@
 defmodule Habits.API.V1.HabitView do
   use Habits.Web, :view
 
-  alias Habits.{Repo, Habit}
-  import Ecto.Query, only: [from: 2]
+  alias Habits.{Habit}
 
   def render("index.json", %{habits: habits, date: date}) do
     habits
@@ -46,16 +45,8 @@ defmodule Habits.API.V1.HabitView do
     %{
       id: habit.id,
       name: habit.name,
-      checkedIn: checked_into_habit?(habit.id, date),
+      checkedIn: Habit.checked_in?(habit, date),
       streak: Habit.get_current_streak(habit)
     }
-  end
-
-  def checked_into_habit?(habit_id, date) do
-    Repo.exists?(
-      from c in Habits.CheckIn,
-      where: c.habit_id == ^habit_id,
-      where: c.date == ^date
-    )
   end
 end
