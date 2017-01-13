@@ -4,8 +4,7 @@ defmodule Habits.API.V1.HabitView do
   alias Habits.{Habit}
 
   def render("index.json", %{habits: habits, date: date}) do
-    habits
-    |> Enum.map(&habit_data_for_date(&1, date))
+    render_many(habits, __MODULE__, "habit.json", %{date: date})
   end
 
   def render("show.json", %{habit: habit}) do
