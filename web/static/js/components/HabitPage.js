@@ -26,6 +26,7 @@ class HabitPage extends React.Component {
 
   handleDelete(event) {
     event.preventDefault()
+    const { data } = this.state
     const confirmed = confirm(`Are you sure you want to delete “${data.name}” and all of its check-ins?`)
     if (confirmed) {
       Request.delete(this.habitPath()).then(function(json) {
