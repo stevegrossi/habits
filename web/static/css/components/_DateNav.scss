@@ -1,0 +1,23 @@
+.DateNav {
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,.25);
+  margin: $vertical-spacing * -1 $vertical-spacing * -1 0;
+
+  &-arrow {
+    font-size: 2em;
+    width: 1.5em;
+    cursor: pointer;
+
+    a {
+      display: inline-block;
+      position: relative;
+      bottom: 2px;
+      padding: .25em .5em;
+      color: rgba(255,255,255,.75);
+      text-decoration: none;
+    }
+  }
+}

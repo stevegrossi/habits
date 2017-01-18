@@ -1,0 +1,32 @@
+.AppHeader {
+  color: $text-color;
+  overflow: hidden;
+  padding: $base-padding $base-padding * 2;
+
+  &-logo {
+    margin: 0;
+    float: left;
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  &-nav {
+    float: right;
+
+    ul {
+      list-style: none;
+      margin: $base-padding;
+    }
+
+    li {
+      display: inline-block;
+      margin-left: $base-padding;
+    }
+  }
+
+  a {
+    color: inherit;
+  }
+}

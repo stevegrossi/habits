@@ -1,0 +1,14 @@
+.Metric {
+
+  &-title {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    font-weight: bold;
+  }
+
+  &-number {
+    display: block;
+    font-size: 4em
+  }
+}

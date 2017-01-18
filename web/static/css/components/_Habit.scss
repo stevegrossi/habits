@@ -1,0 +1,20 @@
+.Habit {
+  border-top: $light-border;
+  &:first-child { border-top: 0; }
+  cursor: pointer;
+  padding: $vertical-spacing;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &-name {
+    color: $text-color !important;
+    text-decoration: none;
+    font-weight: bold;
+    flex-grow: 1;
+  }
+
+  &-streak {
+    margin-left: 1em
+  }
+}

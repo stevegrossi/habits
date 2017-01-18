@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background-image: linear-gradient($blue, $blue-green, $sea-green, $green, $warm);
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  color: $text-color;
+  text-shadow: $body-text-shadow;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: $base-padding;
+}
+
+a {
+  color: $text-color;
+}

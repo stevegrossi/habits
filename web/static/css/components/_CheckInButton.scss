@@ -1,0 +1,15 @@
+.CheckInButton {
+  @include round(1.5em);
+  display: inline-block;
+  background: none;
+  height: 1.5em;
+  width: 1.5em;
+  padding: 0;
+  margin-right: $base-padding;
+  text-indent: -999em;
+  border: 2px solid $text-color;
+
+  &--checkedIn {
+    background-color: $text-color;
+  }
+}

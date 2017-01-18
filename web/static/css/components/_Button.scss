@@ -1,0 +1,12 @@
+.Button {
+  @include round;
+  color: $text-color !important;
+  background-color: $blue;
+  border: 0;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  width: 100%;
+  margin: $vertical-spacing 0;
+  padding: $base-padding;
+}
