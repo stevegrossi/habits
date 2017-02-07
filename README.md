@@ -1,6 +1,7 @@
 # Habits
 
 [ ![Codeship Status for stevegrossi/habits](https://codeship.com/projects/4f089590-12d6-0134-4498-76fd620179ca/status?branch=master)](https://codeship.com/projects/157431)
+[![Ebert](https://ebertapp.io/github/stevegrossi/habits.svg)](https://ebertapp.io/github/stevegrossi/habits)
 
 An Elixir/Phoenix application for tracking daily habits.
 
