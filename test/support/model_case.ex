@@ -16,8 +16,7 @@ defmodule Habits.ModelCase do
 
   using do
     quote do
-      alias Habits.Repo
-      alias Habits.Factory
+      alias Habits.{Factory, Repo}
 
       import Ecto
       import Ecto.Changeset

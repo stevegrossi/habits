@@ -1,8 +1,7 @@
 defmodule Habits.RepoTest do
   use Habits.ModelCase
 
-  alias Habits.Repo
-  alias Habits.Habit
+  alias Habits.{Habit, Repo}
 
   test "exists? returns false with no matching record in the DB" do
     assert Repo.exists?(Habit) == false

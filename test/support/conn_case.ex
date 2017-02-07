@@ -20,8 +20,7 @@ defmodule Habits.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
 
-      alias Habits.Repo
-      alias Habits.Factory
+      alias Habits.{Factory, Repo}
 
       import Ecto
       import Ecto.Changeset

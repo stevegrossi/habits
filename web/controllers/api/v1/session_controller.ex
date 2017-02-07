@@ -3,8 +3,7 @@ defmodule Habits.API.V1.SessionController do
 
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
 
-  alias Habits.Account
-  alias Habits.Session
+  alias Habits.{Account, Session}
 
   def index(conn, %{}) do
     current_account = conn.assigns.current_account
