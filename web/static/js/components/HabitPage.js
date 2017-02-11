@@ -4,6 +4,7 @@ import { browserHistory, Link } from 'react-router'
 import Request from '../Request'
 import Loading from './Loading'
 import Icon from './Icon'
+import Chart from './Chart'
 
 class HabitPage extends React.Component {
 
@@ -89,6 +90,8 @@ class HabitPage extends React.Component {
               </a>
             </h2>
           }
+
+          <Chart data={[5, 10, 5, 20, 8, 15]} />
 
           <p className="Metric">
             <span className="Metric-title">Current Streak</span>
