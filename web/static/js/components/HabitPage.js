@@ -69,14 +69,22 @@ class HabitPage extends React.Component {
       {data &&
         <div className="center">
           {this.state.editing &&
-            <div>
-              <input ref={(node) => this.nameInput = node } defaultValue={data.name} className="TextInput" type="text" autoFocus onFocus={this.selectOnFocus} />
-              <button className="Button" onClick={this.submitEdit}>Save</button>
-              <button className="Button" onClick={this.cancelEdit}>Cancel</button>
+            <div className="InlineForm">
+              <input className="InlineForm-input TextInput" ref={(node) => this.nameInput = node } defaultValue={data.name} type="text" autoFocus onFocus={this.selectOnFocus} />
+              <button className="InlineForm-button" onClick={this.submitEdit}>
+                <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 24 24">
+                  <path d="M21 5q.43 0 .715.285T22 6q0 .422-.289.711l-12 12Q9.422 19 9 19t-.711-.289l-6-6Q2 12.422 2 12q0-.43.285-.715T3 11q.422 0 .711.289L9 16.586 20.289 5.289Q20.578 5 21 5z"/>
+                </svg>
+              </button>
+              <button className="InlineForm-button" onClick={this.cancelEdit}>
+                <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 24 24">
+                  <path d="M19 4q.43 0 .715.285T20 5q0 .422-.289.711L13.414 12l6.297 6.289Q20 18.578 20 19q0 .43-.285.715T19 20q-.422 0-.711-.289L12 13.414l-6.289 6.297Q5.422 20 5 20q-.43 0-.715-.285T4 19q0-.422.289-.711L10.586 12 4.289 5.711Q4 5.422 4 5q0-.43.285-.715T5 4q.422 0 .711.289L12 10.586l6.289-6.297Q18.578 4 19 4z"/>
+                </svg>
+              </button>
             </div>
           }
           {!this.state.editing &&
-            <h2>
+            <h2 className="mt0">
               {data.name}
               <a href="#" onClick={this.handleEdit}>
                 <svg className="InlineIcon muted" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
