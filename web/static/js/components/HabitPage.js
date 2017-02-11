@@ -9,8 +9,13 @@ class HabitPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: null
+      data: null,
+      editing: false
     }
+    this.handleEdit = this.handleEdit.bind(this)
+    this.cancelEdit = this.cancelEdit.bind(this)
+    this.submitEdit = this.submitEdit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   habitPath() {
@@ -26,13 +31,34 @@ class HabitPage extends React.Component {
 
   handleDelete(event) {
     event.preventDefault()
-    const { data } = this.state
-    const confirmed = confirm(`Are you sure you want to delete “${data.name}” and all of its check-ins?`)
+    const { data: { name } } = this.state
+    const confirmed = confirm(`Are you sure you want to delete “${name}” and all of its check-ins?`)
     if (confirmed) {
       Request.delete(this.habitPath()).then(function(json) {
         browserHistory.push('/habits')
       })
     }
+  }
+
+  handleEdit(event) {
+    this.setState({ editing: true })
+  }
+
+  cancelEdit(event) {
+    this.setState({ editing: false })
+  }
+
+  submitEdit() {
+    const attributes = { name: this.nameInput.value }
+    const self = this
+    Request.patch(this.habitPath(), attributes).then(function(json) {
+      const newData = { ...self.state.data, ...json }
+      self.setState({ editing: false, data: newData })
+    })
+  }
+
+  selectOnFocus(event) {
+    event.target.select()
   }
 
   render() {
@@ -42,7 +68,23 @@ class HabitPage extends React.Component {
       {!data && <Loading /> }
       {data &&
         <div className="center">
-          <h2>{data.name}</h2>
+          {this.state.editing &&
+            <div>
+              <input ref={(node) => this.nameInput = node } defaultValue={data.name} className="TextInput" type="text" autoFocus onFocus={this.selectOnFocus} />
+              <button className="Button" onClick={this.submitEdit}>Save</button>
+              <button className="Button" onClick={this.cancelEdit}>Cancel</button>
+            </div>
+          }
+          {!this.state.editing &&
+            <h2>
+              {data.name}
+              <a href="#" onClick={this.handleEdit}>
+                <svg className="InlineIcon muted" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                  <path d="M15 16H1a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h10L9 2H2v12h12V7l2-2v10a1 1 0 0 1-1 1zM4 12V9l9-9h1l2 2v1l-9 9H4zm4.5-3.5L14 3l-1-1-5.5 5.5 1 1zM6 9l-1 1v1h1l1-1-1-1z"/>
+                </svg>
+              </a>
+            </h2>
+          }
 
           <p className="Metric">
             <span className="Metric-title">Current Streak</span>
@@ -71,7 +113,7 @@ class HabitPage extends React.Component {
       }
       <p className="FooterNav">
         <Link to="/habits">← Back</Link>
-        <a href="#" onClick={this.handleDelete.bind(this)}>× Delete</a>
+        <a href="#" onClick={this.handleDelete}>× Delete</a>
       </p>
     </div>
     )
