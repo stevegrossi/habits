@@ -54,6 +54,7 @@ exports.config = {
   plugins: {
     babel: {
       presets: ['es2015', 'react'],
+      plugins: ['transform-object-rest-spread'],
       // Do not use ES6 compiler in vendor code
       ignore: [/web\/static\/vendor/]
     },

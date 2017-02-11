@@ -1,4 +1,7 @@
 defmodule Habits.Date do
+  @moduledoc """
+  Commonly-used date- and time-related utility functions.
+  """
 
   def shift_days(date, diff_days) do
     date

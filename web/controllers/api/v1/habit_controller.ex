@@ -52,6 +52,22 @@ defmodule Habits.API.V1.HabitController do
   end
 
   @doc """
+  Update the name of a habit in the current account
+  """
+  def update(conn, %{"id" => habit_id, "name" => name}, current_account) do
+    habit =
+      current_account
+      |> assoc(:habits)
+      |> Repo.get(habit_id)
+      |> Habit.changeset(%{name: name})
+      |> Repo.update!
+
+    conn
+    |> put_status(:ok)
+    |> render("habit.json", habit: habit)
+  end
+
+  @doc """
   Deletes a habit from the current account.
   """
   def delete(conn, %{"id" => habit_id}, current_account) do

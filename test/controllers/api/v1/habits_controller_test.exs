@@ -92,6 +92,28 @@ defmodule Habits.API.V1.HabitControllerTest do
     end
   end
 
+  describe ".update" do
+
+    test "updates an existing habit in the current account", %{conn: conn} do
+      account = Factory.insert(:account)
+      habit = Factory.insert(:habit, account: account)
+      new_params = %{"name" => "Fight for justice"}
+
+      conn =
+        conn
+        |> assign(:current_account, account)
+        |> patch(api_v1_habit_path(conn, :update, habit.id), new_params)
+
+      assert Repo.get_by(Habit, name: new_params["name"])
+      assert json_response(conn, :ok) == %{
+        "id" => habit.id,
+        "name" => new_params["name"],
+        "checkedIn" => false,
+        "streak" => 0
+      }
+    end
+  end
+
   describe ".check_in" do
 
     test "checks in to a habit", %{conn: conn} do
