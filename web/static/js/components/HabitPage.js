@@ -15,7 +15,7 @@ class HabitPage extends React.Component {
     }
     this.handleEdit = this.handleEdit.bind(this)
     this.cancelEdit = this.cancelEdit.bind(this)
-    this.submitEdit = this.submitEdit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
   }
 
@@ -49,7 +49,8 @@ class HabitPage extends React.Component {
     this.setState({ editing: false })
   }
 
-  submitEdit() {
+  handleSubmit(e) {
+    e.preventDefault()
     const attributes = { name: this.nameInput.value }
     const self = this
     Request.patch(this.habitPath(), attributes).then(function(json) {
@@ -70,15 +71,15 @@ class HabitPage extends React.Component {
       {data &&
         <div className="center">
           {this.state.editing &&
-            <div className="InlineForm">
+            <form onSubmit={this.handleSubmit} className="InlineForm">
               <input className="InlineForm-input TextInput" ref={(node) => this.nameInput = node } defaultValue={data.name} type="text" autoFocus onFocus={this.selectOnFocus} />
-              <button className="InlineForm-button" onClick={this.submitEdit}>
+              <button className="InlineForm-button">
                 <Icon name="accept" />
               </button>
               <button className="InlineForm-button" onClick={this.cancelEdit}>
                 <Icon name="cancel" />
               </button>
-            </div>
+            </form>
           }
           {!this.state.editing &&
             <h2 className="mt0">
