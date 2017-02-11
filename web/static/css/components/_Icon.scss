@@ -1,0 +1,9 @@
+.Icon {
+  height: .75em;
+  width: .75em;
+
+  &--inline {
+    display: inline-block;
+    margin: 0 .5em;
+  }
+}
