@@ -79,4 +79,12 @@ defmodule Habits.Habit do
     |> assoc(:check_ins)
     |> Repo.count
   end
+
+  def check_in_dates(habit) do
+    habit
+    |> assoc(:check_ins)
+    |> order_by(:date)
+    |> select([c], c.date)
+    |> Repo.all
+  end
 end

@@ -4,7 +4,7 @@ import { browserHistory, Link } from 'react-router'
 import Request from '../Request'
 import Loading from './Loading'
 import Icon from './Icon'
-import Chart from './Chart'
+import CheckInChart from './CheckInChart'
 
 class HabitPage extends React.Component {
 
@@ -91,7 +91,7 @@ class HabitPage extends React.Component {
             </h2>
           }
 
-          <Chart data={[5, 10, 5, 20, 8, 15]} />
+          <CheckInChart data={this.state.data.checkInDates} />
 
           <p className="Metric">
             <span className="Metric-title">Current Streak</span>

@@ -13,7 +13,8 @@ defmodule Habits.API.V1.HabitView do
       name: habit.name,
       totalCheckIns: Habit.check_in_count(habit),
       currentStreak: Habit.get_current_streak(habit),
-      longestStreak: Habit.get_longest_streak(habit)
+      longestStreak: Habit.get_longest_streak(habit),
+      checkInDates: Habit.check_in_dates(habit)
     }
   end
 

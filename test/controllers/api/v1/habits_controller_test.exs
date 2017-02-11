@@ -44,7 +44,8 @@ defmodule Habits.API.V1.HabitControllerTest do
         "name" => habit.name,
         "totalCheckIns" => 1,
         "currentStreak" => 1,
-        "longestStreak" => 1
+        "longestStreak" => 1,
+        "checkInDates" => [Habits.Date.today_string]
       }
     end
   end
