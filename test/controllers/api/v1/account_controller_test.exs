@@ -17,7 +17,7 @@ defmodule Habits.API.V1.AccountControllerTest do
 
       assert json_response(conn, :ok) == %{
         "email" => account.email,
-        "totalCheckIns" => 1
+        "checkInData" => [1]
       }
     end
   end

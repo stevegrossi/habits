@@ -10,7 +10,7 @@ class Gravatar extends React.Component {
 
   render() {
     return (
-    <img className="Avatar" src={this.srcURL()} />
+      <img className="Avatar" src={this.srcURL()} />
     )
   }
 }

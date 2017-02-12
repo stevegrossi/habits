@@ -5,6 +5,8 @@ defmodule Habits.Account do
 
   use Habits.Web, :model
 
+  alias Habits.{Repo}
+
   schema "accounts" do
     field :email, :string
     field :encrypted_password, :string
@@ -26,6 +28,28 @@ defmodule Habits.Account do
     |> validate_length(:password, min: 5)
     |> encrypt_password_if_possible
     |> unique_constraint(:email)
+  end
+
+  @doc """
+  Returns a list of CheckIns-counts by week, beginning with the first week for
+  which there was a CheckIn
+  """
+  def check_in_data(account) do
+    query = """
+    SELECT
+      COUNT(check_ins.*)
+    FROM generate_series((
+      SELECT MIN(date_trunc('week', check_ins.date))
+      FROM check_ins
+    ), NOW(), '1 week'::interval) week
+    LEFT OUTER JOIN check_ins
+      ON date_trunc('week', check_ins.date) = week
+    GROUP BY week
+    ORDER BY week
+    ;
+    """
+    %Postgrex.Result{rows: rows} = Ecto.Adapters.SQL.query!(Repo, query, [])
+    Enum.map(rows, &List.first/1)
   end
 
   defp encrypt_password_if_possible(

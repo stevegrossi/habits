@@ -4,6 +4,7 @@ import { browserHistory, Link } from 'react-router'
 import Request from '../Request'
 import Loading from './Loading'
 import Icon from './Icon'
+import CheckInChart from './CheckInChart'
 
 class HabitPage extends React.Component {
 
@@ -63,6 +64,12 @@ class HabitPage extends React.Component {
     event.target.select()
   }
 
+  totalCheckIns() {
+    const { checkInData } = this.state.data
+    const checkInCount = checkInData.reduce((total, count) => total + count, 0)
+    return Number(checkInCount).toLocaleString()
+  }
+
   render() {
     const { data } = this.state
     return (
@@ -90,6 +97,8 @@ class HabitPage extends React.Component {
             </h2>
           }
 
+          <CheckInChart data={this.state.data.checkInData} />
+
           <p className="Metric">
             <span className="Metric-title">Current Streak</span>
             <span className="Metric-number">
@@ -108,7 +117,7 @@ class HabitPage extends React.Component {
           <p className="Metric">
             <span className="Metric-title">Total Check-Ins</span>
             <span className="Metric-number">
-              {Number(data.totalCheckIns).toLocaleString()}
+              {this.totalCheckIns()}
             </span>
           </p>
         </div>
