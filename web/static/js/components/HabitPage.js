@@ -91,7 +91,7 @@ class HabitPage extends React.Component {
             </h2>
           }
 
-          <CheckInChart data={this.state.data.checkInDates} />
+          <CheckInChart data={this.state.data.checkInData} />
 
           <p className="Metric">
             <span className="Metric-title">Current Streak</span>
