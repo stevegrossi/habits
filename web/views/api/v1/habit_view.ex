@@ -11,7 +11,6 @@ defmodule Habits.API.V1.HabitView do
     %{
       id: habit.id,
       name: habit.name,
-      totalCheckIns: Habit.check_in_count(habit),
       currentStreak: Habit.get_current_streak(habit),
       longestStreak: Habit.get_longest_streak(habit),
       checkInData: Habit.check_in_data(habit)

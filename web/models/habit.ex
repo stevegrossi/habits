@@ -72,15 +72,6 @@ defmodule Habits.Habit do
   end
 
   @doc """
-  Return the total number of CheckIns for a given habit
-  """
-  def check_in_count(habit) do
-    habit
-    |> assoc(:check_ins)
-    |> Repo.count
-  end
-
-  @doc """
   Returns a list of CheckIns-counts by week, beginning with the first week for
   which there was a CheckIn for the given Habit
   """

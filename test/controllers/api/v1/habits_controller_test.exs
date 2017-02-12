@@ -42,7 +42,6 @@ defmodule Habits.API.V1.HabitControllerTest do
       assert json_response(conn, :ok) == %{
         "id" => habit.id,
         "name" => habit.name,
-        "totalCheckIns" => 1,
         "currentStreak" => 1,
         "longestStreak" => 1,
         "checkInData" => [1]
