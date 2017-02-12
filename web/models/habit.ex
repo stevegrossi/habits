@@ -80,6 +80,10 @@ defmodule Habits.Habit do
     |> Repo.count
   end
 
+  @doc """
+  Returns a list of CheckIns-counts by week, beginning with the first week for
+  which there was a CheckIn for the given Habit
+  """
   def check_in_data(habit) do
     query = """
     SELECT

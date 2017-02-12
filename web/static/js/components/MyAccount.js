@@ -4,15 +4,14 @@ import { Link } from 'react-router'
 import Gravatar from './Gravatar'
 import Loading from './Loading'
 import Request from '../Request'
+import CheckInChart from './CheckInChart'
 
 class MyAccount extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      loading: true,
-      email: null,
-      totalCheckIns: 0
+      data: null
     }
   }
 
@@ -20,25 +19,32 @@ class MyAccount extends React.Component {
     const self = this
     Request.get('/api/v1/account').then(function(json) {
       self.setState({
-        loading: false,
-        email: json.email,
-        totalCheckIns: json.totalCheckIns
+        data: json
       })
     })
+  }
+
+  totalCheckIns() {
+    const { checkInData } = this.state.data
+    const checkInCount = checkInData.reduce((total, count) => total + count, 0)
+    return Number(checkInCount).toLocaleString()
   }
 
   render() {
     return (
       <div className="center">
-        {this.state.loading && <Loading />}
-        {!this.state.loading &&
+        {!this.state.data && <Loading />}
+        {this.state.data &&
           <div>
-            <Gravatar email={this.state.email} size="400" />
-            <h2>{this.state.email}</h2>
+            <CheckInChart data={this.state.data.checkInData} />
+            <h2>
+              <Gravatar email={this.state.data.email} size="100" />
+              &nbsp;{this.state.data.email}
+            </h2>
             <p><Link to="/sessions">Active Sessions</Link></p>
             <p className="Metric">
               <span className="Metric-title">Total Check-Ins</span>
-              <span className="Metric-number">{Number(this.state.totalCheckIns).toLocaleString()}</span>
+              <span className="Metric-number">{this.totalCheckIns()}</span>
             </p>
           </div>
         }
