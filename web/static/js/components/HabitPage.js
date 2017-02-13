@@ -43,10 +43,12 @@ class HabitPage extends React.Component {
   }
 
   handleEdit(event) {
+    event.preventDefault()
     this.setState({ editing: true })
   }
 
   cancelEdit(event) {
+    event.preventDefault()
     this.setState({ editing: false })
   }
 
