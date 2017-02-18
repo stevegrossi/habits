@@ -16,6 +16,7 @@ defmodule Habits.Web do
   below.
   """
 
+  @lint false
   def model do
     quote do
       use Ecto.Schema
@@ -26,6 +27,7 @@ defmodule Habits.Web do
     end
   end
 
+  @lint false
   def controller do
     quote do
       use Phoenix.Controller
@@ -39,6 +41,7 @@ defmodule Habits.Web do
     end
   end
 
+  @lint false
   def view do
     quote do
       use Phoenix.View, root: "web/templates"
@@ -55,12 +58,14 @@ defmodule Habits.Web do
     end
   end
 
+  @lint false
   def router do
     quote do
       use Phoenix.Router
     end
   end
 
+  @lint false
   def channel do
     quote do
       use Phoenix.Channel

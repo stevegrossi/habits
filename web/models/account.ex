@@ -34,7 +34,7 @@ defmodule Habits.Account do
   Returns a list of CheckIns-counts by week, beginning with the first week for
   which there was a CheckIn
   """
-  def check_in_data(account) do
+  def check_in_data(_account) do
     query = """
     SELECT
       COUNT(check_ins.*)
