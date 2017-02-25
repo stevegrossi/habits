@@ -23,11 +23,14 @@ class AchievementList extends React.Component {
 
   render() {
     return (
-      <ul className="AchievementList">
-        {this.state.achievements && this.state.achievements.map((achievement) =>
-          <Achievement key={achievement.name} achievement={achievement} />
-        )}
-      </ul>
+      <div>
+        <h2 className="h2 ta-c">Achievements</h2>
+        <ul className="AchievementList">
+          {this.state.achievements && this.state.achievements.map((achievement) =>
+            <Achievement key={achievement.name} achievement={achievement} />
+          )}
+        </ul>
+      </div>
     )
   }
 }

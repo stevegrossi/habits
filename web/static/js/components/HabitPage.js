@@ -102,24 +102,24 @@ class HabitPage extends React.Component {
 
           <CheckInChart data={this.state.data.checkInData} />
 
-          <p className="Metric">
-            <span className="Metric-title">Current Streak</span>
-            <span className="Metric-number">
+          <p>
+            <span className="h2">Current Streak</span>
+            <span className="d-b fs-xl">
               <Icon name="streak" />
               {Number(data.currentStreak).toLocaleString()}
             </span>
           </p>
 
-          <p className="Metric">
-            <span className="Metric-title">Longest Streak</span>
-            <span className="Metric-number">
+          <p>
+            <span className="h2">Longest Streak</span>
+            <span className="d-b fs-xl">
               {Number(data.longestStreak).toLocaleString()}
             </span>
           </p>
 
-          <p className="Metric">
-            <span className="Metric-title">Total Check-Ins</span>
-            <span className="Metric-number">
+          <p>
+            <span className="h2">Total Check-Ins</span>
+            <span className="d-b fs-xl">
               {this.totalCheckIns()}
             </span>
           </p>

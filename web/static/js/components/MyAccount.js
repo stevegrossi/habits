@@ -43,9 +43,9 @@ class MyAccount extends React.Component {
               &nbsp;{this.state.data.email}
             </h2>
             <p><Link to="/sessions">Active Sessions</Link></p>
-            <p className="Metric">
-              <span className="Metric-title">Total Check-Ins</span>
-              <span className="Metric-number">{this.totalCheckIns()}</span>
+            <p>
+              <span className="h2">Total Check-Ins</span>
+              <span className="d-b fs-xl">{this.totalCheckIns()}</span>
             </p>
           </div>
         }
