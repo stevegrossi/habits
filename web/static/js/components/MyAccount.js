@@ -5,6 +5,7 @@ import Gravatar from './Gravatar'
 import Loading from './Loading'
 import Request from '../Request'
 import CheckInChart from './CheckInChart'
+import AchievementList from './AchievementList'
 
 class MyAccount extends React.Component {
 
@@ -48,6 +49,7 @@ class MyAccount extends React.Component {
             </p>
           </div>
         }
+        <AchievementList />
       </div>
     )
   }
