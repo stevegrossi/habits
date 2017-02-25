@@ -10,7 +10,6 @@ defmodule Habits.API.V1.AchievementView do
   def render("achievement.json", %{achievement: achievement}) do
     %{
       name: achievement.name,
-      description: achievement.description,
       threshold: achievement.threshold,
       value: achievement.value
     }

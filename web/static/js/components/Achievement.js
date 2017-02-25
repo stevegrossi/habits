@@ -25,7 +25,6 @@ class Achievement extends React.Component {
         <Icon className="Achievement-icon" name="achievement" />
         <div className="Achievement-text">
           <div><strong>{achievement.name}</strong></div>
-          <div>{achievement.description}</div>
           {!this.isCompleted() &&
             <div>{Math.floor(achievement.value / achievement.threshold * 100)}% Complete</div>
           }

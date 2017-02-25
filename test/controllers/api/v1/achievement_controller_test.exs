@@ -17,19 +17,16 @@ defmodule Habits.API.V1.AchievementControllerTest do
         "achievements" => [
           %{
             "name" => "100 Check-Ins",
-            "description" => "Check in 100 times",
             "threshold" => 100,
             "value" => 1
           },
           %{
             "name" => "1,000 Check-Ins",
-            "description" => "Check in 1,000 times",
             "threshold" => 1_000,
             "value" => 1
           },
           %{
             "name" => "10,000 Check-Ins",
-            "description" => "Check in 10,000 times",
             "threshold" => 10_000,
             "value" => 1
           }
@@ -51,13 +48,11 @@ defmodule Habits.API.V1.AchievementControllerTest do
         "achievements" => [
           %{
             "name" => "100 Check-Ins",
-            "description" => "Check in 100 times",
             "threshold" => 100,
             "value" => 1
           },
           %{
             "name" => "1,000 Check-Ins",
-            "description" => "Check in 1,000 times",
             "threshold" => 1_000,
             "value" => 1
           }
