@@ -1,4 +1,8 @@
 .AchievementList {
-  list-style: none;
-  padding: 0;
+  display: inline-block;
+
+  &-list {
+    list-style: none;
+    padding: 0;
+  }
 }

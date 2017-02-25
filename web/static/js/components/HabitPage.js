@@ -79,7 +79,7 @@ class HabitPage extends React.Component {
     <div>
       {!data && <Loading /> }
       {data &&
-        <div className="center">
+        <div className="ta-c">
           {this.state.editing &&
             <form onSubmit={this.handleSubmit} className="InlineForm">
               <input className="InlineForm-input TextInput" ref={(node) => this.nameInput = node } defaultValue={data.name} type="text" autoFocus onFocus={this.selectOnFocus} />
@@ -126,7 +126,9 @@ class HabitPage extends React.Component {
         </div>
       }
 
-      <AchievementList endpoint={this.habitPath('/achievements')} />
+      <div className="ta-c">
+        <AchievementList endpoint={this.habitPath('/achievements')} />
+      </div>
 
       <p className="FooterNav">
         <Link to="/habits">← Back</Link>

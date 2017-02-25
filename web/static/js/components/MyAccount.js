@@ -33,7 +33,7 @@ class MyAccount extends React.Component {
 
   render() {
     return (
-      <div className="center">
+      <div className="ta-c">
         {!this.state.data && <Loading />}
         {this.state.data &&
           <div>

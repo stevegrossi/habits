@@ -23,9 +23,9 @@ class AchievementList extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="AchievementList">
         <h2 className="h2 ta-c">Achievements</h2>
-        <ul className="AchievementList">
+        <ul className="AchievementList-list">
           {this.state.achievements && this.state.achievements.map((achievement) =>
             <Achievement key={achievement.name} achievement={achievement} />
           )}
