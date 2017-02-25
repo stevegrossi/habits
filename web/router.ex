@@ -27,6 +27,7 @@ defmodule Habits.Router do
         pipe_through :authenticated
 
         get "/account", AccountController, :show, as: :account
+        get "/account/achievements", AchievementController, :index, as: :account_achievements
         get "/sessions", SessionController, :index, as: :session
         delete "/sessions/:token", SessionController, :delete, as: :session
         resources "/habits", HabitController do
