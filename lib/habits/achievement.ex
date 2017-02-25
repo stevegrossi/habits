@@ -1,18 +1,19 @@
 defmodule Achievement do
 
   alias Habits.{Account, Habit}
+  alias Achievement.{CheckInCount100, CheckInCount1000, CheckInCount10000}
 
   def all_for(%Account{} = account) do
     [
-      Achievement.CheckInCount100.for(account),
-      Achievement.CheckInCount1000.for(account),
-      Achievement.CheckInCount10000.for(account)
+      CheckInCount100.for(account),
+      CheckInCount1000.for(account),
+      CheckInCount10000.for(account)
     ]
   end
   def all_for(%Habit{} = habit) do
     [
-      Achievement.CheckInCount100.for(habit),
-      Achievement.CheckInCount1000.for(habit),
+      CheckInCount100.for(habit),
+      CheckInCount1000.for(habit),
     ]
   end
 end
