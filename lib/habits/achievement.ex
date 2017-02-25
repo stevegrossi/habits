@@ -9,4 +9,10 @@ defmodule Achievement do
       Achievement.CheckInCount10000.for(account)
     ]
   end
+  def all_for(%Habit{} = habit) do
+    [
+      Achievement.CheckInCount100.for(habit),
+      Achievement.CheckInCount1000.for(habit),
+    ]
+  end
 end

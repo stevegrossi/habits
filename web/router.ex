@@ -33,6 +33,7 @@ defmodule Habits.Router do
         resources "/habits", HabitController do
           post "/check_in", HabitController, :check_in, as: :check_in
           delete "/check_out", HabitController, :check_out, as: :check_out
+          get "/achievements", AchievementController, :index, as: :achievements
         end
       end
     end

@@ -5,6 +5,7 @@ import Request from '../Request'
 import Loading from './Loading'
 import Icon from './Icon'
 import CheckInChart from './CheckInChart'
+import AchievementList from './AchievementList'
 
 class HabitPage extends React.Component {
 
@@ -20,8 +21,8 @@ class HabitPage extends React.Component {
     this.handleDelete = this.handleDelete.bind(this)
   }
 
-  habitPath() {
-    return `/api/v1/habits/${this.props.params.id}`
+  habitPath(path = '') {
+    return `/api/v1/habits/${this.props.params.id}${path}`
   }
 
   componentWillMount() {
@@ -124,6 +125,9 @@ class HabitPage extends React.Component {
           </p>
         </div>
       }
+
+      <AchievementList endpoint={this.habitPath('/achievements')} />
+
       <p className="FooterNav">
         <Link to="/habits">← Back</Link>
         <a href="#" onClick={this.handleDelete}>× Delete</a>

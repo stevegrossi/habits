@@ -49,7 +49,7 @@ class MyAccount extends React.Component {
             </p>
           </div>
         }
-        <AchievementList />
+        <AchievementList endpoint="/api/v1/account/achievements" />
       </div>
     )
   }

@@ -14,7 +14,7 @@ class AchievementList extends React.Component {
 
   componentWillMount() {
     const self = this
-    Request.get('/api/v1/account/achievements').then(function(json) {
+    Request.get(this.props.endpoint).then(function(json) {
       self.setState({
         achievements: json.achievements
       })
