@@ -10,22 +10,19 @@ defmodule Habits.API.V1.AchievementController do
   end
 
   @doc """
-  Return all of the resource’s achievements
+  Return all of the achievements for a habit or account
   """
-  def index(conn, params, current_account) do
-    achievements =
-      if params["habit_id"] do
-        habit =
-          current_account
-          |> assoc(:habits)
-          |> Repo.get(params["habit_id"])
-
-        Achievement.all_for(habit)
-      else
-        Achievement.all_for(current_account)
-      end
+  def index(conn, %{"habit_id" => habit_id}, current_account) do
+    habit =
+      current_account
+      |> assoc(:habits)
+      |> Repo.get(habit_id)
 
     conn
-    |> render("index.json", achievements: achievements)
+    |> render("index.json", achievements: Achievement.all_for(habit))
+  end
+  def index(conn, _params, current_account) do
+    conn
+    |> render("index.json", achievements: Achievement.all_for(current_account))
   end
 end
