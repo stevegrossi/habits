@@ -1,9 +1,7 @@
 defmodule Achievement.CheckInCount do
 
-  alias Habits.{Repo, Account, Habit, Number}
-
-  @enforce_keys ~w(name threshold value)a
-  defstruct ~w(name threshold value)a
+  use Achievement
+  alias Habits.{Repo, Account, Habit}
 
   def new(%Account{} = account, threshold, name) when is_integer(threshold)
                                                   and is_binary(name) do

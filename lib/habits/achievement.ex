@@ -2,6 +2,10 @@ defmodule Achievement do
 
   alias Habits.{Account, Habit}
 
+  @doc """
+  Specifies which achievements apply in each context
+  (e.g. account-level vs. habit-level) as well as their order
+  """
   def all_for(%Account{} = account) do
     [
       Achievement.CheckInCount.new(account, 100, "Check In 100 times"),
@@ -19,5 +23,15 @@ defmodule Achievement do
       Achievement.Streak.new(habit, 30, "Month-long Streak"),
       Achievement.Streak.new(habit, 365, "Year-long Streak!")
     ]
+  end
+
+  @doc """
+  Shared behavior for individual Achievement modules which `use Achievement`
+  """
+  defmacro __using__(_) do
+    quote do
+      @enforce_keys ~w(name threshold value)a
+      defstruct ~w(name threshold value)a
+    end
   end
 end
