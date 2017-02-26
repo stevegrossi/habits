@@ -1,0 +1,25 @@
+# This configuration was used Ebert to review the stevegrossi/habits repository
+# on 62c02fbbccd668f014a47898b72114e5e19625b7.
+# You can make this the default configuration for future reviews by moving this
+# file to your repository as `.ebert.yml` and pushing it to GitHub, and tweak
+# it as you wish - To know more on how to change this file to better review your
+# repository you can go to https://ebertapp.io/docs/config and see the configuration
+# details.
+---
+styleguide: plataformatec/linters
+engines:
+  credo:
+    enabled: true
+  fixme:
+    enabled: true
+  eslint:
+    enabled: false
+  scss-lint:
+    enabled: false
+  remark-lint:
+    enabled: true
+exclude_paths:
+- bin
+- config
+- priv/repo
+- test
