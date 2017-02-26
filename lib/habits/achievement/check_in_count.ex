@@ -1,4 +1,5 @@
 defmodule Achievement.CheckInCount do
+  @moduledoc false
 
   use Achievement
   alias Habits.{Repo, Account, Habit}

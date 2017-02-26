@@ -1,6 +1,8 @@
 defmodule Achievement do
+  @moduledoc false
 
   alias Habits.{Account, Habit}
+  alias Achievement.{CheckInCount, HabitCount, StreakLength}
 
   @doc """
   Specifies which achievements apply in each context
@@ -8,20 +10,20 @@ defmodule Achievement do
   """
   def all_for(%Account{} = account) do
     [
-      Achievement.CheckInCount.new(account, 100, "Check In 100 times"),
-      Achievement.CheckInCount.new(account, 1000, "Check In 1,000 times"),
-      Achievement.CheckInCount.new(account, 10000, "Check In 10,000 times"),
-      Achievement.HabitCount.new(account, 5, "Track 5 Habits"),
-      Achievement.HabitCount.new(account, 10, "Track 10 Habits")
+      CheckInCount.new(account, 100, "Check In 100 times"),
+      CheckInCount.new(account, 1_000, "Check In 1,000 times"),
+      CheckInCount.new(account, 10_000, "Check In 10,000 times"),
+      HabitCount.new(account, 5, "Track 5 Habits"),
+      HabitCount.new(account, 10, "Track 10 Habits")
     ]
   end
   def all_for(%Habit{} = habit) do
     [
-      Achievement.CheckInCount.new(habit, 100, "Check In 100 times"),
-      Achievement.CheckInCount.new(habit, 1000, "Check In 1,000 times"),
-      Achievement.Streak.new(habit, 7, "Week-long Streak"),
-      Achievement.Streak.new(habit, 30, "Month-long Streak"),
-      Achievement.Streak.new(habit, 365, "Year-long Streak!")
+      CheckInCount.new(habit, 100, "Check In 100 times"),
+      CheckInCount.new(habit, 1_000, "Check In 1,000 times"),
+      StreakLength.new(habit, 7, "Week-long Streak"),
+      StreakLength.new(habit, 30, "Month-long Streak"),
+      StreakLength.new(habit, 365, "Year-long Streak!")
     ]
   end
 

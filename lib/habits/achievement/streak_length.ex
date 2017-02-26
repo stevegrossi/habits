@@ -1,4 +1,5 @@
-defmodule Achievement.Streak do
+defmodule Achievement.StreakLength do
+  @moduledoc false
 
   use Achievement
   alias Habits.Habit
