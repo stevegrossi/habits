@@ -4,18 +4,20 @@ defmodule Achievement do
 
   def all_for(%Account{} = account) do
     [
-      Achievement.CheckInCount.new(account, 100),
-      Achievement.CheckInCount.new(account, 1000),
-      Achievement.CheckInCount.new(account, 10000),
-      Achievement.HabitCount.new(account, 5),
-      Achievement.HabitCount.new(account, 10)
+      Achievement.CheckInCount.new(account, 100, "Check In 100 times"),
+      Achievement.CheckInCount.new(account, 1000, "Check In 1,000 times"),
+      Achievement.CheckInCount.new(account, 10000, "Check In 10,000 times"),
+      Achievement.HabitCount.new(account, 5, "Track 5 Habits"),
+      Achievement.HabitCount.new(account, 10, "Track 10 Habits")
     ]
   end
   def all_for(%Habit{} = habit) do
     [
-      Achievement.CheckInCount.new(habit, 100),
-      Achievement.CheckInCount.new(habit, 1000),
-      Achievement.Streak.new(habit, 10)
+      Achievement.CheckInCount.new(habit, 100, "Check In 100 times"),
+      Achievement.CheckInCount.new(habit, 1000, "Check In 1,000 times"),
+      Achievement.Streak.new(habit, 7, "Week-long Streak"),
+      Achievement.Streak.new(habit, 30, "Month-long Streak"),
+      Achievement.Streak.new(habit, 365, "Year-long Streak!")
     ]
   end
 end

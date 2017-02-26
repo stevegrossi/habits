@@ -5,9 +5,10 @@ defmodule Achievement.HabitCount do
   @enforce_keys ~w(name threshold value)a
   defstruct ~w(name threshold value)a
 
-  def new(%Account{} = account, threshold) when is_integer(threshold) do
+  def new(%Account{} = account, threshold, name) when is_integer(threshold)
+                                                  and is_binary(name) do
     %__MODULE__{
-      name: "Track #{threshold} Habits",
+      name: name,
       threshold: threshold,
       value: Repo.count(Ecto.assoc(account, :habits))
     }

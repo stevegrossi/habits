@@ -5,16 +5,18 @@ defmodule Achievement.CheckInCount do
   @enforce_keys ~w(name threshold value)a
   defstruct ~w(name threshold value)a
 
-  def new(%Account{} = account, threshold) when is_integer(threshold) do
+  def new(%Account{} = account, threshold, name) when is_integer(threshold)
+                                                  and is_binary(name) do
     %__MODULE__{
-      name: "Check In #{Number.delimit(threshold)} Times",
+      name: name,
       threshold: threshold,
       value: Repo.count(Ecto.assoc(account, [:habits, :check_ins]))
     }
   end
-  def new(%Habit{} = habit, threshold) when is_integer(threshold) do
+  def new(%Habit{} = habit, threshold, name) when is_integer(threshold)
+                                                  and is_binary(name) do
     %__MODULE__{
-      name: "Check In #{Number.delimit(threshold)} Times",
+      name: name,
       threshold: threshold,
       value: Repo.count(Ecto.assoc(habit, :check_ins))
     }

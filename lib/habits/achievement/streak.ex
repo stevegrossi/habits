@@ -5,9 +5,10 @@ defmodule Achievement.Streak do
   @enforce_keys ~w(name threshold value)a
   defstruct ~w(name threshold value)a
 
-  def new(%Habit{} = habit, threshold) when is_integer(threshold) do
+  def new(%Habit{} = habit, threshold, name) when is_integer(threshold)
+                                              and is_binary(name) do
     %__MODULE__{
-      name: "#{threshold} in a Row",
+      name: name,
       threshold: threshold,
       value: Habit.get_longest_streak(habit)
     }
