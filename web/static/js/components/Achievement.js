@@ -18,17 +18,22 @@ class Achievement extends React.Component {
     return names.join(' ')
   }
 
+  percentCompleted() {
+    return Math.floor(this.props.achievement.value / this.props.achievement.threshold * 100)
+  }
+
   render() {
-    const { achievement } = this.props;
     return (
       <li className={this.classNames()}>
-        <Icon className="Achievement-icon" name="achievement" />
-        <div className="Achievement-text">
-          <div><strong>{achievement.name}</strong></div>
+        <div className="Achievement-iconContainer">
+          <Icon className="Achievement-icon" name="achievement" />
           {!this.isCompleted() &&
-            <div>{Math.floor(achievement.value / achievement.threshold * 100)}% Complete</div>
+            <div className="Achievement-iconOverlay">
+              <span className="fs-l">{this.percentCompleted()}</span>%
+            </div>
           }
         </div>
+        <div className="Achievement-text">{this.props.achievement.name}</div>
       </li>
     )
   }
