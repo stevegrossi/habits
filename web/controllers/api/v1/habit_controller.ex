@@ -1,7 +1,7 @@
 defmodule Habits.API.V1.HabitController do
   use Habits.Web, :controller
 
-  alias Habits.{Repo, CheckIn, Habit}
+  alias Habits.{Repo, CheckIn, Habit, Notification}
 
   @doc """
   Override action/2 to provide current_account to actions
@@ -87,7 +87,7 @@ defmodule Habits.API.V1.HabitController do
 
     Task.start(fn ->
       Process.sleep(1000)
-      Habits.Endpoint.broadcast("notifications", "notification:new", %{message: "Checked in!"})
+      Notification.new("Checked in!")
     end)
 
     with {:ok, habit} <- Habit.get_by_account(current_account, habit_id),
@@ -110,7 +110,7 @@ defmodule Habits.API.V1.HabitController do
 
     Task.start(fn ->
       Process.sleep(1000)
-      Habits.Endpoint.broadcast("notifications", "notification:new", %{message: "Checked out!"})
+      Notification.new("Checked out!")
     end)
 
     with {:ok, habit} <- Habit.get_by_account(current_account, habit_id),
