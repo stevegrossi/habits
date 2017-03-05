@@ -23,15 +23,22 @@
     z-index: $zindex-alerts;
     top: 0;
     left: 0;
-    background-color: $warm;
+    background: radial-gradient(mix(#fff, $warm, 25%), $warm);
     color: $text-color;
     width: 100%;
     height: 55px;
     margin: 0;
-    padding: 1rem;
+    padding: .4rem 1rem;
     text-align: center;
     font-weight: bold;
     transform: translateY(-100%);
     animation: notification 2s 0s 1;
+  }
+
+  &-subject {
+    font-size: .75em;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    display: inline-block;
   }
 }

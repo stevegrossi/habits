@@ -1,12 +1,16 @@
 defmodule Habits.Congratulations do
   require Ecto.Query
-  alias Habits.{Notification, Repo, CheckIn}
+  alias Habits.{Notification, Repo, Habit}
 
-  def for(%CheckIn{habit_id: habit_id}) do
-    check_in_count = CheckIn.count_for_habit(habit_id)
+  def for(%Habit{} = habit) do
+    check_in_count = Habit.check_in_count(habit)
+    if rem(check_in_count, 2) == 0 do
+      Notification.new(habit.name, "Checked in #{check_in_count} times!")
+    end
 
-    if rem(check_in_count, 10) == 0 do
-      Notification.new("Checked in #{check_in_count} times!")
+    current_streak = Habit.get_current_streak(habit)
+    if rem(current_streak, 2) == 0 do
+      Notification.new(habit.name, "#{current_streak} in a row!")
     end
   end
 end

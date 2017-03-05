@@ -86,9 +86,9 @@ defmodule Habits.API.V1.HabitController do
     date = Date.from_iso8601!(date_string)
 
     with {:ok, habit} <- Habit.get_by_account(current_account, habit_id),
-         {:ok, check_in} <- CheckIn.create_for_date(habit, date) do
+         {:ok, _check_in} <- CheckIn.create_for_date(habit, date) do
 
-      Congratulations.for(check_in)
+      Congratulations.for(habit)
       render conn, "habit.json", habit: habit, date: date_string
     else
       {:error, message} ->

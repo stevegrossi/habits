@@ -35,7 +35,10 @@ class NotificationList extends React.Component {
       <div className="NotificationList">
         <ul className="NotificationList-list">
           {this.state.notifications.map((notification, index) =>
-            <li className="NotificationList-item" key={index}>{notification.message}</li>
+            <li className="NotificationList-item" key={index}>
+              <div className="NotificationList-subject">{notification.subject}</div>
+              <div>{notification.message}</div>
+            </li>
           )}
         </ul>
       </div>

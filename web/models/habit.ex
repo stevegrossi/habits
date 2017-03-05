@@ -26,6 +26,12 @@ defmodule Habits.Habit do
     |> validate_required([:name, :account_id])
   end
 
+  def check_in_count(%__MODULE__{} = habit) do
+    habit
+    |> assoc(:check_ins)
+    |> Repo.count
+  end
+
   @doc """
   The current streak is the number of consecutive daily check-ins
   for a habit up until yesterday, or today if you’ve checked in today.
