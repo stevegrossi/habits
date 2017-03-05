@@ -85,6 +85,11 @@ defmodule Habits.API.V1.HabitController do
   def check_in(conn, %{"habit_id" => habit_id, "date" => date_string}, current_account) do
     date = Date.from_iso8601!(date_string)
 
+    Task.start(fn ->
+      Process.sleep(1000)
+      Habits.Endpoint.broadcast("notifications", "notification:new", %{message: "Checked in!"})
+    end)
+
     with {:ok, habit} <- Habit.get_by_account(current_account, habit_id),
          {:ok, _check_in} <- CheckIn.create_for_date(habit, date) do
 
@@ -102,6 +107,11 @@ defmodule Habits.API.V1.HabitController do
   """
   def check_out(conn, %{"habit_id" => habit_id, "date" => date_string}, current_account) do
     date = Date.from_iso8601!(date_string)
+
+    Task.start(fn ->
+      Process.sleep(1000)
+      Habits.Endpoint.broadcast("notifications", "notification:new", %{message: "Checked out!"})
+    end)
 
     with {:ok, habit} <- Habit.get_by_account(current_account, habit_id),
          {:ok, check_in} <- CheckIn.get_by_date(habit, date) do
