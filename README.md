@@ -5,7 +5,7 @@
 
 An Elixir/Phoenix application for tracking daily habits.
 
-<img src="https://raw.githubusercontent.com/stevegrossi/habits/master/screenshot.png" alt="in-app screenshot" width="320" />
+![in-app screenshot](https://raw.githubusercontent.com/stevegrossi/habits/master/screenshot.png)
 
 ## Development Setup
 
