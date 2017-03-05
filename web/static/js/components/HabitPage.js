@@ -5,6 +5,7 @@ import Request from '../Request'
 import Loading from './Loading'
 import Icon from './Icon'
 import CheckInChart from './CheckInChart'
+import AchievementList from './AchievementList'
 
 class HabitPage extends React.Component {
 
@@ -20,8 +21,8 @@ class HabitPage extends React.Component {
     this.handleDelete = this.handleDelete.bind(this)
   }
 
-  habitPath() {
-    return `/api/v1/habits/${this.props.params.id}`
+  habitPath(path = '') {
+    return `/api/v1/habits/${this.props.params.id}${path}`
   }
 
   componentWillMount() {
@@ -78,7 +79,7 @@ class HabitPage extends React.Component {
     <div>
       {!data && <Loading /> }
       {data &&
-        <div className="center">
+        <div className="ta-c">
           {this.state.editing &&
             <form onSubmit={this.handleSubmit} className="InlineForm">
               <input className="InlineForm-input TextInput" ref={(node) => this.nameInput = node } defaultValue={data.name} type="text" autoFocus onFocus={this.selectOnFocus} />
@@ -101,29 +102,34 @@ class HabitPage extends React.Component {
 
           <CheckInChart data={this.state.data.checkInData} />
 
-          <p className="Metric">
-            <span className="Metric-title">Current Streak</span>
-            <span className="Metric-number">
+          <p>
+            <span className="h2">Current Streak</span>
+            <span className="d-b fs-xl">
               <Icon name="streak" />
               {Number(data.currentStreak).toLocaleString()}
             </span>
           </p>
 
-          <p className="Metric">
-            <span className="Metric-title">Longest Streak</span>
-            <span className="Metric-number">
+          <p>
+            <span className="h2">Longest Streak</span>
+            <span className="d-b fs-xl">
               {Number(data.longestStreak).toLocaleString()}
             </span>
           </p>
 
-          <p className="Metric">
-            <span className="Metric-title">Total Check-Ins</span>
-            <span className="Metric-number">
+          <p>
+            <span className="h2">Total Check-Ins</span>
+            <span className="d-b fs-xl">
               {this.totalCheckIns()}
             </span>
           </p>
         </div>
       }
+
+      <div className="ta-c">
+        <AchievementList endpoint={this.habitPath('/achievements')} />
+      </div>
+
       <p className="FooterNav">
         <Link to="/habits">← Back</Link>
         <a href="#" onClick={this.handleDelete}>× Delete</a>

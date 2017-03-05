@@ -29,7 +29,7 @@ class NewHabitForm extends React.Component {
       <label htmlFor="habit_name">Name</label>
       <input id="habit_name" name="habit[name]" ref="habitName" className="TextInput" autoFocus required />
       <input type="submit" value="Add Habit" className="Button" />
-      <p className="center">
+      <p className="ta-c">
         or <a href="#" onClick={this.handleCancel}>Cancel</a>
       </p>
     </form>

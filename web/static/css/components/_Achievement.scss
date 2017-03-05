@@ -1,0 +1,35 @@
+.Achievement {
+  margin-bottom: $vertical-spacing / 2;
+  text-align: left;
+  display: flex;
+  align-items: center;
+
+  &-iconContainer {
+    position: relative;
+  }
+
+  &-icon {
+    font-size: 3em;
+    position: relative;
+    opacity: .25;
+
+    .Achievement--completed & {
+      opacity: 1;
+    }
+  }
+
+  &-iconOverlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    opacity: .75;
+    letter-spacing: -.05em;
+  }
+
+  &-text {
+    font-weight: bold;
+    margin-left: $vertical-spacing;
+  }
+}

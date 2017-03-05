@@ -5,6 +5,7 @@ import Gravatar from './Gravatar'
 import Loading from './Loading'
 import Request from '../Request'
 import CheckInChart from './CheckInChart'
+import AchievementList from './AchievementList'
 
 class MyAccount extends React.Component {
 
@@ -32,7 +33,7 @@ class MyAccount extends React.Component {
 
   render() {
     return (
-      <div className="center">
+      <div className="ta-c">
         {!this.state.data && <Loading />}
         {this.state.data &&
           <div>
@@ -42,12 +43,13 @@ class MyAccount extends React.Component {
               &nbsp;{this.state.data.email}
             </h2>
             <p><Link to="/sessions">Active Sessions</Link></p>
-            <p className="Metric">
-              <span className="Metric-title">Total Check-Ins</span>
-              <span className="Metric-number">{this.totalCheckIns()}</span>
+            <p>
+              <span className="h2">Total Check-Ins</span>
+              <span className="d-b fs-xl">{this.totalCheckIns()}</span>
             </p>
           </div>
         }
+        <AchievementList endpoint="/api/v1/account/achievements" />
       </div>
     )
   }
