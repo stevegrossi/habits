@@ -7,9 +7,10 @@ class NotificationList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      notifications: []
+      queue: [],
+      notification: null
     }
-    this.appendNotification = this.appendNotification.bind(this)
+    this.enqueueNotification = this.enqueueNotification.bind(this)
   }
 
   componentWillMount() {
@@ -21,25 +22,37 @@ class NotificationList extends React.Component {
     room.join()
       .receive("error", () => console.log("Notifications: error connecting"))
       .receive("ok",    () => console.log("Notifications: connected"))
-    room.on("notification:new", this.appendNotification );
+    room.on("notification:new", this.enqueueNotification );
   }
 
-  appendNotification(notification) {
+  enqueueNotification(notification) {
     this.setState({
-      notifications: [...this.state.notifications, notification]
+      queue: [...this.state.queue, notification]
     })
+    this.processQueue()
+  }
+
+  processQueue() {
+    if (this.state.queue.length !== 1) return;
+    setTimeout(() => {
+      this.setState({
+        queue: this.state.queue.slice(1)
+      })
+      this.processQueue()
+    }, 2000)
   }
 
   render() {
+    const currentNotification = this.state.queue[0]
     return (
       <div className="NotificationList">
         <ul className="NotificationList-list">
-          {this.state.notifications.map((notification, index) =>
-            <li className="NotificationList-item" key={index}>
-              <div className="NotificationList-subject">{notification.subject}</div>
-              <div>{notification.message}</div>
+          {currentNotification &&
+            <li className="NotificationList-item" key={`${currentNotification.subject}--${currentNotification.message}`}>
+              <div className="NotificationList-subject">{currentNotification.subject}</div>
+              <div>{currentNotification.message}</div>
             </li>
-          )}
+          }
         </ul>
       </div>
     )
