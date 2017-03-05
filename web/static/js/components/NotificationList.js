@@ -7,7 +7,7 @@ class NotificationList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      notifications: [{message: "Ohai"}]
+      notifications: []
     }
     this.appendNotification = this.appendNotification.bind(this)
   }
