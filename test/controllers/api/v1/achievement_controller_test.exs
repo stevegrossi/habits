@@ -16,18 +16,28 @@ defmodule Habits.API.V1.AchievementControllerTest do
       assert json_response(conn, :ok) == %{
         "achievements" => [
           %{
-            "name" => "100 Check-Ins",
+            "name" => "Check In 100 Times",
             "threshold" => 100,
             "value" => 1
           },
           %{
-            "name" => "1,000 Check-Ins",
+            "name" => "Check In 1,000 Times",
             "threshold" => 1_000,
             "value" => 1
           },
           %{
-            "name" => "10,000 Check-Ins",
+            "name" => "Check In 10,000 Times",
             "threshold" => 10_000,
+            "value" => 1
+          },
+          %{
+            "name" => "Track 5 Habits",
+            "threshold" => 5,
+            "value" => 1
+          },
+          %{
+            "name" => "Track 10 Habits",
+            "threshold" => 10,
             "value" => 1
           }
         ]
@@ -47,13 +57,28 @@ defmodule Habits.API.V1.AchievementControllerTest do
       assert json_response(conn, :ok) == %{
         "achievements" => [
           %{
-            "name" => "100 Check-Ins",
+            "name" => "Check In 100 Times",
             "threshold" => 100,
             "value" => 1
           },
           %{
-            "name" => "1,000 Check-Ins",
+            "name" => "Check In 1,000 Times",
             "threshold" => 1_000,
+            "value" => 1
+          },
+          %{
+            "name" => "Week-long Streak",
+            "threshold" => 7,
+            "value" => 1
+          },
+          %{
+            "name" => "Month-long Streak",
+            "threshold" => 30,
+            "value" => 1
+          },
+          %{
+            "name" => "Year-long Streak!",
+            "threshold" => 365,
             "value" => 1
           }
         ]
