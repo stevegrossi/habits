@@ -1,4 +1,8 @@
 defmodule Habits.Notification do
+  @moduledoc """
+  Responsible for sending notification messages to the user.
+  """
+
   alias Habits.Endpoint
 
   def new(subject, message) when is_binary(subject) and is_binary(message) do

@@ -45,10 +45,4 @@ defmodule Habits.CheckIn do
       {:ok, check_in}
     end
   end
-
-  def count_for_habit(habit_id) when is_integer(habit_id) do
-    CheckIn
-    |> where(habit_id: ^habit_id)
-    |> Repo.count
-  end
 end
