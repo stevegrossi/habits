@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Socket } from 'phoenix'
+import Auth from '../Auth'
 
 class NotificationList extends React.Component {
 
@@ -14,7 +15,9 @@ class NotificationList extends React.Component {
   }
 
   componentWillMount() {
-    let socket = new Socket("/socket")
+    let socket = new Socket("/socket", { params: {
+      token: Auth.token()
+    }})
     socket.connect()
     socket.onClose((e) => console.log("Socket: closed connection"))
 

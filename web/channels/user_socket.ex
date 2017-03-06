@@ -1,6 +1,8 @@
 defmodule Habits.UserSocket do
   use Phoenix.Socket
 
+  alias Habits.{Repo, Session}
+
   ## Channels
   channel "notifications", Habits.NotificationChannel
 
@@ -20,9 +22,11 @@ defmodule Habits.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   # def connect(%{"user" => user}, socket) do
-  def connect(_params, socket) do
-    {:ok, socket}
-    # {:ok, assign(socket, :user, user)}
+  def connect(%{"token" => token}, socket) do
+    case Repo.get_by(Session, token: token) do
+      nil     -> :error
+      session -> {:ok, assign(socket, :account_id, session.account_id)}
+    end
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
