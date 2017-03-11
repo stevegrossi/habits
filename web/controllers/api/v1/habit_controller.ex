@@ -1,7 +1,7 @@
 defmodule Habits.API.V1.HabitController do
   use Habits.Web, :controller
 
-  alias Habits.{Repo, CheckIn, Habit}
+  alias Habits.{Repo, CheckIn, Habit, Congratulations}
 
   @doc """
   Override action/2 to provide current_account to actions
@@ -88,6 +88,7 @@ defmodule Habits.API.V1.HabitController do
     with {:ok, habit} <- Habit.get_by_account(current_account, habit_id),
          {:ok, _check_in} <- CheckIn.create_for_date(habit, date) do
 
+      Congratulations.for(habit)
       render conn, "habit.json", habit: habit, date: date_string
     else
       {:error, message} ->

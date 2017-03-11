@@ -23,15 +23,15 @@ defmodule Habits.TokenAuthentication do
 
   defp find_account(conn) do
     with auth_header = get_req_header(conn, "authorization"),
-         {:ok, token}   <- parse_token(auth_header),
+         {:ok, token}   <- parse_header(auth_header),
          {:ok, session} <- find_session_by_token(token),
     do:  find_account_by_session(session)
   end
 
-  defp parse_token(["Token token=" <> token]) do
+  defp parse_header(["Token token=" <> token]) do
     {:ok, String.replace(token, "\"", "")}
   end
-  defp parse_token(_non_token_header), do: :error
+  defp parse_header(_non_token_header), do: :error
 
   defp find_session_by_token(token) do
     case Repo.one(from s in Session, where: s.token == ^token) do

@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Link } from 'react-router'
 import Auth from '../Auth'
+import NotificationList from './NotificationList'
 
 class Layout extends React.Component {
 
@@ -27,6 +28,8 @@ class Layout extends React.Component {
             }
           </nav>
         </header>
+
+        <NotificationList />
 
         <main className="AppMain">
           <div className="AppMain-content">
