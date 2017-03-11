@@ -4,8 +4,7 @@ defmodule Habits.Congratulations do
   reached a milestone for a habit, and issuing that notification.
   """
 
-  require Ecto.Query
-  alias Habits.{Notification, Repo, Habit}
+  alias Habits.{Notification, Habit}
 
   def for(%Habit{} = habit) do
     check_in_count = Habit.check_in_count(habit)

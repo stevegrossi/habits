@@ -20,7 +20,7 @@ defmodule Habits.ChannelCase do
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
 
-      alias Habits.Repo
+      alias Habits.{Factory, Repo}
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
