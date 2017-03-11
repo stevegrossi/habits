@@ -1,6 +1,6 @@
 @keyframes notification {
-  0%, 100% { transform: translateY(-100%) }
-  10%, 90% { transform: translateY(0) }
+  0%, 100% { opacity: 0; }
+  10%, 80% { opacity: 1; }
 }
 
 .NotificationList {
@@ -31,8 +31,8 @@
     padding: .4rem 1rem;
     text-align: center;
     font-weight: bold;
-    transform: translateY(-100%);
-    animation: notification 2s 0s 1;
+    opacity: 1;
+    animation: notification 3s 0s 1;
   }
 
   &-subject {
