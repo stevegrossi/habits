@@ -5,7 +5,7 @@ defmodule Habits.AcceptanceCase do
     quote do
       use Wallaby.DSL
 
-      alias Habits.Repo
+      alias Habits.{Factory, Repo}
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
