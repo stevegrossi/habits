@@ -3,6 +3,11 @@ defmodule Habits.Endpoint do
 
   socket "/socket", Habits.UserSocket
 
+  # For Wallaby
+  if Application.get_env(:your_app, :sql_sandbox) do
+    plug Phoenix.Ecto.SQL.Sandbox
+  end
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
@@ -43,8 +48,4 @@ defmodule Habits.Endpoint do
     encryption_salt: System.get_env("SECRET_KEY_BASE")
 
   plug Habits.Router
-
-  if Application.get_env(:your_app, :sql_sandbox) do
-    plug Phoenix.Ecto.SQL.Sandbox
-  end
 end
