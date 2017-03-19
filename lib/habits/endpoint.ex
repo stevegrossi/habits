@@ -43,4 +43,8 @@ defmodule Habits.Endpoint do
     encryption_salt: System.get_env("SECRET_KEY_BASE")
 
   plug Habits.Router
+
+  if Application.get_env(:your_app, :sql_sandbox) do
+    plug Phoenix.Ecto.SQL.Sandbox
+  end
 end

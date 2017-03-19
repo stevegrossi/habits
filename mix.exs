@@ -46,7 +46,8 @@ defmodule Habits.Mixfile do
       {:plug_x_forwarded_for, "~> 0.1"},
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:ex_machina, "~> 1.0", only: :test},
-      {:credo, "~> 0.5", only: :dev}
+      {:credo, "~> 0.5", only: :dev},
+      {:wallaby, "~> 0.16", only: :test}
     ]
   end
 

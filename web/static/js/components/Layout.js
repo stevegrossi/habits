@@ -29,7 +29,9 @@ class Layout extends React.Component {
           </nav>
         </header>
 
-        <NotificationList />
+        {Auth.isLoggedIn() &&
+          <NotificationList />
+        }
 
         <main className="AppMain">
           <div className="AppMain-content">
