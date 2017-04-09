@@ -1,5 +1,8 @@
 {
   "repository": {},
+  "engines": {
+     "node": "6"
+  },
   "license": "MIT",
   "scripts": {
     "deploy": "brunch build --production",
