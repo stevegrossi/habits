@@ -16,6 +16,7 @@
   "geoip": {:hex, :geoip, "0.1.2", "db094d1f1f369e41f4f236aa6da46475b1776c584ef514870ca3ddfb568f3b9d", [:mix], [{:cachex, "~> 2.0", [hex: :cachex, optional: false]}, {:httpoison, "~> 0.9", [hex: :httpoison, optional: false]}, {:poison, "~> 2.0 or ~> 3.0", [hex: :poison, optional: false]}]},
   "gettext": {:hex, :gettext, "0.11.0", "80c1dd42d270482418fa158ec5ba073d2980e3718bacad86f3d4ad71d5667679", [:mix], []},
   "hackney": {:hex, :hackney, "1.8.4", "f4d66065366cbfb51c4e231f6c75c39a14d62457a259d3819c41306bb5533b29", [:rebar3], [{:certifi, "1.2.1", [hex: :certifi, optional: false]}, {:idna, "5.0.2", [hex: :idna, optional: false]}, {:metrics, "1.0.1", [hex: :metrics, optional: false]}, {:mimerl, "1.0.2", [hex: :mimerl, optional: false]}, {:ssl_verify_fun, "1.1.1", [hex: :ssl_verify_fun, optional: false]}]},
+  "hound": {:hex, :hound, "1.0.3", "bf1859fcb855bf7a3b84c632ba68f04c43bfeb16efebf0080b6c1efb960c30c6", [:mix], [{:hackney, "~> 1.5", [hex: :hackney, optional: false]}, {:poison, ">= 1.4.0", [hex: :poison, optional: false]}]},
   "httpoison": {:hex, :httpoison, "0.11.2", "9e59f17a473ef6948f63c51db07320477bad8ba88cf1df60a3eee01150306665", [:mix], [{:hackney, "~> 1.8.0", [hex: :hackney, optional: false]}]},
   "idna": {:hex, :idna, "5.0.2", "ac203208ada855d95dc591a764b6e87259cb0e2a364218f215ad662daa8cd6b4", [:rebar3], [{:unicode_util_compat, "0.2.0", [hex: :unicode_util_compat, optional: false]}]},
   "metrics": {:hex, :metrics, "1.0.1", "25f094dea2cda98213cecc3aeff09e940299d950904393b2a29d191c346a8486", [], []},
@@ -35,5 +36,4 @@
   "ranch": {:hex, :ranch, "1.2.1", "a6fb992c10f2187b46ffd17ce398ddf8a54f691b81768f9ef5f461ea7e28c762", [], []},
   "secure_random": {:hex, :secure_random, "0.5.0", "f49e4bfe686f7a78f0dd16700552e4135f02c122ef6dff35544e4f754641f688", [:mix], []},
   "ssl_verify_fun": {:hex, :ssl_verify_fun, "1.1.1", "28a4d65b7f59893bc2c7de786dec1e1555bd742d336043fe644ae956c3497fbe", [:make, :rebar], []},
-  "unicode_util_compat": {:hex, :unicode_util_compat, "0.2.0", "dbbccf6781821b1c0701845eaf966c9b6d83d7c3bfc65ca2b78b88b8678bfa35", [:rebar3], []},
-  "wallaby": {:hex, :wallaby, "0.17.0", "a5c348c7a4b203bb5abd53716a5cd81ad8b2545508fa5a6c90efe3daee3f5c5f", [:mix], [{:httpoison, "~> 0.11.0", [hex: :httpoison, optional: false]}, {:poison, ">= 1.4.0", [hex: :poison, optional: false]}, {:poolboy, "~> 1.5", [hex: :poolboy, optional: false]}]}}
+  "unicode_util_compat": {:hex, :unicode_util_compat, "0.2.0", "dbbccf6781821b1c0701845eaf966c9b6d83d7c3bfc65ca2b78b88b8678bfa35", [:rebar3], []}}

@@ -3,7 +3,7 @@ defmodule Habits.AcceptanceCase do
 
   using do
     quote do
-      use Wallaby.DSL
+      use Hound.Helpers
 
       alias Habits.{Factory, Repo}
       import Ecto
@@ -22,7 +22,7 @@ defmodule Habits.AcceptanceCase do
     end
 
     metadata = Phoenix.Ecto.SQL.Sandbox.metadata_for(Habits.Repo, self())
-    {:ok, session} = Wallaby.start_session(metadata: metadata)
-    {:ok, session: session}
+    Hound.start_session
+    :ok
   end
 end
