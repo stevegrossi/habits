@@ -4,7 +4,7 @@ defmodule Habits.Endpoint do
   socket "/socket", Habits.UserSocket
 
   # For wallaby
-  if Application.get_env(:your_app, :sql_sandbox) do
+  if Application.get_env(:habits, :sql_sandbox) do
     plug Phoenix.Ecto.SQL.Sandbox
   end
 
