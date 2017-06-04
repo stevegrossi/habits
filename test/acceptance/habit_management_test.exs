@@ -15,6 +15,7 @@ defmodule Habits.HabitManagementTest do
     habits_page =
       session
       |> visit("/")
+      |> assert_has(Query.css(".AppHeader"))
       |> click(Query.link("Log In"))
       |> fill_in(Query.text_field("Email"), with: account.email)
       |> fill_in(Query.text_field("Password"), with: "password")
