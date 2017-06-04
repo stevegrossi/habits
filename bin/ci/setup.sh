@@ -20,7 +20,7 @@ mix ecto.create
 
 # js dependencies
 nvm use 6
-npm install
+npm install --save
 
 # Install phantomjs
 export PHANTOMJS_VERSION="2.1.1"
