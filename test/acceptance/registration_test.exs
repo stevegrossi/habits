@@ -1,19 +1,12 @@
 defmodule Habits.RegistrationTest do
-  use Habits.AcceptanceCase
+  use Habits.AcceptanceCase #, async: true
 
-  test "it works", meta do
-    navigate_to("http://localhost:4001/register")
-
-    find_element(:id, "registration-email")
-    |> fill_field("nubbins@test.cat")
-
-    find_element(:id, "registration-password")
-    |> fill_field("iamacat")
-
-    find_element(:class, "Button")
-    |> click
-
-    find_element(:link_text, "Add a Habit")
+  test "Registering", %{session: session} do
+    session
+    |> visit("/register")
+    |> fill_in(Query.text_field("Email"), with: "nubbins@test.cat")
+    |> fill_in(Query.text_field("Password"), with: "iamacat")
+    |> click(Query.button("Register"))
+    |> find(Query.css(".Button", [text: "Add a Habit"]))
   end
-
 end
