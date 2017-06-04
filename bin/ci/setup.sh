@@ -1,8 +1,3 @@
-# Install phantomjs
-export PHANTOMJS_VERSION="2.1.1"
-export PHANTOMJS_HOST="https://s3.amazonaws.com/codeship-packages"
-\curl -sSL https://raw.githubusercontent.com/codeship/scripts/master/packages/phantomjs.sh | bash -s
-
 # install asdf version manager
 if ! asdf | grep version; then git clone https://github.com/HashNuke/asdf.git ~/.asdf; fi
 echo '. $HOME/.asdf/asdf.sh' >> ~/.bashrc
@@ -26,3 +21,8 @@ mix ecto.create
 # js dependencies
 nvm use 6
 npm install
+
+# Install phantomjs
+export PHANTOMJS_VERSION="2.1.1"
+export PHANTOMJS_HOST="https://s3.amazonaws.com/codeship-packages"
+\curl -sSL https://raw.githubusercontent.com/codeship/scripts/master/packages/phantomjs.sh | bash -s
