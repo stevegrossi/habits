@@ -18,12 +18,13 @@
     "react-dom": "^15.4.1",
     "react-router": "^3.0.0",
     "react-sparklines": "^1.6.0",
-    "whatwg-fetch": "^2.0.1"
+    "whatwg-fetch": "^2.0.1",
+    "promise-polyfill": "^6.0.2"
   },
   "devDependencies": {
     "babel-brunch": "~6.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.22.0",
-    "brunch": "2.7.4",
+    "brunch": "^2.10.9",
     "clean-css-brunch": "~2.0.0",
     "css-brunch": "~2.0.0",
     "javascript-brunch": "~2.0.0",
