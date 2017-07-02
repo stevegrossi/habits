@@ -10,15 +10,4 @@ defmodule Habits.RegistrationTest do
     |> click(Query.button("Register"))
     |> find(Query.css(".Button", [text: "Add a Habit"]))
   end
-
-  # This test should not pass, but if it does
-  # it confirms everything but react is working
-
-  test "React is broken", %{session: session} do
-    page =
-      session
-      |> visit("/register")
-
-    assert has_text?(page, "Loading...")
-  end
 end
