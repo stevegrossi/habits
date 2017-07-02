@@ -1,7 +1,7 @@
 {
   "repository": {},
   "engines": {
-     "node": "6"
+    "node": "6"
   },
   "license": "MIT",
   "scripts": {
@@ -14,12 +14,13 @@
     "date-fns": "^1.22.0",
     "phoenix": "file:deps/phoenix",
     "phoenix_html": "file:deps/phoenix_html",
+    "promise-polyfill": "^6.0.2",
+    "prop-types": "^15.5.10",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-router": "^3.0.0",
     "react-sparklines": "^1.6.0",
-    "whatwg-fetch": "^2.0.1",
-    "promise-polyfill": "^6.0.2"
+    "whatwg-fetch": "^2.0.1"
   },
   "devDependencies": {
     "babel-brunch": "~6.0.0",
