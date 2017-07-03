@@ -9,7 +9,7 @@ asdf plugin-add elixir https://github.com/HashNuke/asdf-elixir.git
 erlang_version=$(awk '/erlang/ { print $2 }' .tool-versions) && asdf install erlang ${erlang_version}
 elixir_version=$(awk '/elixir/ { print $2 }' .tool-versions) && asdf install elixir ${elixir_version}
 
-# fetch dependencies
+# elixir dependencies
 export MIX_ENV=test
 mix local.hex --force
 mix local.rebar --force
@@ -17,3 +17,16 @@ mix hex.info
 mix deps.get
 mix deps.compile
 mix ecto.create
+
+# js dependencies
+nvm use 6
+npm install
+
+# Install phantomjs
+export PHANTOMJS_VERSION="2.1.1"
+export PHANTOMJS_HOST="https://s3.amazonaws.com/codeship-packages"
+\curl -sSL https://raw.githubusercontent.com/codeship/scripts/master/packages/phantomjs.sh | bash -s
+
+# We need to build assets manually in the test environment.
+# See: https://github.com/phoenixframework/phoenix/issues/2068
+brunch build

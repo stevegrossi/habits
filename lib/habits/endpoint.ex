@@ -3,6 +3,11 @@ defmodule Habits.Endpoint do
 
   socket "/socket", Habits.UserSocket
 
+  # For wallaby
+  if Application.get_env(:habits, :sql_sandbox) do
+    plug Phoenix.Ecto.SQL.Sandbox
+  end
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest

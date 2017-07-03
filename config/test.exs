@@ -5,7 +5,9 @@ use Mix.Config
 config :habits, Habits.Endpoint,
   secret_key_base: "0000000000000000000000000000000000000000000000000000000000000000",
   http: [port: 4001],
-  server: false
+  server: true
+
+config :habits, :sql_sandbox, true
 
 # Print only warnings and errors during test
 config :logger, level: :warn
