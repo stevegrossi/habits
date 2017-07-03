@@ -40,12 +40,12 @@ defmodule Habits.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11.0"},
       {:cowboy, "~> 1.0"},
-      {:comeonin, "~> 2.0"},
+      {:comeonin, "~> 3.0"},
       {:secure_random, "~> 0.5"},
       {:geoip, "~> 0.1"},
       {:plug_x_forwarded_for, "~> 0.1"},
       {:mix_test_watch, "~> 0.2", only: :dev},
-      {:ex_machina, "~> 1.0", only: :test},
+      {:ex_machina, "~> 2.0", only: :test},
       {:credo, "~> 0.5", only: :dev},
       {:wallaby, "~> 0.16", only: :test}
     ]
