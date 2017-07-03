@@ -40,7 +40,7 @@ defmodule Habits.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11.0"},
       {:cowboy, "~> 1.0"},
-      {:comeonin, "~> 2.0"},
+      {:comeonin, "~> 3.0"},
       {:secure_random, "~> 0.5"},
       {:geoip, "~> 0.1"},
       {:plug_x_forwarded_for, "~> 0.1"},
