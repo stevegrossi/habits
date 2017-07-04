@@ -1,5 +1,5 @@
 defmodule Habits.RegistrationTest do
-  use Habits.AcceptanceCase #, async: true
+  use Habits.AcceptanceCase
 
   test "Registering", %{session: session} do
     session
