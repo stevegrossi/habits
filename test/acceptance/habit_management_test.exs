@@ -15,7 +15,6 @@ defmodule Habits.HabitManagementTest do
 
     session
     |> visit("/")
-    |> assert_has(css(".AppHeader"))
     |> click(link("Log In"))
     |> fill_in(text_field("Email"), with: account.email)
     |> fill_in(text_field("Password"), with: "password")
