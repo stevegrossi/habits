@@ -15,16 +15,16 @@ defmodule Habits.HabitManagementTest do
     habits_page =
       session
       |> visit("/")
-      |> assert_has(Query.css(".AppHeader"))
-      |> click(Query.link("Log In"))
-      |> fill_in(Query.text_field("Email"), with: account.email)
-      |> fill_in(Query.text_field("Password"), with: "password")
-      |> click(Query.button("Log In"))
-      |> click(Query.link("Add a Habit"))
-      |> fill_in(Query.text_field("Name"), with: habit_name)
-      |> click(Query.button("Add Habit"))
-      |> click(Query.link(habit_name))
-      |> click(Query.link("× Delete"))
+      |> assert_has(css(".AppHeader"))
+      |> click(link("Log In"))
+      |> fill_in(text_field("Email"), with: account.email)
+      |> fill_in(text_field("Password"), with: "password")
+      |> click(button("Log In"))
+      |> click(link("Add a Habit"))
+      |> fill_in(text_field("Name"), with: habit_name)
+      |> click(button("Add Habit"))
+      |> click(link(habit_name))
+      |> click(link("× Delete"))
 
     assert has_no_css?(habits_page, ".Habit")
   end

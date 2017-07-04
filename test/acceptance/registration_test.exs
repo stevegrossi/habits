@@ -4,10 +4,10 @@ defmodule Habits.RegistrationTest do
   test "Registering", %{session: session} do
     session
     |> visit("/register")
-    |> assert_has(Query.css(".AppHeader"))
-    |> fill_in(Query.text_field("Email"), with: "nubbins@test.cat")
-    |> fill_in(Query.text_field("Password"), with: "iamacat")
-    |> click(Query.button("Register"))
-    |> find(Query.css(".Button", [text: "Add a Habit"]))
+    |> assert_has(css(".AppHeader"))
+    |> fill_in(text_field("Email"), with: "nubbins@test.cat")
+    |> fill_in(text_field("Password"), with: "iamacat")
+    |> click(button("Register"))
+    |> find(css(".Button", [text: "Add a Habit"]))
   end
 end
