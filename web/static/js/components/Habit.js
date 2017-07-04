@@ -24,11 +24,21 @@ class Habit extends React.Component {
     return classNames.join(' ')
   }
 
+  buttonText() {
+    if (this.props.checkedIn) {
+      return "Check Out"
+    } else {
+      return "Check In"
+    }
+  }
+
   render() {
     const { id, name, streak } = this.props
     return (
       <li className="Habit">
-        <button className={this.buttonClassName()} onClick={this.toggleCheckIn.bind(this)}>Check In</button>
+        <button className={this.buttonClassName()} onClick={this.toggleCheckIn.bind(this)}>
+          {this.buttonText()}
+        </button>
         <Link to={`/habits/${id}`} className="Habit-name">{name}</Link>
         {streak > 0 &&
           <span className="Habit-streak">
