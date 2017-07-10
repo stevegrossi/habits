@@ -31,5 +31,9 @@ defmodule Habits.AccountManagementTest do
     |> find(css(".ActionList-item", text: "Area 51"))
     |> click(link("×"))
     |> refute_has(css(".ActionList-item", text: "Area 51"))
+
+    session
+    |> click(link("Log Out"))
+    |> assert_has(css(".lead"))
   end
 end

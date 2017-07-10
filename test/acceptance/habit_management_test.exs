@@ -30,5 +30,7 @@ defmodule Habits.HabitManagementTest do
     |> click(link(habit_name))
     |> click(link("× Delete"))
     |> refute_has(link(habit_name))
+    |> click(link("Log Out"))
+    |> assert_has(css(".lead"))
   end
 end
