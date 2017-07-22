@@ -47,7 +47,7 @@ defmodule Habits.Mixfile do
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:ex_machina, "~> 2.0", only: :test},
       {:credo, "~> 0.5", only: :dev},
-      {:wallaby, "~> 0.16", only: :test}
+      {:wallaby, "~> 0.17", only: :test}
     ]
   end
 
