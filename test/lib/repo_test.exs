@@ -1,5 +1,5 @@
 defmodule Habits.RepoTest do
-  use Habits.ModelCase
+  use Habits.DataCase
 
   alias Habits.Repo
   alias HabitsWeb.Habit

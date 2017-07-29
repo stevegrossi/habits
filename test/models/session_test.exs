@@ -1,5 +1,5 @@
 defmodule Habits.SessionTest do
-  use Habits.ModelCase
+  use Habits.DataCase
 
   alias HabitsWeb.Session
 

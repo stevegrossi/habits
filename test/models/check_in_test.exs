@@ -1,5 +1,5 @@
 defmodule Habits.CheckInTest do
-  use Habits.ModelCase
+  use Habits.DataCase
 
   alias HabitsWeb.CheckIn
 

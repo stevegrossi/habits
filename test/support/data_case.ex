@@ -1,4 +1,4 @@
-defmodule Habits.ModelCase do
+defmodule Habits.DataCase do
   @moduledoc """
   This module defines the test case to be used by
   model tests.
@@ -21,7 +21,7 @@ defmodule Habits.ModelCase do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Habits.ModelCase
+      import Habits.DataCase
     end
   end
 
@@ -59,7 +59,7 @@ defmodule Habits.ModelCase do
   """
   def errors_on(struct, data) do
     struct.__struct__.changeset(struct, data)
-    |> Ecto.Changeset.traverse_errors(&Habits.ErrorHelpers.translate_error/1)
+    |> Ecto.Changeset.traverse_errors(&HabitsWeb.ErrorHelpers.translate_error/1)
     |> Enum.flat_map(fn {key, errors} -> for msg <- errors, do: {key, msg} end)
   end
 end

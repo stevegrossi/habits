@@ -1,5 +1,5 @@
 defmodule Habits.HabitTest do
-  use Habits.ModelCase
+  use Habits.DataCase
 
   alias HabitsWeb.Habit
 
