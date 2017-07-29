@@ -1,4 +1,4 @@
-defmodule Habits.ConnCase do
+defmodule HabitsWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -26,10 +26,10 @@ defmodule Habits.ConnCase do
       import Ecto.Changeset
       import Ecto.Query
 
-      import Habits.Router.Helpers
+      import HabitsWeb.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint Habits.Endpoint
+      @endpoint HabitsWeb.Endpoint
     end
   end
 

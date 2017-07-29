@@ -13,7 +13,7 @@ defmodule Habits do
       # Start the Ecto repository
       supervisor(Habits.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(Habits.Endpoint, []),
+      supervisor(HabitsWeb.Endpoint, []),
       # Start your own worker by calling: Habits.Worker.start_link(arg1, arg2, arg3)
       # worker(Habits.Worker, [arg1, arg2, arg3]),
     ]
@@ -22,12 +22,5 @@ defmodule Habits do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Habits.Supervisor]
     Supervisor.start_link(children, opts)
-  end
-
-  # Tell Phoenix to update the endpoint configuration
-  # whenever the application is updated.
-  def config_change(changed, _new, removed) do
-    Habits.Endpoint.config_change(changed, removed)
-    :ok
   end
 end

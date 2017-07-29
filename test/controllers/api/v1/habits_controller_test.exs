@@ -1,7 +1,7 @@
 defmodule Habits.API.V1.HabitControllerTest do
-  use Habits.ConnCase
+  use HabitsWeb.ConnCase
 
-  alias Habits.{CheckIn, Habit}
+  alias HabitsWeb.{CheckIn, Habit}
 
   describe ".index" do
 

@@ -1,5 +1,5 @@
 defmodule Habits.API.V1.AchievementControllerTest do
-  use Habits.ConnCase
+  use HabitsWeb.ConnCase
 
   describe ".index" do
 

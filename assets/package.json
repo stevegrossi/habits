@@ -1,0 +1,35 @@
+{
+  "repository": {},
+  "engines": {
+    "node": "6"
+  },
+  "license": "MIT",
+  "scripts": {
+    "deploy": "brunch build --production",
+    "watch": "brunch watch --stdin"
+  },
+  "dependencies": {
+    "babel-preset-react": "^6.16.0",
+    "blueimp-md5": "^2.6.0",
+    "date-fns": "^1.22.0",
+    "phoenix": "file:../deps/phoenix",
+    "phoenix_html": "file:../deps/phoenix_html",
+    "promise-polyfill": "^6.0.2",
+    "prop-types": "^15.5.10",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "react-router": "^3.0.0",
+    "react-sparklines": "^1.6.0",
+    "whatwg-fetch": "^2.0.1"
+  },
+  "devDependencies": {
+    "babel-brunch": "~6.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.22.0",
+    "brunch": "^2.10.9",
+    "clean-css-brunch": "~2.0.0",
+    "css-brunch": "~2.0.0",
+    "javascript-brunch": "~2.0.0",
+    "sass-brunch": "^1.9.2",
+    "uglify-js-brunch": "~2.0.1"
+  }
+}

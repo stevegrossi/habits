@@ -2,7 +2,7 @@ use Mix.Config
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :habits, Habits.Endpoint,
+config :habits, HabitsWeb.Endpoint,
   secret_key_base: "0000000000000000000000000000000000000000000000000000000000000000",
   http: [port: 4001],
   server: true

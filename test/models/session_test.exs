@@ -1,7 +1,7 @@
 defmodule Habits.SessionTest do
   use Habits.ModelCase
 
-  alias Habits.Session
+  alias HabitsWeb.Session
 
   @valid_attrs %{account_id: "12345", location: "Earth"}
   @invalid_attrs %{}

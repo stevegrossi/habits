@@ -1,5 +1,5 @@
 defmodule Habits.HabitManagementTest do
-  use Habits.AcceptanceCase
+  use HabitsWeb.AcceptanceCase
 
   setup _context do
     account = Factory.insert(:account,

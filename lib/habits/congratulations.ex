@@ -4,7 +4,8 @@ defmodule Habits.Congratulations do
   reached a milestone for a habit, and issuing that notification.
   """
 
-  alias Habits.{Notification, Habit}
+  alias Habits.Notification
+  alias HabitsWeb.Habit
 
   def for(%Habit{} = habit) do
     check_in_count = Habit.check_in_count(habit)
