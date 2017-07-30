@@ -18,7 +18,7 @@ defmodule Habits.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [
-      mod: {Habits, []},
+      mod: {Habits.Application, []},
       extra_applications: [:logger]
     ]
   end

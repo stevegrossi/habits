@@ -1,4 +1,4 @@
-defmodule Habits do
+defmodule Habits.Application do
   @moduledoc false
 
   use Application
