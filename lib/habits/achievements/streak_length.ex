@@ -1,7 +1,8 @@
-defmodule Achievement.StreakLength do
+defmodule Habits.Achievements.StreakLength do
   @moduledoc false
 
-  use Achievement
+  use Habits.Achievements.Achievement
+
   alias HabitsWeb.Habit
 
   def value_for(%Habit{} = habit) do

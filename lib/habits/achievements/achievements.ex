@@ -1,8 +1,10 @@
-defmodule Achievement do
-  @moduledoc false
+defmodule Habits.Achievements do
+  @moduledoc """
+  The Achievements context.
+  """
 
   alias HabitsWeb.{Account, Habit}
-  alias Achievement.{CheckInCount, HabitCount, StreakLength}
+  alias Habits.Achievements.{CheckInCount, HabitCount, StreakLength}
 
   @doc """
   Specifies which achievements apply in each context
@@ -25,23 +27,5 @@ defmodule Achievement do
       StreakLength.new(habit, 30, "Month-long Streak"),
       StreakLength.new(habit, 365, "Year-long Streak!")
     ]
-  end
-
-  @doc """
-  Shared behavior for individual Achievement modules which `use Achievement`
-  """
-  defmacro __using__(_) do
-    quote do
-      @enforce_keys ~w(name threshold value)a
-      defstruct ~w(name threshold value)a
-
-      def new(subject, threshold, name) do
-        %__MODULE__{
-          name: name,
-          threshold: threshold,
-          value: value_for(subject)
-        }
-      end
-    end
   end
 end

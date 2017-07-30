@@ -1,7 +1,8 @@
-defmodule Achievement.CheckInCount do
+defmodule Habits.Achievements.CheckInCount do
   @moduledoc false
 
-  use Achievement
+  use Habits.Achievements.Achievement
+
   alias Habits.Repo
   alias HabitsWeb.{Account, Habit}
 
