@@ -18,15 +18,18 @@ mix deps.get
 mix deps.compile
 mix ecto.create
 
-# js dependencies
-nvm use 6
-npm install
-
 # Install phantomjs
 export PHANTOMJS_VERSION="2.1.1"
 export PHANTOMJS_HOST="https://s3.amazonaws.com/codeship-packages"
 \curl -sSL https://raw.githubusercontent.com/codeship/scripts/master/packages/phantomjs.sh | bash -s
 
+nvm use 6
+
+# Assets: As of Phoenix 1.3, these live in assets/
+
+# js dependencies
+(cd assets/ && npm install)
+
 # We need to build assets manually in the test environment.
 # See: https://github.com/phoenixframework/phoenix/issues/2068
-brunch build
+(cd assets/ && brunch build)
