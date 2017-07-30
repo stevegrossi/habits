@@ -24,7 +24,6 @@ class NotificationList extends React.Component {
     let room = socket.channel("notifications", {})
     room.join()
       .receive("error", () => console.log("Notifications: error connecting"))
-      .receive("ok",    () => console.log("Notifications: connected"))
     room.on("notification:new", this.enqueueNotification );
   }
 
