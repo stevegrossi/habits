@@ -6,13 +6,13 @@ defmodule HabitsWeb.TokenAuthentication do
   """
 
   import Plug.Conn
-  alias Habits.Repo
-  alias HabitsWeb.{Account, Session}
+  alias Habits.{Repo, Accounts}
+  alias HabitsWeb.{Session}
   import Ecto.Query, only: [from: 2]
 
   def init(options), do: options
 
-  def call(%Plug.Conn{assigns: %{current_account: %Account{}}} = conn, _opts) do
+  def call(%Plug.Conn{assigns: %{current_account: %Accounts.Account{}}} = conn, _opts) do
     conn # Allow manually setting current_account in tests
   end
   def call(conn, _opts) do
@@ -42,7 +42,7 @@ defmodule HabitsWeb.TokenAuthentication do
   end
 
   defp find_account_by_session(session) do
-    case Repo.get(Account, session.account_id) do
+    case Accounts.get_account!(session.account_id) do
       nil  -> :error
       account -> {:ok, account}
     end

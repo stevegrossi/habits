@@ -1,11 +1,11 @@
-defmodule HabitsWeb.Account do
+defmodule Habits.Accounts.Account do
   @moduledoc """
-  Data logic for the Account domain model, which represents a user of the app.
+  Data logic for the Account schema, which represents a user of the app.
   """
 
-  use Habits.Web, :model
+  use Ecto.Schema
+  import Ecto.Changeset
 
-  alias Habits.Repo
   alias HabitsWeb.{Habit, Session}
 
   schema "accounts" do
@@ -29,28 +29,6 @@ defmodule HabitsWeb.Account do
     |> validate_length(:password, min: 5)
     |> encrypt_password_if_possible
     |> unique_constraint(:email)
-  end
-
-  @doc """
-  Returns a list of CheckIns-counts by week, beginning with the first week for
-  which there was a CheckIn
-  """
-  def check_in_data(_account) do
-    query = """
-    SELECT
-      COUNT(check_ins.*)
-    FROM generate_series((
-      SELECT MIN(date_trunc('week', check_ins.date))
-      FROM check_ins
-    ), NOW(), '1 week'::interval) week
-    LEFT OUTER JOIN check_ins
-      ON date_trunc('week', check_ins.date) = week
-    GROUP BY week
-    ORDER BY week
-    ;
-    """
-    %Postgrex.Result{rows: rows} = Ecto.Adapters.SQL.query!(Repo, query, [])
-    Enum.map(rows, &List.first/1)
   end
 
   defp encrypt_password_if_possible(

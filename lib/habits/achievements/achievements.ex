@@ -3,7 +3,8 @@ defmodule Habits.Achievements do
   The Achievements context.
   """
 
-  alias HabitsWeb.{Account, Habit}
+  alias HabitsWeb.{Habit}
+  alias Habits.{Accounts.Account}
   alias Habits.Achievements.{CheckInCount, HabitCount, StreakLength}
 
   @doc """

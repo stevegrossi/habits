@@ -2,7 +2,7 @@ defmodule Habits.Factory do
   use ExMachina.Ecto, repo: Habits.Repo
 
   def account_factory do
-    %HabitsWeb.Account{
+    %Habits.Accounts.Account{
       email: sequence(:email, &"email-#{&1}@example.com"),
       encrypted_password: "password"
     }
