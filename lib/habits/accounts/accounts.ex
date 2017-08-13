@@ -6,9 +6,13 @@ defmodule Habits.Accounts do
   alias Habits.{Repo, Accounts.Account}
 
   def create_account(attrs \\ %{}) do
-    %Account{}
-    |> Account.changeset(attrs)
-    |> Repo.insert()
+    if Repo.exists?(Account) do
+      {:error, "An account already exists. Please log in."}
+    else
+      %Account{}
+      |> Account.changeset(attrs)
+      |> Repo.insert()
+    end
   end
 
   def get_account!(id), do: Repo.get!(Account, id)
@@ -41,13 +45,5 @@ defmodule Habits.Accounts do
     """
     %Postgrex.Result{rows: rows} = Ecto.Adapters.SQL.query!(Repo, query, [])
     Enum.map(rows, &List.first/1)
-  end
-
-  def registration_permitted? do
-    if Repo.exists?(Account) do
-      {:error, "An account already exists. Please log in."}
-    else
-      :ok
-    end
   end
 end
