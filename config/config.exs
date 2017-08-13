@@ -10,11 +10,11 @@ config :habits,
   ecto_repos: [Habits.Repo]
 
 # Configures the endpoint
-config :habits, Habits.Endpoint,
+config :habits, HabitsWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: System.get_env("SECRET_KEY_BASE"),
-  render_errors: [view: Habits.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Habits.PubSub,
+  render_errors: [view: HabitsWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: HabitsWeb.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger

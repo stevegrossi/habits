@@ -26,7 +26,7 @@ defmodule Habits.ChannelCase do
       import Ecto.Query
 
       # The default endpoint for testing
-      @endpoint Habits.Endpoint
+      @endpoint HabitsWeb.Endpoint
     end
   end
 

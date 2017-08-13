@@ -1,7 +1,7 @@
 defmodule Habits.AccountTest do
-  use Habits.ModelCase
+  use Habits.DataCase
 
-  alias Habits.Account
+  alias HabitsWeb.Account
 
   @valid_attrs %{
     email: "foo@bar.baz",

@@ -1,7 +1,7 @@
 defmodule Achievement do
   @moduledoc false
 
-  alias Habits.{Account, Habit}
+  alias HabitsWeb.{Account, Habit}
   alias Achievement.{CheckInCount, HabitCount, StreakLength}
 
   @doc """

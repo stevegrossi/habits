@@ -1,3 +1,3 @@
 defmodule Habits.LayoutViewTest do
-  use Habits.ConnCase, async: true
+  use HabitsWeb.ConnCase, async: true
 end

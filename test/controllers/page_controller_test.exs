@@ -1,5 +1,5 @@
 defmodule Habits.PageControllerTest do
-  use Habits.ConnCase
+  use HabitsWeb.ConnCase
 
   test "shows loading message", %{conn: conn} do
     conn = get conn, "/"

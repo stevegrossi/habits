@@ -1,4 +1,4 @@
-defmodule Habits.AcceptanceCase do
+defmodule HabitsWeb.AcceptanceCase do
   use ExUnit.CaseTemplate
 
   using do
@@ -10,7 +10,7 @@ defmodule Habits.AcceptanceCase do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Habits.Router.Helpers
+      import HabitsWeb.Router.Helpers
       import Wallaby.Query
     end
   end

@@ -1,6 +1,6 @@
 defmodule Habits.NotificationChannelTest do
   use Habits.ChannelCase
-  alias Habits.{UserSocket}
+  alias HabitsWeb.UserSocket
 
   test "authenticates to the socket and receives notifications" do
     account = Factory.insert(:account)
