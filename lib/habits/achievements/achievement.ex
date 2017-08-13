@@ -1,7 +1,8 @@
 defmodule Habits.Achievements.Achievement do
-  @doc """
+  @moduledoc """
   Shared behaviour for individual Achievement modules which `use Achievement`
   """
+
   defmacro __using__(_) do
     quote do
       @enforce_keys ~w(name threshold value)a
