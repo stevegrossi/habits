@@ -7,6 +7,8 @@ defmodule Habits.Achievements.Achievement do
       @enforce_keys ~w(name threshold value)a
       defstruct ~w(name threshold value)a
 
+      @callback value_for(any) :: number
+
       def new(subject, threshold, name) do
         %__MODULE__{
           name: name,
