@@ -18,7 +18,7 @@ defmodule HabitsWeb.API.V1.AccountController do
   # @TODO: this belongs in a context, but which?
   # Accounts, Sessions, or something else? Registrations?
   def create(conn, %{"account" => account_params}) do
-    with :ok <- can_create_account?(),
+    with :ok <- Accounts.registration_permitted?,
       {:ok, account} <- create_account(account_params),
       {:ok, session} <- create_session(account)
     do
@@ -30,15 +30,6 @@ defmodule HabitsWeb.API.V1.AccountController do
         conn
         |> put_status(:forbidden)
         |> render("error.json", message: message)
-    end
-  end
-
-  # @TODO: make Accounts.registration_permitted?
-  defp can_create_account? do
-    if Repo.exists?(Accounts.Account) do
-      {:error, "An account already exists. Please log in."}
-    else
-      :ok
     end
   end
 
