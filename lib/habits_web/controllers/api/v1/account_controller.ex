@@ -1,8 +1,8 @@
 defmodule HabitsWeb.API.V1.AccountController do
   use Habits.Web, :controller
 
-  alias Habits.Repo
-  alias HabitsWeb.{Account, Session, API.V1.SessionView}
+  alias Habits.{Repo, Accounts}
+  alias HabitsWeb.{Session, API.V1.SessionView}
 
   @doc """
   Return information about the current user’s account
@@ -15,6 +15,8 @@ defmodule HabitsWeb.API.V1.AccountController do
   @doc """
   Register a new account unless one exists.
   """
+  # @TODO: this belongs in a context, but which?
+  # Accounts, Sessions, or something else? Registrations?
   def create(conn, %{"account" => account_params}) do
     with :ok <- can_create_account?(),
       {:ok, account} <- create_account(account_params),
@@ -31,21 +33,24 @@ defmodule HabitsWeb.API.V1.AccountController do
     end
   end
 
+  # @TODO: make Accounts.registration_permitted?
   defp can_create_account? do
-    if Repo.exists?(Account) do
+    if Repo.exists?(Accounts.Account) do
       {:error, "An account already exists. Please log in."}
     else
       :ok
     end
   end
 
+  # @TODO: make Accounts.create_account
   defp create_account(account_params) do
-    %Account{}
-    |> Account.changeset(account_params)
+    %Accounts.Account{}
+    |> Accounts.Account.changeset(account_params)
     |> Repo.insert
   end
 
-  defp create_session(%Account{id: account_id}) do
+  # @TODO: make Sessions.create_session
+  defp create_session(%Accounts.Account{id: account_id}) do
     %Session{}
     |> Session.changeset(%{account_id: account_id, location: "Initial registration"})
     |> Repo.insert

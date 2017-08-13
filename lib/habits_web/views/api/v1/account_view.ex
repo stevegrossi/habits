@@ -1,7 +1,7 @@
 defmodule HabitsWeb.API.V1.AccountView do
   use Habits.Web, :view
 
-  alias HabitsWeb.{Account}
+  alias Habits.{Accounts.Account}
 
   def render("show.json", %{account: account}) do
     %{

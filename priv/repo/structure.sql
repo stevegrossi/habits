@@ -141,6 +141,37 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: services; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE services (
+    id integer NOT NULL,
+    name character varying(255),
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: services_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE services_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: services_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE services_id_seq OWNED BY services.id;
+
+
+--
 -- Name: sessions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -222,6 +253,13 @@ ALTER TABLE ONLY habits ALTER COLUMN id SET DEFAULT nextval('habits_id_seq'::reg
 
 
 --
+-- Name: services id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY services ALTER COLUMN id SET DEFAULT nextval('services_id_seq'::regclass);
+
+
+--
 -- Name: sessions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -258,6 +296,14 @@ ALTER TABLE ONLY habits
 
 ALTER TABLE ONLY schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: services services_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY services
+    ADD CONSTRAINT services_pkey PRIMARY KEY (id);
 
 
 --
@@ -338,5 +384,5 @@ ALTER TABLE ONLY sessions
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO "schema_migrations" (version) VALUES (20160607225931), (20160611154829), (20160611162028), (20161231231911), (20170107011711), (20170111012241);
+INSERT INTO "schema_migrations" (version) VALUES (20160607225931), (20160611154829), (20160611162028), (20161231231911), (20170107011711), (20170111012241), (20170730002621);
 

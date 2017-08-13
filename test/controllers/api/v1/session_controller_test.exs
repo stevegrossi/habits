@@ -1,7 +1,8 @@
 defmodule Habits.API.V1.SessionControllerTest do
   use HabitsWeb.ConnCase
 
-  alias HabitsWeb.{Session, Account}
+  alias Habits.{Accounts.Account}
+  alias HabitsWeb.{Session}
   @valid_attrs %{email: "foo@bar.com", password: "p4ssw0rd"}
 
   describe ".index" do

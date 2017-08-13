@@ -6,7 +6,7 @@ defmodule HabitsWeb.Session do
 
   use Habits.Web, :model
 
-  alias HabitsWeb.Account
+  alias Habits.Accounts.Account
 
   @timestamps_opts type: :utc_datetime, usec: false
   schema "sessions" do

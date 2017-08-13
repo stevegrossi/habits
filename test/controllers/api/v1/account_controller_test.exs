@@ -1,7 +1,8 @@
 defmodule Habits.API.V1.AccountControllerTest do
   use HabitsWeb.ConnCase
 
-  alias HabitsWeb.{Account, Session}
+  alias Habits.Accounts.Account
+  alias HabitsWeb.{Session}
 
   describe ".show" do
 

@@ -1,9 +1,10 @@
-defmodule HabitsWeb.Account do
+defmodule Habits.Accounts.Account do
   @moduledoc """
   Data logic for the Account domain model, which represents a user of the app.
   """
 
-  use Habits.Web, :model
+  use Ecto.Schema
+  import Ecto.Changeset
 
   alias Habits.Repo
   alias HabitsWeb.{Habit, Session}
