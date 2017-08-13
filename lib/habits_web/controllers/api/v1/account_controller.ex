@@ -15,11 +15,9 @@ defmodule HabitsWeb.API.V1.AccountController do
   @doc """
   Register a new account unless one exists.
   """
-  # @TODO: this belongs in a context, but which?
-  # Accounts, Sessions, or something else? Registrations?
   def create(conn, %{"account" => account_params}) do
     with :ok <- Accounts.registration_permitted?,
-      {:ok, account} <- create_account(account_params),
+      {:ok, account} <- Accounts.create_account(account_params),
       {:ok, session} <- create_session(account)
     do
       conn
@@ -31,13 +29,6 @@ defmodule HabitsWeb.API.V1.AccountController do
         |> put_status(:forbidden)
         |> render("error.json", message: message)
     end
-  end
-
-  # @TODO: make Accounts.create_account
-  defp create_account(account_params) do
-    %Accounts.Account{}
-    |> Accounts.Account.changeset(account_params)
-    |> Repo.insert
   end
 
   # @TODO: make Sessions.create_session

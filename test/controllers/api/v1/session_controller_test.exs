@@ -1,7 +1,7 @@
 defmodule Habits.API.V1.SessionControllerTest do
   use HabitsWeb.ConnCase
 
-  alias Habits.{Accounts.Account}
+  alias Habits.{Accounts}
   alias HabitsWeb.{Session}
   @valid_attrs %{email: "foo@bar.com", password: "p4ssw0rd"}
 
@@ -34,8 +34,7 @@ defmodule Habits.API.V1.SessionControllerTest do
   describe ".create" do
 
     setup %{conn: conn} do
-      changeset = Account.changeset(%Account{}, @valid_attrs)
-      Repo.insert(changeset)
+      Accounts.create_account(@valid_attrs)
       {:ok, conn: put_req_header(conn, "accept", "application/json")}
     end
 

@@ -3,7 +3,7 @@ defmodule HabitsWeb.API.V1.SessionController do
 
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
 
-  alias Habits.Accounts.Account
+  alias Habits.Accounts
   alias HabitsWeb.Session
 
   def index(conn, %{}) do
@@ -18,8 +18,7 @@ defmodule HabitsWeb.API.V1.SessionController do
   end
 
   def create(conn, %{"account" => account_params}) do
-    # @TODO: make Accounts.get_by_email!
-    account = Repo.get_by(Account, email: account_params["email"])
+    account = Accounts.get_by_email(account_params["email"])
     cond do
       account && checkpw(account_params["password"], account.encrypted_password) ->
         session_changeset = Session.changeset(%Session{}, %{
