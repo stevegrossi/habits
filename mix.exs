@@ -32,22 +32,23 @@ defmodule Habits.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.3.0"},
-      {:phoenix_pubsub, "~> 1.0.1"},
-      {:phoenix_ecto, "~> 3.0.1"},
-      {:postgrex, ">= 0.0.0"},
-      {:phoenix_html, "~> 2.5"},
-      {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:gettext, "~> 0.11.0"},
+      {:bcrypt_elixir, "~> 1.0"},
+      {:comeonin, "~> 4.0.3"},
       {:cowboy, "~> 1.0"},
-      {:comeonin, "~> 3.0"},
-      {:secure_random, "~> 0.5"},
+      {:credo, "~> 0.8.6", only: :dev},
+      {:ex_machina, "~> 2.1.0", only: :test},
       {:geoip, "~> 0.1"},
+      {:gettext, "~> 0.13.1"},
+      {:mix_test_watch, "~> 0.5", only: :dev},
+      {:phoenix, "~> 1.3.0"},
+      {:phoenix_ecto, "~> 3.2.3"},
+      {:phoenix_html, "~> 2.10.4"},
+      {:phoenix_live_reload, "~> 1.1.1", only: :dev},
+      {:phoenix_pubsub, "~> 1.0.1"},
       {:plug_x_forwarded_for, "~> 0.1"},
-      {:mix_test_watch, "~> 0.2", only: :dev},
-      {:ex_machina, "~> 2.0", only: :test},
-      {:credo, "~> 0.5", only: :dev},
-      {:wallaby, "~> 0.17", only: :test}
+      {:postgrex, ">= 0.13.3"},
+      {:secure_random, "~> 0.5"},
+      {:wallaby, "~> 0.19.1", only: :test}
     ]
   end
 
