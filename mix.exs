@@ -39,7 +39,7 @@ defmodule Habits.Mixfile do
       {:ex_machina, "~> 2.1.0", only: :test},
       {:geoip, "~> 0.1"},
       {:gettext, "~> 0.13.1"},
-      {:mix_test_watch, "~> 0.5", only: :dev},
+      {:mix_test_watch, "~> 0.9", only: :dev},
       {:phoenix, "~> 1.3.0"},
       {:phoenix_ecto, "~> 3.2.3"},
       {:phoenix_html, "~> 2.10.4"},
