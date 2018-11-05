@@ -36,7 +36,6 @@ config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
 config :habits, Habits.Repo,
-  adapter: Ecto.Adapters.Postgres,
   database: "habits_dev",
   hostname: "localhost",
   pool_size: 10
