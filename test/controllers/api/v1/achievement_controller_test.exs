@@ -11,7 +11,7 @@ defmodule Habits.API.V1.AchievementControllerTest do
       conn =
         conn
         |> assign(:current_account, account)
-        |> get(api_v1_account_achievements_path(conn, :index))
+        |> get(Routes.api_v1_account_achievements_path(conn, :index))
 
       assert json_response(conn, :ok) == %{
         "achievements" => [
@@ -52,7 +52,7 @@ defmodule Habits.API.V1.AchievementControllerTest do
       conn =
         conn
         |> assign(:current_account, account)
-        |> get(api_v1_habit_achievements_path(conn, :index, habit.id))
+        |> get(Routes.api_v1_habit_achievements_path(conn, :index, habit.id))
 
       assert json_response(conn, :ok) == %{
         "achievements" => [

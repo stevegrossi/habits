@@ -14,7 +14,7 @@ defmodule Habits.API.V1.HabitControllerTest do
       conn =
         conn
         |> assign(:current_account, account)
-        |> get(api_v1_habit_path(conn, :index), date: Habits.Date.today_string)
+        |> get(Routes.api_v1_habit_path(conn, :index), date: Habits.Date.today_string)
 
       assert json_response(conn, :ok) == [
         %{
@@ -37,7 +37,7 @@ defmodule Habits.API.V1.HabitControllerTest do
       conn =
         conn
         |> assign(:current_account, account)
-        |> get(api_v1_habit_path(conn, :show, habit.id))
+        |> get(Routes.api_v1_habit_path(conn, :show, habit.id))
 
       assert json_response(conn, :ok) == %{
         "id" => habit.id,
@@ -59,7 +59,7 @@ defmodule Habits.API.V1.HabitControllerTest do
       conn =
         conn
         |> assign(:current_account, account)
-        |> delete(api_v1_habit_path(conn, :delete, habit.id))
+        |> delete(Routes.api_v1_habit_path(conn, :delete, habit.id))
 
       assert json_response(conn, :ok) == %{
         "success" => true
@@ -79,7 +79,7 @@ defmodule Habits.API.V1.HabitControllerTest do
       conn =
         conn
         |> assign(:current_account, account)
-        |> post(api_v1_habit_path(conn, :create), new_habit_params)
+        |> post(Routes.api_v1_habit_path(conn, :create), new_habit_params)
 
       habit = Repo.get_by(Habit, name: "Make a friend")
       assert habit
@@ -102,7 +102,7 @@ defmodule Habits.API.V1.HabitControllerTest do
       conn =
         conn
         |> assign(:current_account, account)
-        |> patch(api_v1_habit_path(conn, :update, habit.id), new_params)
+        |> patch(Routes.api_v1_habit_path(conn, :update, habit.id), new_params)
 
       assert Repo.get_by(Habit, name: new_params["name"])
       assert json_response(conn, :ok) == %{
@@ -122,7 +122,7 @@ defmodule Habits.API.V1.HabitControllerTest do
 
       conn = conn
         |> assign(:current_account, account)
-        |> post(api_v1_habit_check_in_path(conn, :check_in, habit.id, date: Habits.Date.today_string))
+        |> post(Routes.api_v1_habit_check_in_path(conn, :check_in, habit.id, date: Habits.Date.today_string))
 
       Repo.get_by(CheckIn, %{habit_id: habit.id, date: Habits.Date.today})
 
@@ -141,7 +141,7 @@ defmodule Habits.API.V1.HabitControllerTest do
 
         conn
           |> assign(:current_account, account)
-          |> post(api_v1_habit_check_in_path(conn, :check_in, habit.id, date: Habits.Date.today_string))
+          |> post(Routes.api_v1_habit_check_in_path(conn, :check_in, habit.id, date: Habits.Date.today_string))
 
         assert Repo.count(CheckIn) == 1
     end
@@ -154,7 +154,7 @@ defmodule Habits.API.V1.HabitControllerTest do
       conn =
         conn
         |> assign(:current_account, account)
-        |> post(api_v1_habit_check_in_path(conn, :check_in, other_accounts_habit.id, date: Habits.Date.today_string))
+        |> post(Routes.api_v1_habit_check_in_path(conn, :check_in, other_accounts_habit.id, date: Habits.Date.today_string))
 
       assert json_response(conn, :not_found)["error"] == "Habit not found"
       refute Repo.get_by(CheckIn, %{habit_id: other_accounts_habit.id, date: Habits.Date.today})
@@ -171,7 +171,7 @@ defmodule Habits.API.V1.HabitControllerTest do
       conn =
         conn
         |> assign(:current_account, account)
-        |> delete(api_v1_habit_check_out_path(conn, :check_out, habit.id, date: Habits.Date.today_string))
+        |> delete(Routes.api_v1_habit_check_out_path(conn, :check_out, habit.id, date: Habits.Date.today_string))
 
       refute Repo.get(CheckIn, check_in.id)
 
@@ -192,7 +192,7 @@ defmodule Habits.API.V1.HabitControllerTest do
       conn =
         conn
         |> assign(:current_account, account)
-        |> delete(api_v1_habit_check_out_path(conn, :check_out, other_accounts_habit.id, date: Habits.Date.today_string))
+        |> delete(Routes.api_v1_habit_check_out_path(conn, :check_out, other_accounts_habit.id, date: Habits.Date.today_string))
 
       assert json_response(conn, :not_found)["error"] == "Habit not found"
       assert Repo.get(CheckIn, other_accounts_check_in.id)
