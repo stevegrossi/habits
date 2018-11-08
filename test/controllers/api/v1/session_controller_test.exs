@@ -14,7 +14,7 @@ defmodule Habits.API.V1.SessionControllerTest do
       conn =
         conn
         |> assign(:current_account, account)
-        |> get(api_v1_session_path(conn, :index))
+        |> get(Routes.api_v1_session_path(conn, :index))
 
       assert json_response(conn, 200) == [
         %{
@@ -39,18 +39,18 @@ defmodule Habits.API.V1.SessionControllerTest do
     end
 
     test "creates and renders a session when data is valid", %{conn: conn} do
-      conn = post conn, api_v1_session_path(conn, :create), account: @valid_attrs
+      conn = post conn, Routes.api_v1_session_path(conn, :create), account: @valid_attrs
       token = json_response(conn, 201)["data"]["token"]
       assert Repo.get_by(Session, token: token)
     end
 
     test "does not create session and renders errors when password is invalid", %{conn: conn} do
-      conn = post conn, api_v1_session_path(conn, :create), account: Map.put(@valid_attrs, :password, "notright")
+      conn = post conn, Routes.api_v1_session_path(conn, :create), account: Map.put(@valid_attrs, :password, "notright")
       assert json_response(conn, :unauthorized)["errors"] != %{}
     end
 
     test "does not create session and renders errors when email is invalid", %{conn: conn} do
-      conn = post conn, api_v1_session_path(conn, :create), account: Map.put(@valid_attrs, :email, "not@found.com")
+      conn = post conn, Routes.api_v1_session_path(conn, :create), account: Map.put(@valid_attrs, :email, "not@found.com")
       assert json_response(conn, :unauthorized)["errors"] != %{}
     end
   end
@@ -63,7 +63,7 @@ defmodule Habits.API.V1.SessionControllerTest do
       conn =
         conn
         |> assign(:current_account, account)
-        |> delete(api_v1_session_path(conn, :delete, session.token))
+        |> delete(Routes.api_v1_session_path(conn, :delete, session.token))
 
       assert json_response(conn, :ok) == %{
         "success" => true
@@ -78,7 +78,7 @@ defmodule Habits.API.V1.SessionControllerTest do
       conn =
         conn
         |> assign(:current_account, account)
-        |> delete(api_v1_session_path(conn, :delete, other_accounts_session.token))
+        |> delete(Routes.api_v1_session_path(conn, :delete, other_accounts_session.token))
 
       assert conn.status == 404
       assert Repo.get(Session, other_accounts_session.id)

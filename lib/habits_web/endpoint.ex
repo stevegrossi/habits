@@ -1,7 +1,7 @@
 defmodule HabitsWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :habits
 
-  socket "/socket", HabitsWeb.UserSocket
+  socket "/socket", HabitsWeb.UserSocket, websocket: true
 
   # For wallaby
   if Application.get_env(:habits, :sql_sandbox) do

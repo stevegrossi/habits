@@ -21,7 +21,8 @@ defmodule HabitsWeb.API.V1.AccountController do
     do
       conn
       |> put_status(:created)
-      |> render(SessionView, "show.json", session: session)
+      |> put_view(SessionView)
+      |> render("show.json", session: session)
     else
       {:error, message} ->
         conn

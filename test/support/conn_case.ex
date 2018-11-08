@@ -26,7 +26,7 @@ defmodule HabitsWeb.ConnCase do
       import Ecto.Changeset
       import Ecto.Query
 
-      import HabitsWeb.Router.Helpers
+      alias HabitsWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
       @endpoint HabitsWeb.Endpoint

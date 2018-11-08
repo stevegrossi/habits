@@ -34,7 +34,7 @@ defmodule Habits.Web do
       import Ecto
       import Ecto.Query
 
-      import HabitsWeb.Router.Helpers
+      alias HabitsWeb.Router.Helpers, as: Routes
       import HabitsWeb.Gettext
     end
   end
@@ -50,7 +50,7 @@ defmodule Habits.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import HabitsWeb.Router.Helpers
+      alias HabitsWeb.Router.Helpers, as: Routes
       import HabitsWeb.ErrorHelpers
       import HabitsWeb.Gettext
     end

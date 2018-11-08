@@ -6,11 +6,11 @@ defmodule HabitsWeb.AcceptanceCase do
       use Wallaby.DSL
 
       alias Habits.{Factory, Repo}
+      alias HabitsWeb.Router.Helpers, as: Routes
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import HabitsWeb.Router.Helpers
       import Wallaby.Query
     end
   end

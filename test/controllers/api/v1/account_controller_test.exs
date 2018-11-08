@@ -14,7 +14,7 @@ defmodule Habits.API.V1.AccountControllerTest do
       conn =
         conn
         |> assign(:current_account, account)
-        |> get(api_v1_account_path(conn, :show))
+        |> get(Routes.api_v1_account_path(conn, :show))
 
       assert json_response(conn, :ok) == %{
         "email" => account.email,
@@ -32,7 +32,7 @@ defmodule Habits.API.V1.AccountControllerTest do
           "password" => "p4ssw0rd"
         }
       }
-      conn = post(conn, api_v1_account_path(conn, :create), data)
+      conn = post(conn, Routes.api_v1_account_path(conn, :create), data)
 
       account = Repo.get_by(Account, email: "new@habits.ai")
       assert account
@@ -50,7 +50,7 @@ defmodule Habits.API.V1.AccountControllerTest do
           "password" => "p4ssw0rd"
         }
       }
-      conn = post(conn, api_v1_account_path(conn, :create), data)
+      conn = post(conn, Routes.api_v1_account_path(conn, :create), data)
 
       refute Repo.get_by(Account, email: "new@habits.ai")
       assert json_response(conn, :forbidden) == %{
