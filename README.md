@@ -14,7 +14,7 @@ An Elixir/Phoenix application for tracking daily habits.
 - Install dependencies with `mix deps.get`
 - Create and migrate your database with `mix ecto.setup`
 - Install Node.js dependencies with `npm install`
-- Start Phoenix with `mix phoenix.server`
+- Start Phoenix with `mix phx.server`
 
 You should now see the app by visiting [`localhost:4000`](http://localhost:4000) from your browser.
 
