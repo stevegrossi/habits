@@ -10,10 +10,10 @@ defmodule HabitsWeb.Habit do
   alias HabitsWeb.{CheckIn, Streak}
 
   schema "habits" do
-    field :name, :string
-    belongs_to :account, Account
-    has_many :check_ins, CheckIn
-    has_many :streaks, Streak
+    field(:name, :string)
+    belongs_to(:account, Account)
+    has_many(:check_ins, CheckIn)
+    has_many(:streaks, Streak)
 
     timestamps()
   end
@@ -30,7 +30,7 @@ defmodule HabitsWeb.Habit do
   def check_in_count(%__MODULE__{} = habit) do
     habit
     |> assoc(:check_ins)
-    |> Repo.count
+    |> Repo.count()
   end
 
   @doc """
@@ -40,7 +40,7 @@ defmodule HabitsWeb.Habit do
   def get_current_streak(habit) do
     habit
     |> assoc(:streaks)
-    |> Streak.current
+    |> Streak.current()
   end
 
   @doc """
@@ -49,7 +49,7 @@ defmodule HabitsWeb.Habit do
   def get_longest_streak(habit) do
     habit
     |> assoc(:streaks)
-    |> Streak.longest
+    |> Streak.longest()
   end
 
   @doc """
@@ -75,7 +75,7 @@ defmodule HabitsWeb.Habit do
     habit
     |> assoc(:check_ins)
     |> where(date: ^date)
-    |> Repo.exists?
+    |> Repo.exists?()
   end
 
   @doc """
@@ -98,6 +98,7 @@ defmodule HabitsWeb.Habit do
     ORDER BY week
     ;
     """
+
     %Postgrex.Result{rows: rows} = Ecto.Adapters.SQL.query!(Repo, query, [habit.id])
     Enum.map(rows, &List.first/1)
   end

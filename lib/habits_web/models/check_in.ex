@@ -10,8 +10,8 @@ defmodule HabitsWeb.CheckIn do
   alias HabitsWeb.{Habit, CheckIn}
 
   schema "check_ins" do
-    field :date, :date
-    belongs_to :habit, Habit
+    field(:date, :date)
+    belongs_to(:habit, Habit)
 
     timestamps()
   end
@@ -31,7 +31,7 @@ defmodule HabitsWeb.CheckIn do
       habit
       |> assoc(:check_ins)
       |> where(date: ^date)
-      |> Repo.one
+      |> Repo.one()
 
     {:ok, check_in}
   end

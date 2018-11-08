@@ -21,7 +21,7 @@ defmodule HabitsWeb.UserSocket do
   # def connect(%{"user" => user}, socket) do
   def connect(%{"token" => token}, socket) do
     case Repo.get_by(Session, token: token) do
-      nil     -> :error
+      nil -> :error
       session -> {:ok, assign(socket, :account_id, session.account_id)}
     end
   end

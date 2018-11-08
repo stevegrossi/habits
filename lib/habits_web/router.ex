@@ -30,6 +30,7 @@ defmodule HabitsWeb.Router do
         get "/account/achievements", AchievementController, :index, as: :account_achievements
         get "/sessions", SessionController, :index, as: :session
         delete "/sessions/:token", SessionController, :delete, as: :session
+
         resources "/habits", HabitController do
           post "/check_in", HabitController, :check_in, as: :check_in
           delete "/check_out", HabitController, :check_out, as: :check_out

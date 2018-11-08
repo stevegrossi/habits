@@ -10,9 +10,9 @@ defmodule HabitsWeb.Session do
 
   @timestamps_opts type: :utc_datetime, usec: false
   schema "sessions" do
-    field :token, :string
-    field :location, :string
-    belongs_to :account, Account
+    field(:token, :string)
+    field(:location, :string)
+    belongs_to(:account, Account)
 
     timestamps()
   end

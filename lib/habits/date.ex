@@ -5,17 +5,17 @@ defmodule Habits.Date do
 
   def shift_days(date, diff_days) do
     date
-    |> Date.to_erl
-    |> :calendar.date_to_gregorian_days
+    |> Date.to_erl()
+    |> :calendar.date_to_gregorian_days()
     |> diff_date(diff_days)
     |> :calendar.gregorian_days_to_date()
-    |> Date.from_erl!
+    |> Date.from_erl!()
   end
 
   def today do
-    :calendar.local_time
+    :calendar.local_time()
     |> extract_date_from_erl_datetime
-    |> Date.from_erl!
+    |> Date.from_erl!()
   end
 
   def yesterday do
@@ -25,7 +25,7 @@ defmodule Habits.Date do
 
   def today_string do
     today()
-    |> Date.to_iso8601
+    |> Date.to_iso8601()
   end
 
   defp diff_date(date, diff), do: date + diff

@@ -9,22 +9,22 @@ defmodule HabitsWeb.Streak do
 
   @primary_key false
   schema "streaks" do
-    belongs_to :habit, Habit
-    field :start, :date
-    field :end, :date
-    field :length, :integer
+    belongs_to(:habit, Habit)
+    field(:start, :date)
+    field(:end, :date)
+    field(:length, :integer)
   end
 
   def current(queryable) do
     queryable
-    |> where([s], s.end >= ^Habits.Date.yesterday)
+    |> where([s], s.end >= ^Habits.Date.yesterday())
     |> select([s], s.length)
-    |> Repo.one || 0
+    |> Repo.one() || 0
   end
 
   def longest(queryable \\ __MODULE__) do
     queryable
     |> select([s], max(s.length))
-    |> Repo.one || 0
+    |> Repo.one() || 0
   end
 end

@@ -3,7 +3,7 @@ defmodule Habits.Repo.Migrations.AddLocationToSession do
 
   def change do
     alter table(:sessions) do
-      add :location, :string, null: false
+      add(:location, :string, null: false)
     end
   end
 end

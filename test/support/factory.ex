@@ -25,8 +25,8 @@ defmodule Habits.Factory do
 
   def check_in_factory do
     %HabitsWeb.CheckIn{
-      date: Habits.Date.today,
-      habit: build(:habit),
+      date: Habits.Date.today(),
+      habit: build(:habit)
     }
   end
 end

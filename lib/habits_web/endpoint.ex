@@ -13,7 +13,9 @@ defmodule HabitsWeb.Endpoint do
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :habits, gzip: false,
+    at: "/",
+    from: :habits,
+    gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
@@ -27,7 +29,8 @@ defmodule HabitsWeb.Endpoint do
   plug Plug.RequestId
   plug Plug.Logger
 
-  plug PlugXForwardedFor # github.com/stevegrossi/habits/issues/3
+  # github.com/stevegrossi/habits/issues/3
+  plug PlugXForwardedFor
 
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],

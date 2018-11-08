@@ -17,7 +17,6 @@ defmodule Habits.HabitTest do
   end
 
   describe ".get_current_streak" do
-
     test "gets the current_streak before checking in today" do
       habit = Factory.insert(:habit)
       Factory.insert(:check_in, habit: habit, date: days_ago(2))
@@ -52,7 +51,6 @@ defmodule Habits.HabitTest do
   end
 
   describe ".get_longest_streak" do
-
     test "returns the longest consecutive streak for a habit" do
       habit = Factory.insert(:habit)
       Factory.insert(:check_in, habit: habit, date: days_ago(7))
@@ -65,7 +63,7 @@ defmodule Habits.HabitTest do
   end
 
   defp days_ago(days) do
-    Habits.Date.today
+    Habits.Date.today()
     |> Habits.Date.shift_days(-days)
   end
 end

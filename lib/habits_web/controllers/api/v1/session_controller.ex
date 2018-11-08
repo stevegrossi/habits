@@ -8,33 +8,41 @@ defmodule HabitsWeb.API.V1.SessionController do
 
   def index(conn, %{}) do
     current_account = conn.assigns.current_account
+
     sessions =
       current_account
       |> assoc(:sessions)
       |> order_by(desc: :id)
-      |> Repo.all
+      |> Repo.all()
 
     render(conn, "index.json", sessions: sessions)
   end
 
   def create(conn, %{"account" => account_params}) do
     account = Accounts.get_by_email(account_params["email"])
+
     cond do
       account && checkpw(account_params["password"], account.encrypted_password) ->
-        session_changeset = Session.changeset(%Session{}, %{
-          account_id: account.id,
-          location: get_location(conn)
-        })
+        session_changeset =
+          Session.changeset(%Session{}, %{
+            account_id: account.id,
+            location: get_location(conn)
+          })
+
         {:ok, session} = Repo.insert(session_changeset)
+
         conn
         |> put_status(:created)
         |> render("show.json", session: session)
+
       account ->
         conn
         |> put_status(:unauthorized)
         |> render("error.json", account_params)
+
       true ->
         dummy_checkpw()
+
         conn
         |> put_status(:unauthorized)
         |> render("error.json", account_params)
@@ -43,6 +51,7 @@ defmodule HabitsWeb.API.V1.SessionController do
 
   def delete(conn, %{"token" => token}) do
     current_account = conn.assigns.current_account
+
     session =
       current_account
       |> assoc(:sessions)
@@ -54,6 +63,7 @@ defmodule HabitsWeb.API.V1.SessionController do
       |> halt
     else
       {:ok, _} = Repo.delete(session)
+
       conn
       |> render("success.json")
     end
@@ -62,14 +72,11 @@ defmodule HabitsWeb.API.V1.SessionController do
   defp get_location(conn) do
     case GeoIP.lookup(conn) do
       {:ok, %GeoIP.Location{city: city, region_name: region, country_name: country}}
-        when city not in ["", nil]
-        and region not in ["", nil]
-        and country not in ["", nil] ->
-
+      when city not in ["", nil] and region not in ["", nil] and country not in ["", nil] ->
         city <> ", " <> region <> ", " <> country
 
       _ ->
-        Session.default_location
+        Session.default_location()
     end
   end
 end

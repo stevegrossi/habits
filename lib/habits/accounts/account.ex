@@ -9,11 +9,11 @@ defmodule Habits.Accounts.Account do
   alias HabitsWeb.{Habit, Session}
 
   schema "accounts" do
-    field :email, :string
-    field :encrypted_password, :string
-    field :password, :string, virtual: true
-    has_many :habits, Habit
-    has_many :sessions, Session
+    field(:email, :string)
+    field(:encrypted_password, :string)
+    field(:password, :string, virtual: true)
+    has_many(:habits, Habit)
+    has_many(:sessions, Session)
 
     timestamps()
   end
@@ -31,12 +31,11 @@ defmodule Habits.Accounts.Account do
     |> unique_constraint(:email)
   end
 
-  defp encrypt_password_if_possible(
-    %Ecto.Changeset{changes: %{password: password}} = changeset) do
-
+  defp encrypt_password_if_possible(%Ecto.Changeset{changes: %{password: password}} = changeset) do
     changeset
     |> put_change(:encrypted_password, hashed_password(password))
   end
+
   defp encrypt_password_if_possible(%Ecto.Changeset{} = changeset) do
     changeset
   end

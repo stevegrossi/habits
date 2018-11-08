@@ -43,6 +43,7 @@ defmodule Habits.Accounts do
     ORDER BY week
     ;
     """
+
     %Postgrex.Result{rows: rows} = Ecto.Adapters.SQL.query!(Repo, query, [])
     Enum.map(rows, &List.first/1)
   end

@@ -5,7 +5,6 @@ defmodule Habits.API.V1.AccountControllerTest do
   alias HabitsWeb.{Session}
 
   describe ".show" do
-
     test "returns info about the current account", %{conn: conn} do
       account = Factory.insert(:account)
       habit = Factory.insert(:habit, account: account)
@@ -17,14 +16,13 @@ defmodule Habits.API.V1.AccountControllerTest do
         |> get(Routes.api_v1_account_path(conn, :show))
 
       assert json_response(conn, :ok) == %{
-        "email" => account.email,
-        "checkInData" => [1]
-      }
+               "email" => account.email,
+               "checkInData" => [1]
+             }
     end
   end
 
   describe ".create" do
-
     test "creates a new account and signs in", %{conn: conn} do
       data = %{
         "account" => %{
@@ -32,6 +30,7 @@ defmodule Habits.API.V1.AccountControllerTest do
           "password" => "p4ssw0rd"
         }
       }
+
       conn = post(conn, Routes.api_v1_account_path(conn, :create), data)
 
       account = Repo.get_by(Account, email: "new@habits.ai")
@@ -44,18 +43,21 @@ defmodule Habits.API.V1.AccountControllerTest do
 
     test "does not create a new account if one exists", %{conn: conn} do
       Factory.insert(:account)
+
       data = %{
         "account" => %{
           "email" => "new@habits.ai",
           "password" => "p4ssw0rd"
         }
       }
+
       conn = post(conn, Routes.api_v1_account_path(conn, :create), data)
 
       refute Repo.get_by(Account, email: "new@habits.ai")
+
       assert json_response(conn, :forbidden) == %{
-        "error" => "An account already exists. Please log in."
-      }
+               "error" => "An account already exists. Please log in."
+             }
     end
   end
 end

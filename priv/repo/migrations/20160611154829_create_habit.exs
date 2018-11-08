@@ -3,12 +3,12 @@ defmodule Habits.Repo.Migrations.CreateHabit do
 
   def change do
     create table(:habits) do
-      add :name, :string, null: false
-      add :account_id, references(:accounts), null: false
+      add(:name, :string, null: false)
+      add(:account_id, references(:accounts), null: false)
 
       timestamps()
     end
 
-    create index(:habits, [:account_id])
+    create(index(:habits, [:account_id]))
   end
 end
