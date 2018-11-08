@@ -4,6 +4,6 @@ defmodule Habits.Repo do
   import Ecto.Query, only: [from: 2]
 
   def count(queryable) do
-    Habits.Repo.one(from x in queryable, select: count(x.id))
+    Habits.Repo.one(from(x in queryable, select: count(x.id)))
   end
 end

@@ -20,6 +20,7 @@ defmodule HabitsWeb.API.V1.HabitView do
   def render("habit.json", %{habit: habit, date: date}) do
     habit_data_for_date(habit, date)
   end
+
   def render("habit.json", %{habit: habit}) do
     habit_data_for_new_habit(habit)
   end
@@ -40,6 +41,7 @@ defmodule HabitsWeb.API.V1.HabitView do
       streak: Habit.get_current_streak(habit)
     }
   end
+
   defp habit_data_for_new_habit(habit) do
     %{
       id: habit.id,

@@ -2,7 +2,7 @@ defmodule Habits.Repo.Migrations.AddStreaksView do
   use Ecto.Migration
 
   def up do
-    execute """
+    execute("""
     CREATE VIEW streaks AS
       WITH start_streak AS (
         SELECT
@@ -29,10 +29,10 @@ defmodule Habits.Repo.Migrations.AddStreaksView do
       FROM streak_groups
       GROUP BY habit_id, streak
     ;
-    """
+    """)
   end
 
   def down do
-    execute "DROP VIEW streaks;"
+    execute("DROP VIEW streaks;")
   end
 end

@@ -9,6 +9,7 @@ defmodule Habits.Achievements.CheckInCount do
   defp value_for(%Account{} = account) do
     Repo.count(Ecto.assoc(account, [:habits, :check_ins]))
   end
+
   defp value_for(%Habit{} = habit) do
     Habit.check_in_count(habit)
   end

@@ -23,6 +23,7 @@ defmodule HabitsWeb.API.V1.AchievementController do
     conn
     |> render("index.json", achievements: Achievements.all_for(habit))
   end
+
   def index(conn, _params, current_account) do
     conn
     |> render("index.json", achievements: Achievements.all_for(current_account))

@@ -17,13 +17,14 @@ defmodule HabitsWeb.API.V1.HabitController do
   """
   def index(conn, %{"date" => date_string}, current_account) do
     date = Date.from_iso8601!(date_string)
+
     habits =
       current_account
       |> assoc(:habits)
       |> order_by(:name)
-      |> Repo.all
+      |> Repo.all()
 
-    render conn, "index.json", habits: habits, date: date
+    render(conn, "index.json", habits: habits, date: date)
   end
 
   @doc """
@@ -35,7 +36,7 @@ defmodule HabitsWeb.API.V1.HabitController do
       |> assoc(:habits)
       |> Repo.get(habit_id)
 
-    render conn, "show.json", habit: habit
+    render(conn, "show.json", habit: habit)
   end
 
   @doc """
@@ -45,7 +46,7 @@ defmodule HabitsWeb.API.V1.HabitController do
     habit =
       %Habit{account_id: current_account.id}
       |> Habit.changeset(habit_params)
-      |> Repo.insert!
+      |> Repo.insert!()
 
     conn
     |> put_status(:created)
@@ -61,7 +62,7 @@ defmodule HabitsWeb.API.V1.HabitController do
       |> assoc(:habits)
       |> Repo.get(habit_id)
       |> Habit.changeset(%{name: name})
-      |> Repo.update!
+      |> Repo.update!()
 
     conn
     |> put_status(:ok)
@@ -75,9 +76,9 @@ defmodule HabitsWeb.API.V1.HabitController do
     current_account
     |> assoc(:habits)
     |> Repo.get(habit_id)
-    |> Repo.delete
+    |> Repo.delete()
 
-    render conn, "success.json"
+    render(conn, "success.json")
   end
 
   @doc """
@@ -88,9 +89,8 @@ defmodule HabitsWeb.API.V1.HabitController do
 
     with {:ok, habit} <- Habit.get_by_account(current_account, habit_id),
          {:ok, _check_in} <- CheckIn.create_for_date(habit, date) do
-
       Congratulations.for(habit)
-      render conn, "habit.json", habit: habit, date: date_string
+      render(conn, "habit.json", habit: habit, date: date_string)
     else
       {:error, message} ->
         conn
@@ -107,9 +107,8 @@ defmodule HabitsWeb.API.V1.HabitController do
 
     with {:ok, habit} <- Habit.get_by_account(current_account, habit_id),
          {:ok, check_in} <- CheckIn.get_by_date(habit, date) do
-
       Repo.delete!(check_in)
-      render conn, "habit.json", habit: habit, date: date_string
+      render(conn, "habit.json", habit: habit, date: date_string)
     else
       {:error, message} ->
         conn

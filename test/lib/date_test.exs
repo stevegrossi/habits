@@ -3,7 +3,6 @@ defmodule Habits.DateTest do
   alias Habits.Date
 
   describe ".shift" do
-
     test "adds a day to a date" do
       assert Date.shift_days(~D[2016-12-31], 1) == ~D[2017-01-01]
     end

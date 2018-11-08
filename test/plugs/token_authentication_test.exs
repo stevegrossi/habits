@@ -14,17 +14,19 @@ defmodule Habits.TokenAuthenticationTest do
     account = Factory.insert(:account)
     session = Factory.insert(:session, token: "123", account: account)
 
-    conn = conn
-    |> put_auth_token_in_header(session.token)
-    |> TokenAuthentication.call(@opts)
+    conn =
+      conn
+      |> put_auth_token_in_header(session.token)
+      |> TokenAuthentication.call(@opts)
 
     assert conn.assigns.current_account
   end
 
   test "invalid token", %{conn: conn} do
-    conn = conn
-    |> put_auth_token_in_header("foo")
-    |> TokenAuthentication.call(@opts)
+    conn =
+      conn
+      |> put_auth_token_in_header("foo")
+      |> TokenAuthentication.call(@opts)
 
     assert conn.status == 401
     assert conn.halted

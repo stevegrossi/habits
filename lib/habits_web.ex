@@ -41,8 +41,9 @@ defmodule Habits.Web do
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/habits_web/templates",
-                        namespace: HabitsWeb
+      use Phoenix.View,
+        root: "lib/habits_web/templates",
+        namespace: HabitsWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]

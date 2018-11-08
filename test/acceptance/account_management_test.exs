@@ -2,9 +2,11 @@ defmodule Habits.AccountManagementTest do
   use HabitsWeb.AcceptanceCase
 
   setup _context do
-    account = Factory.insert(:account,
-      encrypted_password: Comeonin.Bcrypt.hashpwsalt("password")
-    )
+    account =
+      Factory.insert(:account,
+        encrypted_password: Comeonin.Bcrypt.hashpwsalt("password")
+      )
+
     habit = Factory.insert(:habit, account: account)
     Factory.insert(:check_in, habit: habit)
     Factory.insert(:session, account: account, location: "Area 51")
@@ -13,8 +15,7 @@ defmodule Habits.AccountManagementTest do
   end
 
   test "My Account page and active sessions",
-    %{session: session, account: account} do
-
+       %{session: session, account: account} do
     session
     |> visit("/")
     |> click(link("Log In"))
@@ -23,7 +24,8 @@ defmodule Habits.AccountManagementTest do
     |> click(button("Log In"))
     |> click(link("Me"))
     |> assert_has(css("h2", text: account.email))
-    |> assert_has(css(".fs-xl", text: "1")) # Total Check-Ins
+    # Total Check-Ins
+    |> assert_has(css(".fs-xl", text: "1"))
     |> assert_has(css(".AchievementList"))
     |> click(link("Active Sessions"))
     |> take_screenshot

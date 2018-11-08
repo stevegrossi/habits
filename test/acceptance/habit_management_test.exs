@@ -2,15 +2,16 @@ defmodule Habits.HabitManagementTest do
   use HabitsWeb.AcceptanceCase
 
   setup _context do
-    account = Factory.insert(:account,
-      encrypted_password: Comeonin.Bcrypt.hashpwsalt("password")
-    )
+    account =
+      Factory.insert(:account,
+        encrypted_password: Comeonin.Bcrypt.hashpwsalt("password")
+      )
+
     [account: account]
   end
 
   test "Logging in, adding, editing, deleting, checking into and out of habits",
-    %{session: session, account: account} do
-
+       %{session: session, account: account} do
     habit_name = "Run acceptance tests"
 
     session

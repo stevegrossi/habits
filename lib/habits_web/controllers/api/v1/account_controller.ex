@@ -17,8 +17,7 @@ defmodule HabitsWeb.API.V1.AccountController do
   """
   def create(conn, %{"account" => account_params}) do
     with {:ok, account} <- Accounts.create_account(account_params),
-         {:ok, session} <- create_session(account)
-    do
+         {:ok, session} <- create_session(account) do
       conn
       |> put_status(:created)
       |> put_view(SessionView)
@@ -35,6 +34,6 @@ defmodule HabitsWeb.API.V1.AccountController do
   defp create_session(%Accounts.Account{id: account_id}) do
     %Session{}
     |> Session.changeset(%{account_id: account_id, location: "Initial registration"})
-    |> Repo.insert
+    |> Repo.insert()
   end
 end

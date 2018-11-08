@@ -20,6 +20,7 @@ defmodule Habits.Achievements do
       HabitCount.new(account, 10, "Track 10 Habits")
     ]
   end
+
   def all_for(%Habit{} = habit) do
     [
       CheckInCount.new(habit, 100, "Check In 100 Times"),
