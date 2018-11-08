@@ -62,9 +62,9 @@ defmodule HabitsWeb.API.V1.SessionController do
   defp get_location(conn) do
     case GeoIP.lookup(conn) do
       {:ok, %GeoIP.Location{city: city, region_name: region, country_name: country}}
-        when not city in ["", nil]
-        and not region in ["", nil]
-        and not country in ["", nil] ->
+        when city not in ["", nil]
+        and region not in ["", nil]
+        and country not in ["", nil] ->
 
         city <> ", " <> region <> ", " <> country
 
