@@ -32,4 +32,4 @@ nvm use 6
 
 # We need to build assets manually in the test environment.
 # See: https://github.com/phoenixframework/phoenix/issues/2068
-(cd assets/ && brunch build)
+(cd assets/ && npm run deploy)
