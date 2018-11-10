@@ -5,7 +5,7 @@ use Mix.Config
 #
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
-# with brunch.io to recompile .js and .css sources.
+# with Webpack to recompile .js and .css sources.
 config :habits, HabitsWeb.Endpoint,
   secret_key_base: "0000000000000000000000000000000000000000000000000000000000000000",
   http: [port: 4000],
@@ -14,9 +14,10 @@ config :habits, HabitsWeb.Endpoint,
   check_origin: false,
   watchers: [
     node: [
-      "node_modules/brunch/bin/brunch",
-      "watch",
-      "--stdin",
+      "node_modules/webpack/bin/webpack.js",
+      "--mode",
+      "development",
+      "--watch-stdin",
       cd: Path.expand("../assets", __DIR__)
     ]
   ]

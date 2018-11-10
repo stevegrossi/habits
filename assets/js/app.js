@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import AllHabits from './components/AllHabits'
 import App from './components/App'
 import Promise from 'promise-polyfill';
+import css from '../css/app.scss';
 
 // Polyfill Promise
 if (!window.Promise) {

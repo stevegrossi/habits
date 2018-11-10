@@ -34,6 +34,5 @@
     <div id="main">Loading...</div>
 
     <script src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-    <script>require("web/static/js/app")</script>
   </body>
 </html>
