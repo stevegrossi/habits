@@ -4,12 +4,9 @@ defmodule Habits.Auth.Session do
   perform actions on behalf of an Account.
   """
 
-  # use Habits.Web, :model
   use Ecto.Schema
 
-  # import Ecto
   import Ecto.Changeset
-  # import Ecto.Query
 
   alias Habits.Accounts.Account
 
