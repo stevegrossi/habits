@@ -29,11 +29,6 @@ defmodule HabitsWeb.API.V1.SessionController do
         |> put_status(:created)
         |> render("show.json", session: session)
 
-      account ->
-        conn
-        |> put_status(:unauthorized)
-        |> render("error.json", account_params)
-
       true ->
         dummy_checkpw()
 
