@@ -3,17 +3,11 @@ defmodule HabitsWeb.API.V1.SessionController do
 
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
 
-  alias Habits.Accounts
+  alias Habits.{Accounts, Auth}
   alias HabitsWeb.Session
 
   def index(conn, %{}) do
-    current_account = conn.assigns.current_account
-
-    sessions =
-      current_account
-      |> assoc(:sessions)
-      |> order_by(desc: :id)
-      |> Repo.all()
+    sessions = Auth.list_sessions(conn.assigns.current_account)
 
     render(conn, "index.json", sessions: sessions)
   end
