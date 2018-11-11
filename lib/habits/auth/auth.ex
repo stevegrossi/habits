@@ -21,6 +21,7 @@ defmodule Habits.Auth do
 
   def log_in(email, password, location \\ nil) do
     account = Accounts.get_by_email(email)
+
     cond do
       account && checkpw(password, account.encrypted_password) ->
         session_changeset =
@@ -41,6 +42,7 @@ defmodule Habits.Auth do
     case get_session_by_token(token) do
       nil ->
         {:error, :invalid_token}
+
       session ->
         Repo.delete(session)
         :ok
@@ -65,8 +67,9 @@ defmodule Habits.Auth do
   end
 
   defp format_location(%GeoIP.Location{city: city, region_name: region, country_name: country})
-    when city not in ["", nil] and region not in ["", nil] and country not in ["", nil] do
-      city <> ", " <> region <> ", " <> country
+       when city not in ["", nil] and region not in ["", nil] and country not in ["", nil] do
+    city <> ", " <> region <> ", " <> country
   end
+
   defp format_location(_), do: Session.default_location()
 end

@@ -22,6 +22,7 @@ defmodule HabitsWeb.UserSocket do
     case Auth.get_account_id_from_token(token) do
       {:error, _reason} ->
         :error
+
       {:ok, account_id} ->
         {:ok, assign(socket, :account_id, account_id)}
     end

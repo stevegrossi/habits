@@ -15,6 +15,7 @@ defmodule HabitsWeb.API.V1.SessionController do
         conn
         |> put_status(:created)
         |> render("show.json", session: session)
+
       {:error, _reason} ->
         conn
         |> put_status(:unauthorized)
