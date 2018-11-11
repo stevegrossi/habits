@@ -4,7 +4,6 @@ defmodule Habits.Auth do
   """
 
   import Ecto, only: [assoc: 2]
-  # import Ecto.Changeset
   import Ecto.Query
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
 
@@ -53,6 +52,12 @@ defmodule Habits.Auth do
     |> assoc(:sessions)
     |> order_by(desc: :id)
     |> Repo.all()
+  end
+
+  def create_session(%Account{id: account_id}) do
+    %Session{}
+    |> Session.changeset(%{account_id: account_id, location: "Initial signup"})
+    |> Repo.insert()
   end
 
   defp format_location(%GeoIP.Location{city: city, region_name: region, country_name: country})
