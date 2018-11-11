@@ -12,7 +12,8 @@ defmodule HabitsWeb.TokenAuthentication do
   def init(options), do: options
 
   def call(%Plug.Conn{assigns: %{current_account: %Account{}}} = conn, _opts) do
-    # Allow manually setting current_account in tests
+    # If a current_account has been set before the request (such as in tests),
+    # move along...
     conn
   end
 
