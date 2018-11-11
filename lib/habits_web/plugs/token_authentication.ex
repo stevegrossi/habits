@@ -7,19 +7,18 @@ defmodule HabitsWeb.TokenAuthentication do
 
   import Plug.Conn
   alias Habits.{Accounts, Auth}
-  alias Habits.Auth.Session
-  import Ecto.Query, only: [from: 2]
+  alias Habits.Accounts.Account
 
   def init(options), do: options
 
-  def call(%Plug.Conn{assigns: %{current_account: %Accounts.Account{}}} = conn, _opts) do
+  def call(%Plug.Conn{assigns: %{current_account: %Account{}}} = conn, _opts) do
     # Allow manually setting current_account in tests
     conn
   end
 
   def call(conn, _opts) do
     case find_account(conn) do
-      {:ok, account} -> assign(conn, :current_account, account)
+      %Account{} = account -> assign(conn, :current_account, account)
       _ -> auth_error!(conn)
     end
   end
@@ -27,8 +26,8 @@ defmodule HabitsWeb.TokenAuthentication do
   defp find_account(conn) do
     with auth_header = get_req_header(conn, "authorization"),
          {:ok, token} <- parse_header(auth_header),
-         {:ok, session} <- find_session_by_token(token),
-         do: find_account_by_session(session)
+         {:ok, account_id} <- Auth.get_account_id_from_token(token),
+         do: Accounts.get_account!(account_id)
   end
 
   defp parse_header(["Token token=" <> token]) do
@@ -36,20 +35,6 @@ defmodule HabitsWeb.TokenAuthentication do
   end
 
   defp parse_header(_non_token_header), do: :error
-
-  defp find_session_by_token(token) do
-    case Auth.get_session_by_token(token) do
-      nil -> :error
-      session -> {:ok, session}
-    end
-  end
-
-  defp find_account_by_session(session) do
-    case Accounts.get_account!(session.account_id) do
-      nil -> :error
-      account -> {:ok, account}
-    end
-  end
 
   defp auth_error!(conn) do
     conn

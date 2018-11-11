@@ -13,7 +13,7 @@ defmodule Habits.Auth do
   alias Habits.Auth.Session
 
   def get_account_id_from_token(token) do
-    case Repo.get_by(Session, token: token) do
+    case get_session_by_token(token) do
       nil -> {:error, "Invalid token"}
       session -> {:ok, session.account_id}
     end
