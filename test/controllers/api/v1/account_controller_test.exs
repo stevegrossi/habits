@@ -2,7 +2,7 @@ defmodule Habits.API.V1.AccountControllerTest do
   use HabitsWeb.ConnCase
 
   alias Habits.Accounts.Account
-  alias HabitsWeb.{Session}
+  alias Habits.Auth.Session
 
   describe ".show" do
     test "returns info about the current account", %{conn: conn} do

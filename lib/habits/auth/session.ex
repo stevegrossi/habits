@@ -1,10 +1,12 @@
-defmodule HabitsWeb.Session do
+defmodule Habits.Auth.Session do
   @moduledoc """
-  Data logic for the user’s various sessions
-  (e.g. desktop, mobile) when using the app.
+  The schema for Sessions, which represent an individual’s authorization to
+  perform actions on behalf of an Account.
   """
 
-  use Habits.Web, :model
+  use Ecto.Schema
+
+  import Ecto.Changeset
 
   alias Habits.Accounts.Account
 

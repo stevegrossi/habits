@@ -1,48 +1,22 @@
 defmodule HabitsWeb.API.V1.SessionController do
   use Habits.Web, :controller
 
-  import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
-
-  alias Habits.Accounts
-  alias HabitsWeb.Session
+  alias Habits.Auth
 
   def index(conn, %{}) do
-    current_account = conn.assigns.current_account
-
-    sessions =
-      current_account
-      |> assoc(:sessions)
-      |> order_by(desc: :id)
-      |> Repo.all()
+    sessions = Auth.list_sessions(conn.assigns.current_account)
 
     render(conn, "index.json", sessions: sessions)
   end
 
-  def create(conn, %{"account" => account_params}) do
-    account = Accounts.get_by_email(account_params["email"])
-
-    cond do
-      account && checkpw(account_params["password"], account.encrypted_password) ->
-        session_changeset =
-          Session.changeset(%Session{}, %{
-            account_id: account.id,
-            location: get_location(conn)
-          })
-
-        {:ok, session} = Repo.insert(session_changeset)
-
+  def create(conn, %{"account" => %{"email" => email, "password" => password} = account_params}) do
+    case Auth.log_in(email, password, get_location(conn)) do
+      {:ok, session} ->
         conn
         |> put_status(:created)
         |> render("show.json", session: session)
 
-      account ->
-        conn
-        |> put_status(:unauthorized)
-        |> render("error.json", account_params)
-
-      true ->
-        dummy_checkpw()
-
+      {:error, _reason} ->
         conn
         |> put_status(:unauthorized)
         |> render("error.json", account_params)
@@ -50,33 +24,22 @@ defmodule HabitsWeb.API.V1.SessionController do
   end
 
   def delete(conn, %{"token" => token}) do
-    current_account = conn.assigns.current_account
+    case Auth.log_out(token) do
+      :ok ->
+        conn
+        |> render("success.json")
 
-    session =
-      current_account
-      |> assoc(:sessions)
-      |> Repo.get_by(token: token)
-
-    if is_nil(session) do
-      conn
-      |> send_resp(:not_found, "")
-      |> halt
-    else
-      {:ok, _} = Repo.delete(session)
-
-      conn
-      |> render("success.json")
+      {:error, :invalid_token} ->
+        conn
+        |> send_resp(:not_found, "")
+        |> halt
     end
   end
 
   defp get_location(conn) do
     case GeoIP.lookup(conn) do
-      {:ok, %GeoIP.Location{city: city, region_name: region, country_name: country}}
-      when city not in ["", nil] and region not in ["", nil] and country not in ["", nil] ->
-        city <> ", " <> region <> ", " <> country
-
-      _ ->
-        Session.default_location()
+      {:ok, %GeoIP.Location{} = location} -> location
+      _ -> nil
     end
   end
 end

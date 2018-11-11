@@ -9,7 +9,7 @@ defmodule Habits.Factory do
   end
 
   def session_factory do
-    %HabitsWeb.Session{
+    %Habits.Auth.Session{
       token: sequence(:name, &"token-#{&1}"),
       location: "Earth",
       account: build(:account)

@@ -1,8 +1,7 @@
 defmodule HabitsWeb.UserSocket do
   use Phoenix.Socket
 
-  alias Habits.Repo
-  alias HabitsWeb.Session
+  alias Habits.Auth
 
   ## Channels
   channel "notifications", HabitsWeb.NotificationChannel
@@ -20,13 +19,16 @@ defmodule HabitsWeb.UserSocket do
   # performing token verification on connect.
   # def connect(%{"user" => user}, socket) do
   def connect(%{"token" => token}, socket) do
-    case Repo.get_by(Session, token: token) do
-      nil -> :error
-      session -> {:ok, assign(socket, :account_id, session.account_id)}
+    case Auth.get_account_id_from_token(token) do
+      {:error, _reason} ->
+        :error
+
+      {:ok, account_id} ->
+        {:ok, assign(socket, :account_id, account_id)}
     end
   end
 
-  # Socket id's are topics that allow you to identify all sockets for a given user:
+  # Socket ids are topics that allow you to identify all sockets for a given user:
   #
   #     def id(socket), do: "users_socket:#{socket.assigns.user_id}"
   #
