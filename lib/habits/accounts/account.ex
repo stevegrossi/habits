@@ -6,7 +6,8 @@ defmodule Habits.Accounts.Account do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias HabitsWeb.{Habit, Session}
+  alias HabitsWeb.Habit
+  alias Habits.Auth.Session
 
   schema "accounts" do
     field(:email, :string)

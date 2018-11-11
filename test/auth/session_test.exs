@@ -1,7 +1,7 @@
 defmodule Habits.SessionTest do
   use Habits.DataCase
 
-  alias HabitsWeb.Session
+  alias Habits.Auth.Session
 
   @valid_attrs %{account_id: "12345", location: "Earth"}
   @invalid_attrs %{}

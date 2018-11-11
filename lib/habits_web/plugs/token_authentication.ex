@@ -7,7 +7,7 @@ defmodule HabitsWeb.TokenAuthentication do
 
   import Plug.Conn
   alias Habits.{Repo, Accounts}
-  alias HabitsWeb.{Session}
+  alias Habits.Auth.Session
   import Ecto.Query, only: [from: 2]
 
   def init(options), do: options
