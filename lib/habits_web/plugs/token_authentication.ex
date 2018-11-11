@@ -6,7 +6,7 @@ defmodule HabitsWeb.TokenAuthentication do
   """
 
   import Plug.Conn
-  alias Habits.{Repo, Accounts}
+  alias Habits.{Accounts, Auth}
   alias Habits.Auth.Session
   import Ecto.Query, only: [from: 2]
 
@@ -20,7 +20,7 @@ defmodule HabitsWeb.TokenAuthentication do
   def call(conn, _opts) do
     case find_account(conn) do
       {:ok, account} -> assign(conn, :current_account, account)
-      _otherwise -> auth_error!(conn)
+      _ -> auth_error!(conn)
     end
   end
 
@@ -38,7 +38,7 @@ defmodule HabitsWeb.TokenAuthentication do
   defp parse_header(_non_token_header), do: :error
 
   defp find_session_by_token(token) do
-    case Repo.one(from(s in Session, where: s.token == ^token)) do
+    case Auth.get_session_by_token(token) do
       nil -> :error
       session -> {:ok, session}
     end

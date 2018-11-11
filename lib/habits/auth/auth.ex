@@ -38,13 +38,17 @@ defmodule Habits.Auth do
   end
 
   def log_out(token) do
-    case Repo.get_by(Session, token: token) do
+    case get_session_by_token(token) do
       nil ->
         {:error, :invalid_token}
       session ->
         Repo.delete(session)
         :ok
     end
+  end
+
+  def get_session_by_token(token) do
+    Repo.get_by(Session, token: token)
   end
 
   def list_sessions(%Account{} = account) do
