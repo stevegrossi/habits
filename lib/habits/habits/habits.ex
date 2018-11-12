@@ -24,4 +24,24 @@ defmodule Habits.Habits do
     |> order_by(:name)
     |> Repo.all()
   end
+
+  @doc """
+  Gets a single habit from an Account.
+
+  Raises `Ecto.NoResultsError` if the Habit does not exist.
+
+  ## Examples
+
+      iex> Habits.get_habit!(account, 123)
+      %Habit{}
+
+      iex> Habits.get_habit!(account, 0)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_habit!(%Account{} = account, habit_id) do
+    account
+    |> assoc(:habits)
+    |> Repo.get!(habit_id)
+  end
 end

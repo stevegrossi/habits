@@ -26,10 +26,7 @@ defmodule HabitsWeb.API.V1.HabitController do
   Return detailed information about a single habit.
   """
   def show(conn, %{"id" => habit_id}, current_account) do
-    habit =
-      current_account
-      |> assoc(:habits)
-      |> Repo.get(habit_id)
+    habit = Habits.get_habit!(current_account, habit_id)
 
     render(conn, "show.json", habit: habit)
   end
