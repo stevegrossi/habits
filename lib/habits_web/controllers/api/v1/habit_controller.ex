@@ -35,10 +35,7 @@ defmodule HabitsWeb.API.V1.HabitController do
   Create a new habit in the account, given a name
   """
   def create(conn, %{"habit" => habit_params}, current_account) do
-    habit =
-      %Habit{account_id: current_account.id}
-      |> Habit.changeset(habit_params)
-      |> Repo.insert!()
+    habit = Habits.create_habit!(current_account, habit_params)
 
     conn
     |> put_status(:created)
@@ -49,12 +46,7 @@ defmodule HabitsWeb.API.V1.HabitController do
   Update the name of a habit in the current account
   """
   def update(conn, %{"id" => habit_id, "name" => name}, current_account) do
-    habit =
-      current_account
-      |> assoc(:habits)
-      |> Repo.get(habit_id)
-      |> Habit.changeset(%{name: name})
-      |> Repo.update!()
+    habit = Habits.update_habit!(current_account, habit_id, %{name: name})
 
     conn
     |> put_status(:ok)
