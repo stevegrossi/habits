@@ -4,7 +4,11 @@ defmodule Habits.Habits.Habit do
   has many CheckIns on specific dates.
   """
 
-  use Habits.Web, :model
+  use Ecto.Schema
+
+  import Ecto, only: [assoc: 2]
+  import Ecto.Changeset
+  import Ecto.Query
 
   alias Habits.Repo
   alias Habits.Accounts.Account

@@ -3,7 +3,10 @@ defmodule Habits.Habits.Streak do
   Data logic for streaks of consecutive daily check-ins related to habits.
   """
 
-  use Habits.Web, :model
+  use Ecto.Schema
+
+  import Ecto.Query
+
   alias Habits.Repo
   alias Habits.Habits.Habit
 
