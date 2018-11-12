@@ -1,8 +1,8 @@
 defmodule HabitsWeb.API.V1.HabitController do
   use Habits.Web, :controller
 
-  alias Habits.{Repo, Congratulations}
   alias Habits.Habits.{Habit, CheckIn}
+  alias Habits.{Repo, Congratulations, Habits}
 
   @doc """
   Override action/2 to provide current_account to actions
@@ -17,12 +17,7 @@ defmodule HabitsWeb.API.V1.HabitController do
   """
   def index(conn, %{"date" => date_string}, current_account) do
     date = Date.from_iso8601!(date_string)
-
-    habits =
-      current_account
-      |> assoc(:habits)
-      |> order_by(:name)
-      |> Repo.all()
+    habits = Habits.list_habits(current_account)
 
     render(conn, "index.json", habits: habits, date: date)
   end
