@@ -6,9 +6,9 @@ defmodule Habits.Habits.Habit do
 
   use Habits.Web, :model
 
-  alias Habits.{Repo, Accounts.Account}
-  alias Habits.Habits.CheckIn
-  alias HabitsWeb.Streak
+  alias Habits.Repo
+  alias Habits.Accounts.Account
+  alias Habits.Habits.{CheckIn, Streak}
 
   schema "habits" do
     field(:name, :string)

@@ -1,4 +1,4 @@
-defmodule HabitsWeb.Streak do
+defmodule Habits.Habits.Streak do
   @moduledoc """
   Data logic for streaks of consecutive daily check-ins related to habits.
   """
