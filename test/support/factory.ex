@@ -17,7 +17,7 @@ defmodule Habits.Factory do
   end
 
   def habit_factory do
-    %HabitsWeb.Habit{
+    %Habits.Habits.Habit{
       name: sequence(:name, &"Eat #{&1} Fish"),
       account: build(:account)
     }

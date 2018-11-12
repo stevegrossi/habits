@@ -1,7 +1,7 @@
 defmodule HabitsWeb.API.V1.HabitView do
   use Habits.Web, :view
 
-  alias HabitsWeb.{Habit}
+  alias Habits.Habits.Habit
 
   def render("index.json", %{habits: habits, date: date}) do
     render_many(habits, __MODULE__, "habit.json", %{date: date})

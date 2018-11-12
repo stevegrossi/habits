@@ -7,7 +7,8 @@ defmodule HabitsWeb.CheckIn do
   use Habits.Web, :model
 
   alias Habits.Repo
-  alias HabitsWeb.{Habit, CheckIn}
+  alias Habits.Habits.Habit
+  alias HabitsWeb.CheckIn
 
   schema "check_ins" do
     field(:date, :date)

@@ -4,7 +4,7 @@ defmodule Habits.Achievements.CheckInCount do
   use Habits.Achievements.Achievement
 
   alias Habits.{Repo, Accounts.Account}
-  alias HabitsWeb.{Habit}
+  alias Habits.Habits.Habit
 
   defp value_for(%Account{} = account) do
     Repo.count(Ecto.assoc(account, [:habits, :check_ins]))

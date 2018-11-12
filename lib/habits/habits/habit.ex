@@ -1,4 +1,4 @@
-defmodule HabitsWeb.Habit do
+defmodule Habits.Habits.Habit do
   @moduledoc """
   Data logic for the core Habit domain model, which belongs to an Account and
   has many CheckIns on specific dates.

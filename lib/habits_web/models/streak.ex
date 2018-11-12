@@ -5,7 +5,7 @@ defmodule HabitsWeb.Streak do
 
   use Habits.Web, :model
   alias Habits.Repo
-  alias HabitsWeb.Habit
+  alias Habits.Habits.Habit
 
   @primary_key false
   schema "streaks" do

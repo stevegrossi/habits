@@ -5,7 +5,7 @@ defmodule Habits.Congratulations do
   """
 
   alias Habits.Notification
-  alias HabitsWeb.Habit
+  alias Habits.Habits.Habit
 
   def for(%Habit{} = habit) do
     check_in_count = Habit.check_in_count(habit)

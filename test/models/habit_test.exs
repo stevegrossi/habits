@@ -1,7 +1,7 @@
 defmodule Habits.HabitTest do
   use Habits.DataCase
 
-  alias HabitsWeb.Habit
+  alias Habits.Habits.Habit
 
   @valid_attrs %{name: "some content", account_id: 42}
   @invalid_attrs %{}
