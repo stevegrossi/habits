@@ -1,4 +1,4 @@
-defmodule HabitsWeb.CheckIn do
+defmodule Habits.Habits.CheckIn do
   @moduledoc """
   Data logic for the CheckIn domain model, which belongs to a Habit. Habits have
   multiple CheckIns, but at most one per calendar date.
@@ -7,8 +7,7 @@ defmodule HabitsWeb.CheckIn do
   use Habits.Web, :model
 
   alias Habits.Repo
-  alias Habits.Habits.Habit
-  alias HabitsWeb.CheckIn
+  alias Habits.Habits.{Habit, CheckIn}
 
   schema "check_ins" do
     field(:date, :date)
