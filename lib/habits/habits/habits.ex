@@ -82,4 +82,22 @@ defmodule Habits.Habits do
     |> Habit.changeset(attrs)
     |> Repo.update!()
   end
+
+  @doc """
+  Deletes a Habit from the given account.
+
+  ## Examples
+
+      iex> Habits.delete_habit!(account, habit_id)
+      %Habit{}
+
+      iex> Habits.delete_habit!(account, nil)
+      ** (Error)
+
+  """
+  def delete_habit!(%Account{} = account, habit_id) do
+    account
+    |> get_habit!(habit_id)
+    |> Repo.delete!()
+  end
 end

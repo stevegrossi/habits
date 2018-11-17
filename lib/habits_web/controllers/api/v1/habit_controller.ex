@@ -57,10 +57,7 @@ defmodule HabitsWeb.API.V1.HabitController do
   Deletes a habit from the current account.
   """
   def delete(conn, %{"id" => habit_id}, current_account) do
-    current_account
-    |> assoc(:habits)
-    |> Repo.get(habit_id)
-    |> Repo.delete()
+    Habits.delete_habit!(current_account, habit_id)
 
     render(conn, "success.json")
   end
