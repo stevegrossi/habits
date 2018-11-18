@@ -61,6 +61,22 @@ defmodule Habits.HabitsTest do
     end
   end
 
+  describe ".time_series_check_in_data" do
+    test "returns weekly check-in counts" do
+      habit = Factory.insert(:habit)
+      sunday = ~D[2018-11-11]
+      monday = ~D[2018-11-12]
+      tuesday = ~D[2018-11-13]
+      thursday = ~D[2018-11-15]
+      Factory.insert(:check_in, habit: habit, date: sunday)
+      Factory.insert(:check_in, habit: habit, date: monday)
+      Factory.insert(:check_in, habit: habit, date: tuesday)
+      Factory.insert(:check_in, habit: habit, date: thursday)
+
+      assert Habits.time_series_check_in_data(habit) == [1, 3]
+    end
+  end
+
   defp days_ago(days) do
     DateHelpers.today()
     |> DateHelpers.shift_days(-days)

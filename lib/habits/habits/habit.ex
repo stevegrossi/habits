@@ -6,11 +6,8 @@ defmodule Habits.Habits.Habit do
 
   use Ecto.Schema
 
-  import Ecto, only: [assoc: 2]
   import Ecto.Changeset
-  import Ecto.Query
 
-  alias Habits.Repo
   alias Habits.Accounts.Account
   alias Habits.Habits.{CheckIn, Streak}
 
@@ -30,30 +27,5 @@ defmodule Habits.Habits.Habit do
     habit
     |> cast(params, [:name, :account_id])
     |> validate_required([:name, :account_id])
-  end
-
-  @doc """
-  Returns a list of CheckIns-counts by week, beginning with the first week for
-  which there was a CheckIn for the given Habit
-  """
-  def check_in_data(habit) do
-    query = """
-    SELECT
-      COUNT(check_ins.*)
-    FROM generate_series((
-      SELECT MIN(date_trunc('week', check_ins.date))
-      FROM check_ins
-      WHERE check_ins.habit_id = $1
-    ), NOW(), '1 week'::interval) week
-    LEFT OUTER JOIN check_ins
-      ON date_trunc('week', check_ins.date) = week
-      AND check_ins.habit_id = $1
-    GROUP BY week
-    ORDER BY week
-    ;
-    """
-
-    %Postgrex.Result{rows: rows} = Ecto.Adapters.SQL.query!(Repo, query, [habit.id])
-    Enum.map(rows, &List.first/1)
   end
 end

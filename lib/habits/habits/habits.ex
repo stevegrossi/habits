@@ -220,6 +220,31 @@ defmodule Habits.Habits do
     |> Repo.exists?()
   end
 
+  @doc """
+  Returns a list of CheckIns-counts by week, beginning with the first week for
+  which there was a CheckIn for the given Habit
+  """
+  def time_series_check_in_data(habit) do
+    query = """
+    SELECT
+      COUNT(check_ins.*)
+    FROM generate_series((
+      SELECT MIN(date_trunc('week', check_ins.date))
+      FROM check_ins
+      WHERE check_ins.habit_id = $1
+    ), NOW(), '1 week'::interval) week
+    LEFT OUTER JOIN check_ins
+      ON date_trunc('week', check_ins.date) = week
+      AND check_ins.habit_id = $1
+    GROUP BY week
+    ORDER BY week
+    ;
+    """
+
+    %Postgrex.Result{rows: rows} = Ecto.Adapters.SQL.query!(Repo, query, [habit.id])
+    Enum.map(rows, &List.first/1)
+  end
+
   defp get_check_in_by_date(%Habit{} = habit, date) do
     check_in =
       habit

@@ -1,7 +1,6 @@
 defmodule HabitsWeb.API.V1.HabitView do
   use Habits.Web, :view
 
-  alias Habits.Habits.Habit
   alias Habits.Habits
 
   def render("index.json", %{habits: habits, date: date}) do
@@ -14,7 +13,7 @@ defmodule HabitsWeb.API.V1.HabitView do
       name: habit.name,
       currentStreak: Habits.get_current_streak(habit),
       longestStreak: Habits.get_longest_streak(habit),
-      checkInData: Habit.check_in_data(habit)
+      checkInData: Habits.time_series_check_in_data(habit)
     }
   end
 
