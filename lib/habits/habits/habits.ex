@@ -148,4 +148,27 @@ defmodule Habits.Habits do
         {:error, message}
     end
   end
+
+  @doc """
+  Deletes the CheckIn for an Account’s Habit on a given date.
+
+  ## Examples
+
+      iex> Habits.check_out(account, habit_id, ~D[...])
+      {:ok, %Habit{}, %CheckIn{}}
+
+      iex> Habits.check_out(account, 0, ~D[...])
+      {:error, "Habit not found"}
+
+  """
+  def check_out(%Account{} = account, habit_id, date) do
+    with {:ok, habit} <- get_habit(account, habit_id),
+         {:ok, check_in} <- CheckIn.get_by_date(habit, date) do
+      deleted_check_in = Repo.delete!(check_in)
+      {:ok, habit, deleted_check_in}
+    else
+      {:error, message} ->
+        {:error, message}
+    end
+  end
 end

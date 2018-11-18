@@ -1,8 +1,7 @@
 defmodule HabitsWeb.API.V1.HabitController do
   use Habits.Web, :controller
 
-  alias Habits.Habits.CheckIn
-  alias Habits.{Repo, Habits}
+  alias Habits.Habits
 
   @doc """
   Override action/2 to provide current_account to actions
@@ -85,11 +84,10 @@ defmodule HabitsWeb.API.V1.HabitController do
   def check_out(conn, %{"habit_id" => habit_id, "date" => date_string}, current_account) do
     date = Date.from_iso8601!(date_string)
 
-    with {:ok, habit} <- Habits.get_habit(current_account, habit_id),
-         {:ok, check_in} <- CheckIn.get_by_date(habit, date) do
-      Repo.delete!(check_in)
-      render(conn, "habit.json", habit: habit, date: date_string)
-    else
+    case Habits.check_out(current_account, habit_id, date) do
+      {:ok, habit, _check_in} ->
+        render(conn, "habit.json", habit: habit, date: date_string)
+
       {:error, message} ->
         conn
         |> put_status(:not_found)
