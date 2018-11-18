@@ -6,9 +6,9 @@ defmodule Habits.Habits do
   import Ecto, only: [assoc: 2]
   import Ecto.Query
 
-  alias Habits.Repo
+  alias Habits.{Repo, Congratulations}
   alias Habits.Accounts.Account
-  alias Habits.Habits.Habit
+  alias Habits.Habits.{Habit, CheckIn}
 
   @doc """
   Returns the list of habits for an Account.
@@ -124,5 +124,28 @@ defmodule Habits.Habits do
     account
     |> get_habit!(habit_id)
     |> Repo.delete!()
+  end
+
+  @doc """
+  Creates a CheckIn for an Account’s Habit on a given date.
+
+  ## Examples
+
+      iex> Habits.check_in(account, habit_id, ~D[...])
+      {:ok, %Habit{}, %CheckIn{}}
+
+      iex> Habits.check_in(account, 0, ~D[...])
+      {:error, "Habit not found"}
+
+  """
+  def check_in(%Account{} = account, habit_id, date) do
+    with {:ok, habit} <- get_habit(account, habit_id),
+         {:ok, check_in} <- CheckIn.create_for_date(habit, date) do
+      Congratulations.for(habit)
+      {:ok, habit, check_in}
+    else
+      {:error, message} ->
+        {:error, message}
+    end
   end
 end
