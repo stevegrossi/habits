@@ -33,16 +33,6 @@ defmodule Habits.Habits.Habit do
   end
 
   @doc """
-  Return whether a CheckIn exists for the given habit and date
-  """
-  def checked_in?(%__MODULE__{} = habit, date) do
-    habit
-    |> assoc(:check_ins)
-    |> where(date: ^date)
-    |> Repo.exists?()
-  end
-
-  @doc """
   Returns a list of CheckIns-counts by week, beginning with the first week for
   which there was a CheckIn for the given Habit
   """

@@ -50,6 +50,17 @@ defmodule Habits.HabitsTest do
     end
   end
 
+  describe ".checked_in_on?" do
+    test "returns the longest consecutive streak for a habit" do
+      habit = Factory.insert(:habit)
+      Factory.insert(:check_in, habit: habit, date: days_ago(1))
+
+      refute Habits.checked_in_on?(habit, days_ago(0))
+      assert Habits.checked_in_on?(habit, days_ago(1))
+      refute Habits.checked_in_on?(habit, days_ago(2))
+    end
+  end
+
   defp days_ago(days) do
     DateHelpers.today()
     |> DateHelpers.shift_days(-days)

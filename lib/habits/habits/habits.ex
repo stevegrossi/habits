@@ -210,6 +210,16 @@ defmodule Habits.Habits do
     |> Streak.longest()
   end
 
+  @doc """
+  Return whether a CheckIn exists for the given habit and date
+  """
+  def checked_in_on?(%Habit{} = habit, date) do
+    habit
+    |> assoc(:check_ins)
+    |> where(date: ^date)
+    |> Repo.exists?()
+  end
+
   defp get_check_in_by_date(%Habit{} = habit, date) do
     check_in =
       habit

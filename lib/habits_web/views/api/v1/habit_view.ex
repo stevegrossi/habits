@@ -38,7 +38,7 @@ defmodule HabitsWeb.API.V1.HabitView do
     %{
       id: habit.id,
       name: habit.name,
-      checkedIn: Habit.checked_in?(habit, date),
+      checkedIn: Habits.checked_in_on?(habit, date),
       streak: Habits.get_current_streak(habit)
     }
   end
