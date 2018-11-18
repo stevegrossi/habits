@@ -33,16 +33,6 @@ defmodule Habits.Habits.Habit do
   end
 
   @doc """
-  The current streak is the number of consecutive daily check-ins
-  for a habit up until yesterday, or today if you’ve checked in today.
-  """
-  def get_current_streak(habit) do
-    habit
-    |> assoc(:streaks)
-    |> Streak.current()
-  end
-
-  @doc """
   Returns the longest streak of consecutive daily check-ins for a habit
   """
   def get_longest_streak(habit) do

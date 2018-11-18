@@ -14,7 +14,7 @@ defmodule Habits.Congratulations do
       Notification.new(habit.name, "Checked in #{check_in_count} times!")
     end
 
-    current_streak = Habit.get_current_streak(habit)
+    current_streak = Habits.get_current_streak(habit)
 
     if current_streak > 0 && rem(current_streak, 25) == 0 do
       Notification.new(habit.name, "#{current_streak} in a row!")

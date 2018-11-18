@@ -8,7 +8,7 @@ defmodule Habits.Habits do
 
   alias Habits.{Repo, Congratulations}
   alias Habits.Accounts.Account
-  alias Habits.Habits.{Habit, CheckIn}
+  alias Habits.Habits.{Habit, CheckIn, Streak}
 
   @doc """
   Returns the list of habits for an Account.
@@ -189,6 +189,16 @@ defmodule Habits.Habits do
     habit
     |> assoc(:check_ins)
     |> Repo.count()
+  end
+
+  @doc """
+  The current streak is the number of consecutive daily check-ins
+  for a habit up until yesterday, or today if you’ve checked in today.
+  """
+  def get_current_streak(habit) do
+    habit
+    |> assoc(:streaks)
+    |> Streak.current()
   end
 
   defp get_check_in_by_date(%Habit{} = habit, date) do
