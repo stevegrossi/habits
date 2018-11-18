@@ -58,22 +58,6 @@ defmodule Habits.Habits.Habit do
   end
 
   @doc """
-  Gets a habit for a given account.
-  """
-  def get_by_account(%Account{} = account, habit_id) do
-    habit =
-      account
-      |> assoc(:habits)
-      |> Repo.get(habit_id)
-
-    if habit do
-      {:ok, habit}
-    else
-      {:error, "Habit not found"}
-    end
-  end
-
-  @doc """
   Return whether a CheckIn exists for the given habit and date
   """
   def checked_in?(%__MODULE__{} = habit, date) do

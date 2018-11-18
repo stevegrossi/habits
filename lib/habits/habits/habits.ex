@@ -47,6 +47,31 @@ defmodule Habits.Habits do
   end
 
   @doc """
+  Safely gets a single habit from an Account.
+
+  ## Examples
+
+      iex> Habits.get_habit(account, 123)
+      {:ok, %Habit{}}
+
+      iex> Habits.get_habit(account, 0)
+      {:error, "Habit not found"}
+
+  """
+  def get_habit(%Account{} = account, habit_id) do
+    habit =
+      account
+      |> assoc(:habits)
+      |> Repo.get(habit_id)
+
+    if habit do
+      {:ok, habit}
+    else
+      {:error, "Habit not found"}
+    end
+  end
+
+  @doc """
   Creates a Habit within an Account.
 
   ## Examples
