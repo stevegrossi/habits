@@ -65,9 +65,7 @@ defmodule HabitsWeb.API.V1.HabitController do
   Create a CheckIn for the given date and habit, unless one exists.
   """
   def check_in(conn, %{"habit_id" => habit_id, "date" => date_string}, current_account) do
-    date = Date.from_iso8601!(date_string)
-
-    case Habits.check_in(current_account, habit_id, date) do
+    case Habits.check_in(current_account, habit_id, date_string) do
       {:ok, habit, _check_in} ->
         render(conn, "habit.json", habit: habit, date: date_string)
 
@@ -82,9 +80,7 @@ defmodule HabitsWeb.API.V1.HabitController do
   Delete the CheckIn for the given date and habit.
   """
   def check_out(conn, %{"habit_id" => habit_id, "date" => date_string}, current_account) do
-    date = Date.from_iso8601!(date_string)
-
-    case Habits.check_out(current_account, habit_id, date) do
+    case Habits.check_out(current_account, habit_id, date_string) do
       {:ok, habit, _check_in} ->
         render(conn, "habit.json", habit: habit, date: date_string)
 

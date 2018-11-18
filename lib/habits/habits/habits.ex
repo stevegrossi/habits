@@ -127,7 +127,8 @@ defmodule Habits.Habits do
   end
 
   @doc """
-  Creates a CheckIn for an Account’s Habit on a given date.
+  Creates a CheckIn for an Account’s Habit on a given date. The date can be
+  either a Date struct or an ISO8601-formatted string, e.g. "YYYY-MM-DD".
 
   ## Examples
 
@@ -138,6 +139,10 @@ defmodule Habits.Habits do
       {:error, "Habit not found"}
 
   """
+  def check_in(%Account{} = account, habit_id, date_string) when is_binary(date_string) do
+    check_in(account, habit_id, Date.from_iso8601!(date_string))
+  end
+
   def check_in(%Account{} = account, habit_id, date) do
     with {:ok, habit} <- get_habit(account, habit_id),
          {:ok, check_in} <- CheckIn.create_for_date(habit, date) do
@@ -150,7 +155,8 @@ defmodule Habits.Habits do
   end
 
   @doc """
-  Deletes the CheckIn for an Account’s Habit on a given date.
+  Deletes the CheckIn for an Account’s Habit on a given date. The date can be
+  either a Date struct or an ISO8601-formatted string, e.g. "YYYY-MM-DD".
 
   ## Examples
 
@@ -161,6 +167,10 @@ defmodule Habits.Habits do
       {:error, "Habit not found"}
 
   """
+  def check_out(%Account{} = account, habit_id, date_string) when is_binary(date_string) do
+    check_out(account, habit_id, Date.from_iso8601!(date_string))
+  end
+
   def check_out(%Account{} = account, habit_id, date) do
     with {:ok, habit} <- get_habit(account, habit_id),
          {:ok, check_in} <- CheckIn.get_by_date(habit, date) do
