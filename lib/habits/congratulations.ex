@@ -4,11 +4,11 @@ defmodule Habits.Congratulations do
   reached a milestone for a habit, and issuing that notification.
   """
 
-  alias Habits.Notification
   alias Habits.Habits.Habit
+  alias Habits.{Habits, Notification}
 
   def for(%Habit{} = habit) do
-    check_in_count = Habit.check_in_count(habit)
+    check_in_count = Habits.check_in_count(habit)
 
     if check_in_count > 0 && rem(check_in_count, 50) == 0 do
       Notification.new(habit.name, "Checked in #{check_in_count} times!")

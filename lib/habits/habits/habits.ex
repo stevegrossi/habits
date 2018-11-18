@@ -182,6 +182,15 @@ defmodule Habits.Habits do
     end
   end
 
+  @doc """
+  Returns the count of all-time CheckIns for the given Habit.
+  """
+  def check_in_count(%Habit{} = habit) do
+    habit
+    |> assoc(:check_ins)
+    |> Repo.count()
+  end
+
   defp get_check_in_by_date(%Habit{} = habit, date) do
     check_in =
       habit
