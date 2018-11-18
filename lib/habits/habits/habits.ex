@@ -145,7 +145,7 @@ defmodule Habits.Habits do
 
   def check_in(%Account{} = account, habit_id, date) do
     with {:ok, habit} <- get_habit(account, habit_id),
-         {:ok, check_in} <- CheckIn.create_for_date(habit, date) do
+         {:ok, check_in} <- create_check_in_for_date(habit, date) do
       Congratulations.for(habit)
       {:ok, habit, check_in}
     else
@@ -173,12 +173,33 @@ defmodule Habits.Habits do
 
   def check_out(%Account{} = account, habit_id, date) do
     with {:ok, habit} <- get_habit(account, habit_id),
-         {:ok, check_in} <- CheckIn.get_by_date(habit, date) do
+         {:ok, check_in} <- get_check_in_by_date(habit, date) do
       deleted_check_in = Repo.delete!(check_in)
       {:ok, habit, deleted_check_in}
     else
       {:error, message} ->
         {:error, message}
+    end
+  end
+
+  defp get_check_in_by_date(%Habit{} = habit, date) do
+    check_in =
+      habit
+      |> assoc(:check_ins)
+      |> where(date: ^date)
+      |> Repo.one()
+
+    {:ok, check_in}
+  end
+
+  defp create_check_in_for_date(habit, date) do
+    {:ok, existing_check_in} = get_check_in_by_date(habit, date)
+
+    if existing_check_in do
+      {:ok, existing_check_in}
+    else
+      check_in = Repo.insert!(%CheckIn{habit: habit, date: date})
+      {:ok, check_in}
     end
   end
 end
