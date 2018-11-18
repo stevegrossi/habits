@@ -33,15 +33,6 @@ defmodule Habits.Habits.Habit do
   end
 
   @doc """
-  Returns the longest streak of consecutive daily check-ins for a habit
-  """
-  def get_longest_streak(habit) do
-    habit
-    |> assoc(:streaks)
-    |> Streak.longest()
-  end
-
-  @doc """
   Return whether a CheckIn exists for the given habit and date
   """
   def checked_in?(%__MODULE__{} = habit, date) do

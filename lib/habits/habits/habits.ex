@@ -201,6 +201,15 @@ defmodule Habits.Habits do
     |> Streak.current()
   end
 
+  @doc """
+  Returns the longest streak of consecutive daily check-ins for a habit
+  """
+  def get_longest_streak(habit) do
+    habit
+    |> assoc(:streaks)
+    |> Streak.longest()
+  end
+
   defp get_check_in_by_date(%Habit{} = habit, date) do
     check_in =
       habit

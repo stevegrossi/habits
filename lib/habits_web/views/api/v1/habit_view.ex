@@ -13,7 +13,7 @@ defmodule HabitsWeb.API.V1.HabitView do
       id: habit.id,
       name: habit.name,
       currentStreak: Habits.get_current_streak(habit),
-      longestStreak: Habit.get_longest_streak(habit),
+      longestStreak: Habits.get_longest_streak(habit),
       checkInData: Habit.check_in_data(habit)
     }
   end
