@@ -1,7 +1,7 @@
 defmodule HabitsWeb.API.V1.HabitView do
   use Habits.Web, :view
 
-  alias HabitsWeb.{Habit}
+  alias Habits.Habits
 
   def render("index.json", %{habits: habits, date: date}) do
     render_many(habits, __MODULE__, "habit.json", %{date: date})
@@ -11,9 +11,9 @@ defmodule HabitsWeb.API.V1.HabitView do
     %{
       id: habit.id,
       name: habit.name,
-      currentStreak: Habit.get_current_streak(habit),
-      longestStreak: Habit.get_longest_streak(habit),
-      checkInData: Habit.check_in_data(habit)
+      currentStreak: Habits.get_current_streak(habit),
+      longestStreak: Habits.get_longest_streak(habit),
+      checkInData: Habits.time_series_check_in_data(habit)
     }
   end
 
@@ -37,8 +37,8 @@ defmodule HabitsWeb.API.V1.HabitView do
     %{
       id: habit.id,
       name: habit.name,
-      checkedIn: Habit.checked_in?(habit, date),
-      streak: Habit.get_current_streak(habit)
+      checkedIn: Habits.checked_in_on?(habit, date),
+      streak: Habits.get_current_streak(habit)
     }
   end
 

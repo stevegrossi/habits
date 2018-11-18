@@ -1,7 +1,7 @@
 defmodule Habits.CheckInTest do
   use Habits.DataCase
 
-  alias HabitsWeb.CheckIn
+  alias Habits.Habits.CheckIn
 
   @valid_attrs %{date: Habits.Date.today(), habit_id: 1}
   @invalid_attrs %{}

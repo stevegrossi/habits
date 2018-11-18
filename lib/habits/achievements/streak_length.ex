@@ -3,9 +3,10 @@ defmodule Habits.Achievements.StreakLength do
 
   use Habits.Achievements.Achievement
 
-  alias HabitsWeb.Habit
+  alias Habits.Habits.Habit
+  alias Habits.Habits
 
   defp value_for(%Habit{} = habit) do
-    Habit.get_longest_streak(habit)
+    Habits.get_longest_streak(habit)
   end
 end

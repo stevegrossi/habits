@@ -17,14 +17,14 @@ defmodule Habits.Factory do
   end
 
   def habit_factory do
-    %HabitsWeb.Habit{
+    %Habits.Habits.Habit{
       name: sequence(:name, &"Eat #{&1} Fish"),
       account: build(:account)
     }
   end
 
   def check_in_factory do
-    %HabitsWeb.CheckIn{
+    %Habits.Habits.CheckIn{
       date: Habits.Date.today(),
       habit: build(:habit)
     }

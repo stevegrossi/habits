@@ -1,8 +1,7 @@
 defmodule HabitsWeb.API.V1.HabitController do
   use Habits.Web, :controller
 
-  alias Habits.{Repo, Congratulations}
-  alias HabitsWeb.{CheckIn, Habit}
+  alias Habits.Habits
 
   @doc """
   Override action/2 to provide current_account to actions
@@ -17,12 +16,7 @@ defmodule HabitsWeb.API.V1.HabitController do
   """
   def index(conn, %{"date" => date_string}, current_account) do
     date = Date.from_iso8601!(date_string)
-
-    habits =
-      current_account
-      |> assoc(:habits)
-      |> order_by(:name)
-      |> Repo.all()
+    habits = Habits.list_habits(current_account)
 
     render(conn, "index.json", habits: habits, date: date)
   end
@@ -31,10 +25,7 @@ defmodule HabitsWeb.API.V1.HabitController do
   Return detailed information about a single habit.
   """
   def show(conn, %{"id" => habit_id}, current_account) do
-    habit =
-      current_account
-      |> assoc(:habits)
-      |> Repo.get(habit_id)
+    habit = Habits.get_habit!(current_account, habit_id)
 
     render(conn, "show.json", habit: habit)
   end
@@ -43,10 +34,7 @@ defmodule HabitsWeb.API.V1.HabitController do
   Create a new habit in the account, given a name
   """
   def create(conn, %{"habit" => habit_params}, current_account) do
-    habit =
-      %Habit{account_id: current_account.id}
-      |> Habit.changeset(habit_params)
-      |> Repo.insert!()
+    habit = Habits.create_habit!(current_account, habit_params)
 
     conn
     |> put_status(:created)
@@ -57,12 +45,7 @@ defmodule HabitsWeb.API.V1.HabitController do
   Update the name of a habit in the current account
   """
   def update(conn, %{"id" => habit_id, "name" => name}, current_account) do
-    habit =
-      current_account
-      |> assoc(:habits)
-      |> Repo.get(habit_id)
-      |> Habit.changeset(%{name: name})
-      |> Repo.update!()
+    habit = Habits.update_habit!(current_account, habit_id, %{name: name})
 
     conn
     |> put_status(:ok)
@@ -73,10 +56,7 @@ defmodule HabitsWeb.API.V1.HabitController do
   Deletes a habit from the current account.
   """
   def delete(conn, %{"id" => habit_id}, current_account) do
-    current_account
-    |> assoc(:habits)
-    |> Repo.get(habit_id)
-    |> Repo.delete()
+    Habits.delete_habit!(current_account, habit_id)
 
     render(conn, "success.json")
   end
@@ -85,13 +65,10 @@ defmodule HabitsWeb.API.V1.HabitController do
   Create a CheckIn for the given date and habit, unless one exists.
   """
   def check_in(conn, %{"habit_id" => habit_id, "date" => date_string}, current_account) do
-    date = Date.from_iso8601!(date_string)
+    case Habits.check_in(current_account, habit_id, date_string) do
+      {:ok, habit, _check_in} ->
+        render(conn, "habit.json", habit: habit, date: date_string)
 
-    with {:ok, habit} <- Habit.get_by_account(current_account, habit_id),
-         {:ok, _check_in} <- CheckIn.create_for_date(habit, date) do
-      Congratulations.for(habit)
-      render(conn, "habit.json", habit: habit, date: date_string)
-    else
       {:error, message} ->
         conn
         |> put_status(:not_found)
@@ -103,13 +80,10 @@ defmodule HabitsWeb.API.V1.HabitController do
   Delete the CheckIn for the given date and habit.
   """
   def check_out(conn, %{"habit_id" => habit_id, "date" => date_string}, current_account) do
-    date = Date.from_iso8601!(date_string)
+    case Habits.check_out(current_account, habit_id, date_string) do
+      {:ok, habit, _check_in} ->
+        render(conn, "habit.json", habit: habit, date: date_string)
 
-    with {:ok, habit} <- Habit.get_by_account(current_account, habit_id),
-         {:ok, check_in} <- CheckIn.get_by_date(habit, date) do
-      Repo.delete!(check_in)
-      render(conn, "habit.json", habit: habit, date: date_string)
-    else
       {:error, message} ->
         conn
         |> put_status(:not_found)
