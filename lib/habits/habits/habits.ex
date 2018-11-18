@@ -6,6 +6,7 @@ defmodule Habits.Habits do
   import Ecto, only: [assoc: 2]
   import Ecto.Query
 
+  alias Habits.Date, as: DateHelpers
   alias Habits.{Repo, Congratulations}
   alias Habits.Accounts.Account
   alias Habits.Habits.{Habit, CheckIn, Streak}
@@ -198,7 +199,9 @@ defmodule Habits.Habits do
   def get_current_streak(habit) do
     habit
     |> assoc(:streaks)
-    |> Streak.current()
+    |> where([s], s.end >= ^DateHelpers.yesterday())
+    |> select([s], s.length)
+    |> Repo.one() || 0
   end
 
   @doc """
@@ -207,7 +210,8 @@ defmodule Habits.Habits do
   def get_longest_streak(habit) do
     habit
     |> assoc(:streaks)
-    |> Streak.longest()
+    |> select([s], max(s.length))
+    |> Repo.one() || 0
   end
 
   @doc """

@@ -5,9 +5,6 @@ defmodule Habits.Habits.Streak do
 
   use Ecto.Schema
 
-  import Ecto.Query
-
-  alias Habits.Repo
   alias Habits.Habits.Habit
 
   @primary_key false
@@ -16,18 +13,5 @@ defmodule Habits.Habits.Streak do
     field(:start, :date)
     field(:end, :date)
     field(:length, :integer)
-  end
-
-  def current(queryable) do
-    queryable
-    |> where([s], s.end >= ^Habits.Date.yesterday())
-    |> select([s], s.length)
-    |> Repo.one() || 0
-  end
-
-  def longest(queryable \\ __MODULE__) do
-    queryable
-    |> select([s], max(s.length))
-    |> Repo.one() || 0
   end
 end
