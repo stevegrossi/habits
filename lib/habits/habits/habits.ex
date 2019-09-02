@@ -226,9 +226,9 @@ defmodule Habits.Habits do
 
   @doc """
   Returns a list of CheckIns-counts by week, beginning with the first week for
-  which there was a CheckIn for the given Habit
+  which there was a CheckIn for the given Habit and ending on the specified date
   """
-  def time_series_check_in_data(habit) do
+  def time_series_check_in_data(habit, end_date \\ DateHelpers.today()) do
     query = """
     SELECT
       COUNT(check_ins.*)
@@ -236,7 +236,7 @@ defmodule Habits.Habits do
       SELECT MIN(date_trunc('week', check_ins.date))
       FROM check_ins
       WHERE check_ins.habit_id = $1
-    ), NOW(), '1 week'::interval) week
+    ), '#{end_date}', '1 week'::interval) week
     LEFT OUTER JOIN check_ins
       ON date_trunc('week', check_ins.date) = week
       AND check_ins.habit_id = $1
