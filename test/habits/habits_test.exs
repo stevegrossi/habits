@@ -74,6 +74,10 @@ defmodule Habits.HabitsTest do
       Factory.insert(:check_in, habit: habit, date: tuesday)
       Factory.insert(:check_in, habit: habit, date: thursday)
 
+      # Check-ins from other habits should be ignored
+      other_habit = Factory.insert(:habit)
+      Factory.insert(:check_in, habit: other_habit, date: thursday)
+
       result = Habits.time_series_check_in_data(habit, end_date)
       assert result == [1, 3]
     end
