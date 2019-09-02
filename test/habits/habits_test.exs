@@ -73,7 +73,13 @@ defmodule Habits.HabitsTest do
       Factory.insert(:check_in, habit: habit, date: tuesday)
       Factory.insert(:check_in, habit: habit, date: thursday)
 
-      assert Habits.time_series_check_in_data(habit) == [1, 3]
+      result = Habits.time_series_check_in_data(habit)
+      # Since this function returns historical data since the current date, it
+      # will return a list of increasing length as time goes on, so we check
+      # only the first two elements, which should contain the test data.
+      # Eventually, I should find a way to pass in the ending date to avoid this
+      # situation.
+      assert Enum.take(result, 2) == [1, 3]
     end
   end
 
