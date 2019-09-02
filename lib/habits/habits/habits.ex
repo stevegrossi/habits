@@ -228,7 +228,7 @@ defmodule Habits.Habits do
   Returns a list of CheckIns-counts by week, beginning with the first week for
   which there was a CheckIn for the given Habit and ending on the specified date
   """
-  def time_series_check_in_data(habit, end_date \\ DateHelpers.today()) do
+  def time_series_check_in_data(%Habit{} = habit, end_date \\ DateHelpers.today()) do
     query = """
     SELECT
       COUNT(check_ins.*)
