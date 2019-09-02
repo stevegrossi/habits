@@ -4,6 +4,7 @@ defmodule Habits.Accounts do
   """
 
   alias Habits.{Repo, Accounts.Account}
+  alias Habits.Date, as: DateHelpers
 
   def create_account(attrs \\ %{}) do
     if Repo.exists?(Account) do
@@ -29,14 +30,14 @@ defmodule Habits.Accounts do
   We ignore the %Account() argument assuming there can be only one,
   but we should probably still specify that.
   """
-  def time_series_check_in_data(_account) do
+  def time_series_check_in_data(_account, end_date \\ DateHelpers.today()) do
     query = """
     SELECT
       COUNT(check_ins.*)
     FROM generate_series((
       SELECT MIN(date_trunc('week', check_ins.date))
       FROM check_ins
-    ), NOW(), '1 week'::interval) week
+    ), '#{end_date}', '1 week'::interval) week
     LEFT OUTER JOIN check_ins
       ON date_trunc('week', check_ins.date) = week
     GROUP BY week
