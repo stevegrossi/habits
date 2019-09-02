@@ -30,22 +30,28 @@ defmodule Habits.Accounts do
   We ignore the %Account() argument assuming there can be only one,
   but we should probably still specify that.
   """
-  def time_series_check_in_data(_account, end_date \\ DateHelpers.today()) do
+  def time_series_check_in_data(%Account{} = account, end_date \\ DateHelpers.today()) do
     query = """
     SELECT
       COUNT(check_ins.*)
     FROM generate_series((
       SELECT MIN(date_trunc('week', check_ins.date))
       FROM check_ins
+      INNER JOIN habits
+        ON habits.id = check_ins.habit_id
+      WHERE habits.account_id = $1
     ), '#{end_date}', '1 week'::interval) week
     LEFT OUTER JOIN check_ins
       ON date_trunc('week', check_ins.date) = week
+    INNER JOIN habits
+      ON habits.id = check_ins.habit_id
+    WHERE habits.account_id = $1
     GROUP BY week
     ORDER BY week
     ;
     """
 
-    %Postgrex.Result{rows: rows} = Ecto.Adapters.SQL.query!(Repo, query, [])
+    %Postgrex.Result{rows: rows} = Ecto.Adapters.SQL.query!(Repo, query, [account.id])
     Enum.map(rows, &List.first/1)
   end
 end

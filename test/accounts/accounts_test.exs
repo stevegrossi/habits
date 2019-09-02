@@ -17,7 +17,12 @@ defmodule Habits.AccountsTest do
       Factory.insert(:check_in, habit: habit, date: tuesday)
       Factory.insert(:check_in, habit: habit, date: thursday)
 
-      result = Accounts.time_series_check_in_data(habit, end_date)
+      # Check-ins from other accounts should be ignored
+      other_account = Factory.insert(:account)
+      other_accounts_habit = Factory.insert(:habit, account: other_account)
+      Factory.insert(:check_in, habit: other_accounts_habit, date: thursday)
+
+      result = Accounts.time_series_check_in_data(account, end_date)
       assert result == [1, 3]
     end
   end
