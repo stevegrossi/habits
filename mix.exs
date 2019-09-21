@@ -34,8 +34,7 @@ defmodule Habits.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:bcrypt_elixir, "~> 1.0"},
-      {:comeonin, "~> 4.0.3"},
+      {:bcrypt_elixir, "~> 2.0"},
       {:plug_cowboy, "~> 2.0"},
       {:credo, "~> 1.1", only: :dev},
       {:ex_machina, "~> 2.2", only: :test},

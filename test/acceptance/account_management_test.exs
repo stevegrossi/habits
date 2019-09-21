@@ -4,7 +4,7 @@ defmodule Habits.AccountManagementTest do
   setup _context do
     account =
       Factory.insert(:account,
-        encrypted_password: Comeonin.Bcrypt.hashpwsalt("password")
+        encrypted_password: Bcrypt.hash_pwd_salt("password")
       )
 
     habit = Factory.insert(:habit, account: account)
