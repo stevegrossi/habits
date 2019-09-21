@@ -9,7 +9,7 @@ defmodule Habits.Habits do
   alias Habits.Date, as: DateHelpers
   alias Habits.{Repo, Congratulations}
   alias Habits.Accounts.Account
-  alias Habits.Habits.{Habit, CheckIn, Streak}
+  alias Habits.Habits.{Habit, CheckIn}
 
   @doc """
   Returns the list of habits for an Account.
