@@ -5,7 +5,7 @@ defmodule Habits.Auth do
 
   import Ecto, only: [assoc: 2]
   import Ecto.Query
-  import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
+  import Bcrypt, only: [verify_pass: 2, no_user_verify: 0]
 
   alias Habits.Repo
   alias Habits.Accounts
@@ -22,19 +22,17 @@ defmodule Habits.Auth do
   def log_in(email, password, location \\ nil) do
     account = Accounts.get_by_email(email)
 
-    cond do
-      account && checkpw(password, account.encrypted_password) ->
-        session_changeset =
-          Session.changeset(%Session{}, %{
-            account_id: account.id,
-            location: format_location(location)
-          })
+    if account && verify_pass(password, account.encrypted_password) do
+      session_changeset =
+        Session.changeset(%Session{}, %{
+          account_id: account.id,
+          location: format_location(location)
+        })
 
-        Repo.insert(session_changeset)
-
-      true ->
-        dummy_checkpw()
-        {:error, :unauthorized}
+      Repo.insert(session_changeset)
+    else
+      no_user_verify()
+      {:error, :unauthorized}
     end
   end
 

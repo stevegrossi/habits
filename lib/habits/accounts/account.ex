@@ -42,6 +42,6 @@ defmodule Habits.Accounts.Account do
   end
 
   defp hashed_password(password) do
-    Comeonin.Bcrypt.hashpwsalt(password)
+    Bcrypt.hash_pwd_salt(password)
   end
 end

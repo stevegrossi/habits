@@ -5,7 +5,7 @@ defmodule Habits.Mixfile do
     [
       app: :habits,
       version: "0.0.1",
-      elixir: "~> 1.5",
+      elixir: "~> 1.9",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       build_embedded: Mix.env() == :prod,
@@ -34,24 +34,23 @@ defmodule Habits.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:bcrypt_elixir, "~> 1.0"},
-      {:comeonin, "~> 4.0.3"},
+      {:bcrypt_elixir, "~> 2.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:credo, "~> 0.8.6", only: :dev},
+      {:credo, "~> 1.1", only: :dev},
       {:ex_machina, "~> 2.2", only: :test},
       {:geoip, "~> 0.1"},
-      {:gettext, "~> 0.13.1"},
+      {:gettext, "~> 0.13"},
       {:mix_test_watch, "~> 0.9", only: :dev},
       {:phoenix, "~> 1.4.0"},
       {:phoenix_html, "~> 2.0"},
       {:phoenix_ecto, "~> 4.0"},
-      {:ecto_sql, "~> 3.0-rc"},
+      {:ecto_sql, "~> 3.2"},
       {:jason, "~> 1.0"},
-      {:phoenix_live_reload, "~> 1.1.1", only: :dev},
+      {:phoenix_live_reload, "~> 1.1", only: :dev},
       {:plug_x_forwarded_for, "~> 0.1"},
       {:postgrex, ">= 0.13.3"},
       {:secure_random, "~> 0.5"},
-      {:wallaby, "~> 0.19.1", only: :test}
+      {:wallaby, "~> 0.19", only: :test}
     ]
   end
 
