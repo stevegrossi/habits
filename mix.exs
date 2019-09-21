@@ -37,7 +37,7 @@ defmodule Habits.Mixfile do
       {:bcrypt_elixir, "~> 1.0"},
       {:comeonin, "~> 4.0.3"},
       {:plug_cowboy, "~> 2.0"},
-      {:credo, "~> 0.8.6", only: :dev},
+      {:credo, "~> 1.1", only: :dev},
       {:ex_machina, "~> 2.2", only: :test},
       {:geoip, "~> 0.1"},
       {:gettext, "~> 0.13.1"},
