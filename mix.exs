@@ -45,7 +45,7 @@ defmodule Habits.Mixfile do
       {:phoenix, "~> 1.4.0"},
       {:phoenix_html, "~> 2.0"},
       {:phoenix_ecto, "~> 4.0"},
-      {:ecto_sql, "~> 3.0-rc"},
+      {:ecto_sql, "~> 3.2"},
       {:jason, "~> 1.0"},
       {:phoenix_live_reload, "~> 1.1.1", only: :dev},
       {:plug_x_forwarded_for, "~> 0.1"},
