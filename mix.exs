@@ -5,7 +5,7 @@ defmodule Habits.Mixfile do
     [
       app: :habits,
       version: "0.0.1",
-      elixir: "~> 1.5",
+      elixir: "~> 1.9",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       build_embedded: Mix.env() == :prod,
