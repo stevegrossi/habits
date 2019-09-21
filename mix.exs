@@ -51,7 +51,7 @@ defmodule Habits.Mixfile do
       {:plug_x_forwarded_for, "~> 0.1"},
       {:postgrex, ">= 0.13.3"},
       {:secure_random, "~> 0.5"},
-      {:wallaby, "~> 0.19.1", only: :test}
+      {:wallaby, "~> 0.19", only: :test}
     ]
   end
 
